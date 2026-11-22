@@ -76,6 +76,7 @@ Changes to be committed:
 
 - 舊做法中，`git reset HEAD <file>` 不會動到工作目錄的檔案，所以相對安全，但 `git reset` 加上 `--hard` 時是危險的指令。`git checkout -- <file>` 和 `git restore <file>` 一樣是危險的指令。[S05]
 - S02 範例輸出中的 `git reset HEAD`、`git checkout --` 提示，與 S05 前半段（舊做法）的輸出相同。[S02] [S05]
+- S07 在 `git add .` 範例的註解中寫「To unstage a file, use 'git reset HEAD YOUR-FILE'」，也是舊做法的寫法。[S05] [S07]
 - 範例輸出中的分支名稱是 `master`，過時說法、現行做法與簡報的處理方式，見 [預設分支名稱（master 與 main）](default-branch.md)。[S02] [S03]
 
 ## 相關頁面
@@ -91,3 +92,4 @@ Changes to be committed:
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](../sources/S02-progit-recording-changes.md)
 - [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](../sources/S03-progit-first-time-git-setup.md)
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)
+- [S07｜Adding locally hosted code to GitHub](../sources/S07-github-adding-locally-hosted-code.md)

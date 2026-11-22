@@ -36,6 +36,7 @@ git-wiki/
 └── tools/
     ├── check.py           ← 規則檢查程式
     ├── html2md.py         ← 把下載的 HTML 轉成 markdown（目前支援 git-scm.com 的 Pro Git 頁面）
+    ├── md2raw.py          ← 原文本身就是 markdown 時，加上資訊區塊存成 raw（例如 GitHub Docs）
     └── verify_quotes.py   ← 驗證 checks/ 對照表中的英文原句確實存在於 raw
 ```
 
@@ -62,6 +63,7 @@ retrieved: YYYY-MM-DD
   - 其他資料（例如 GitHub Blog），`stored: excerpt`，只保存連結、少量引用句與自己的重點摘要，不可貼上全文。
 - **全文的取得方式**（`stored: full`）：
   - 必須用 `curl` 下載原始網頁，再用程式轉成 markdown 存檔（Pro Git 頁面使用 `tools/html2md.py`，其他網站需先擴充程式）。不可以用摘要或改寫的內容。
+  - 原文本身就是 markdown 時（例如 GitHub Docs 在網址後加上 `.md`），用 `tools/md2raw.py` 加上資訊區塊存檔，內容不做任何刪改，夾在原文中的 HTML 也照樣保留。
   - 存檔後要回報字數（轉換前 HTML 正文與轉換後 markdown 的字數），並列出原文第一段和最後一段讓我核對。
 - 一篇資料包含多個網頁時，`url` 欄位列出所有網址，以空格分隔。
 - **寫入後不可修改**：raw 是證據，wiki 寫錯時去改 wiki，不改 raw。已經 commit 過的 raw 檔案被修改、刪除或改名時，`check.py` 會回報錯誤。

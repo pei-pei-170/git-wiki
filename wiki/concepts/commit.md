@@ -74,6 +74,7 @@ $ git commit --amend
 - **用 `git commit -a` 省事，卻包進不想要的變更**：`-a` 會把所有已追蹤且有變更的檔案都暫存起來，很方便，但有時會把不想要的變更也包進 commit。[S02] 而且 `-a` 只會自動暫存「已經追蹤」的檔案。[S02]
 - **以為 `--amend` 只是修改上一個 commit**：它是用新的 commit 把上一個 commit 完全取代，舊的 commit 不會出現在 repository 的歷史中。[S05]
 - **以為已經 push 的 commit 也可以隨意 amend**：只能 amend 還沒 push 的 commit，已經 push 過再 amend 並強制推送，會造成協作者的問題。[S05]
+- **以為密碼或 API key 跟著專案 commit 也沒關係**：絕對不要把密碼、API key 之類的敏感資訊 add、commit 或 push 到遠端 repository。[S07]
 
 ## 時效註記
 
@@ -98,3 +99,4 @@ $ git commit --amend
 - [S04｜Pro Git 2.1 Git Basics - Getting a Git Repository](../sources/S04-progit-getting-a-git-repository.md)
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)
 - [S06｜Pro Git 2.5 Git Basics - Working with Remotes](../sources/S06-progit-working-with-remotes.md)
+- [S07｜Adding locally hosted code to GitHub](../sources/S07-github-adding-locally-hosted-code.md)

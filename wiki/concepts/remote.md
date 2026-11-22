@@ -20,6 +20,8 @@ clone 下來的 repository，至少會有一個名為 origin 的遠端，這是 
 
 執行 `git remote add <shortname> <url>`，可以新增一個遠端，並取一個方便引用的簡稱。[S06] 之後在指令中，就可以用這個簡稱代替完整的網址。[S06]
 
+推上 GitHub 時，GitHub Docs 的做法是用 `git remote add origin REMOTE-URL` 新增遠端，把 `REMOTE-URL` 換成 GitHub 上 repository 的完整網址，再用 `git remote -v` 確認遠端網址設定正確，完整流程見 [把本地 repository 推上 GitHub](push-to-github.md)。[S07]
+
 ## 指令範例
 
 clone 一個 repository 後，查看它的遠端：[S06]
@@ -73,7 +75,9 @@ pb	https://github.com/paulboone/ticgit (push)
 - [git clone（複製 repository）](git-clone.md)：clone 會自動加上 origin
 - [Repository（儲存庫）](repository.md)：遠端 repository 也是一個 repository
 - [版本控制（Version Control）](version-control.md)：分散式版本控制可以同時搭配多個遠端
+- [把本地 repository 推上 GitHub](push-to-github.md)：用 `git remote add origin` 連到 GitHub
 
 ## 來源
 
 - [S06｜Pro Git 2.5 Git Basics - Working with Remotes](../sources/S06-progit-working-with-remotes.md)
+- [S07｜Adding locally hosted code to GitHub](../sources/S07-github-adding-locally-hosted-code.md)

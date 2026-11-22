@@ -73,3 +73,9 @@
 - 討論結果：fetch 和 pull 只寫在摘要頁，不建概念頁，比照 git rm、git mv。default-branch.md 的改編範圍擴大成「範例指令與輸出」，S07 的文件本身用 git push origin main，ingest S07 後補上作為直接依據。push 被拒絕時，簡報只用一句話說明需要先取得別人的更新，不教合併。push 路線延到 S07 之後決定
 - 檢查結果：依第 5 節第 4 步逐句核對 60 句，以 tools/verify_quotes.py 驗證 checks/S06-quotes.md，60 句都找到原句，刪改 0 句。另外，ingest 討論時曾說「S06 說 clone 會自動加上 origin，和 S04 一致」，但 S04 沒有提到 origin，寫入摘要頁時已改寫成「S06 補充了 S04 沒有提到的部分」，沒有寫進 wiki。check.py 通過，0 個錯誤、0 個警告
 - 待找資料：push 到 GitHub 時的身分驗證（S06 沒有說明），待 S08
+
+## 2026-11-22 20:11｜ingest｜S07
+- 做了什麼：用 curl 下載 GitHub Docs〈Adding locally hosted code to GitHub〉的 .md 原文，新增 tools/md2raw.py，只加上資訊區塊與網址註解，內容不做任何刪改，存成 raw/S07-github-adding-locally-hosted-code.md（原文與存檔正文皆為 2084 字，內容完全相同，字數含 svg 圖示中的座標數字）。CLAUDE.md 第 2 節加入 md2raw.py，第 3 節加入 markdown 原文的存檔規則。新增 sources/S07-github-adding-locally-hosted-code.md、concepts/push-to-github.md。更新 default-branch.md（S07 作為 git push origin main 的直接依據、與 S03 說法不一致、簡報的設定方法）、git-init.md、remote.md、git-push.md、git-restore.md、git-add.md、commit.md、index.md、overview.md（push 路線改為已決定、S07 的簡報取捨）。產生 checks/S07-quotes.md
+- 討論結果：新增 push-to-github.md 作為完整流程。S07 與 S03 對預設分支的說法都保留並註明不一致。簡報教 git config --global init.defaultBranch main，git init -b main 只留在 wiki。簡報用 git push origin main，不加 -u，wiki 記錄 macOS 段落的寫法不同。push 到 GitHub 採用路線 A，overview.md 的待決事項標成已決定。同意新增 tools/md2raw.py 並更新 CLAUDE.md
+- 檢查結果：依第 5 節第 4 步逐句核對 54 句，以 tools/verify_quotes.py 驗證 checks/S07-quotes.md，54 句都找到原句，刪改 0 句。另外，寫完摘要頁後發現資訊區塊的時效風險說明「GitHub 的介面與建議做法可能改版」是推測，在建立對照表之前已改寫成「網頁沒有標示年份，無法判斷內容寫於何時」，這句屬於後設資訊，不列入對照表。check.py 通過，0 個錯誤、0 個警告
+- 待找資料：push 到 GitHub 前的身分驗證方式（S07 只說必須先驗證），待 S08

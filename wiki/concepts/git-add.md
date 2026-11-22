@@ -16,6 +16,12 @@
 
 ## 指令範例
 
+GitHub Docs 在新 repository 中加入檔案並暫存，準備第一次 commit 的寫法：[S07]
+
+```shell
+$ git add .
+```
+
 開始追蹤新檔案 `README`，它會變成已暫存：[S02]
 
 ```console
@@ -86,3 +92,4 @@ Changes not staged for commit:
 
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](../sources/S02-progit-recording-changes.md)
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)
+- [S07｜Adding locally hosted code to GitHub](../sources/S07-github-adding-locally-hosted-code.md)
