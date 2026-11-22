@@ -103,3 +103,21 @@
 - 討論結果：使用者決定對照表比照 log.md，只能往後新增。--amend 不放進簡報，只留在 wiki。完成後依第 6-1 節規劃 slides/outline.md
 - 檢查結果：verify_quotes.py 驗證 checks/S07-quotes.md 通過（55 筆）。check.py 通過，0 個錯誤、0 個警告
 - 待找資料：無
+
+## 2026-11-22 21:26｜outline｜slides/outline.md
+- 做了什麼：依第 6-1 節，只讀 wiki/（以 overview.md 的「簡報範圍決定」為主）規劃 slides/outline.md，共 17 張：引起動機 1 張、觀念 4 張、實際操作 8 張、常見錯誤 2 張、總結 1 張、小測驗 1 張。每張列出教學目標、要點、需要先解釋的術語與依據。大綱開頭列出共同規則與 wiki 缺少的資料
+- 討論結果：無（大綱完成後停下來等使用者確認）
+- 檢查結果：check.py 通過，0 個錯誤、0 個警告。寫完後自行對照 wiki 檢查，修正 3 處超出 wiki 的寫法：(1) 第 8 張原本寫「git add . 加入目前資料夾中的檔案」，wiki 沒有說明 . 代表目前資料夾，改成 GitHub Docs 的說法。(2) 第 11 張原本寫「origin 是 Git 預設的遠端名稱」，wiki 的說法是 clone 時的預設名稱，改寫並補上 GitHub Docs 也用 origin。(3) 第 15 張原本把 API key 解釋成「可以存取服務的金鑰」，wiki 沒有這個定義，改成只說它屬於敏感資訊
+- 待找資料：(1) 終端機、Git Bash、HTTPS、分支的定義。(2) 安裝 Git、註冊 GitHub 帳號、確認 Git 版本。(3) 本專案在 GitHub 上的 repository 網址（投影片底部的連結需要）
+
+## 2026-11-22 21:32｜outline｜slides/outline.md 修訂
+- 做了什麼：依使用者的決定修訂大綱。第 1 張的情境標註為教學例子。第 4 張加上課前準備（已安裝 Git、已註冊 GitHub 帳號）、「設定預設分支需要 Git 2.28 以上 [S03]」與分支的固定說法。終端機、Git Bash、HTTPS、分支都改成只說明在哪裡使用，不下定義。第 15 張加上「分支名稱不是 main 時，push 指令要換成自己的分支名稱 [S03] [S07]」，並標註要加 data-legacy。第 17 張的答案預設隱藏。CLAUDE.md 第 6-2 節新增教學例子的規則，第 4-2 節與 check.py 的決定標註新增「（大綱討論）」。overview.md 的「簡報範圍決定」記下這次的決定
+- 討論結果：術語採做法 (b)，只說明在哪裡使用。分支寫成「main 是這個專案預設的分支名稱，本簡報不教分支，只要記得名稱要和 GitHub 一致即可」。安裝 Git 與註冊 GitHub 帳號列為課前準備。教學用的情境例子可以使用，但不能包含 wiki 沒有的事實，並在大綱標註。第 15 張提到 Git 預設 master 的部分，依 lint 討論寫成「依 Pro Git 線上版，2026-11-22 擷取」。使用者稍後建立 GitHub repository 並提供網址，之後再一起 commit 並推上去
+- 檢查結果：check.py 通過，0 個錯誤、0 個警告
+- 待找資料：本專案在 GitHub 上的 repository 網址（等使用者提供）
+
+## 2026-11-22 21:48｜setup｜連到 GitHub repository
+- 做了什麼：使用者建立 GitHub repository，網址為 https://github.com/pei-pei-170/git-wiki.git。slides/outline.md 記下投影片底部連到 wiki 頁面的網址格式。依第 11 節 commit 大綱與這段期間的修改，以 git remote add origin 新增遠端，再以 git push origin main 推上 GitHub
+- 討論結果：使用者要求等 GitHub 網址提供後，再一起 commit 並推上去
+- 檢查結果：commit 前 check.py 通過，0 個錯誤、0 個警告，verify_quotes.py 通過
+- 待找資料：無

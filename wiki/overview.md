@@ -60,6 +60,11 @@
 - `git commit --amend` 不放進簡報，只留在 wiki 的 [Commit（提交）](concepts/commit.md)（lint 討論）。
 - 不放進簡報：`git reset` 的運作細節與 `--hard`、stash 與分支、資料救援、rebase 的風險。舊寫法 `git reset HEAD`、`git checkout --` 只留在 [git restore（復原檔案）](concepts/git-restore.md) 的過時／現行做法區塊（S05 討論）。
 - 簡報中 `git status` 的範例，改用 S05 新版段落（Git 2.23.0 起）的輸出，提示是 `git restore`，分支名稱依 [預設分支名稱（master 與 main）](concepts/default-branch.md) 改成 main（S05 討論）。
+- wiki 沒有定義的術語（終端機、Git Bash、HTTPS、分支），簡報只說明在哪裡使用，不下定義。分支寫成「main 是這個專案預設的分支名稱，本簡報不教分支，只要記得名稱要和 GitHub 一致即可」（大綱討論）。
+- 安裝 Git、註冊 GitHub 帳號沒有資料，簡報列為「課前準備」，假設學生已經完成（大綱討論）。
+- 教學用的情境例子（例如「報告_v2_最終版」這類檔名）可以使用，但不能包含 wiki 沒有的事實，並在大綱標註為教學例子（大綱討論）。
+- push 失敗的常見錯誤加上：分支名稱不是 main 時（例如沒有設定 `init.defaultBranch`，Git 預設會用 master），push 指令要換成自己的分支名稱。這張投影片提到 Git 本身的預設，要加上 `data-legacy`，並寫成「依 Pro Git 線上版，2026-11-22 擷取」（大綱討論）。
+- 小測驗的答案預設隱藏，點一下才顯示（大綱討論）。
 
 ## 尚未涵蓋的主題
 

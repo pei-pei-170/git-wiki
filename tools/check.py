@@ -92,7 +92,7 @@ CITE_BRACKET = re.compile(r"\[([^\[\]\n]+)\](?!\()")
 # 來源後面可接年份（[S03, 2014]），原文只寫版本時可接版本號（[S05, Git 2.23.0]），見 CLAUDE.md 第 4-3 節
 CITE_BODY = re.compile(r"^\s*S\d{2}(?:\s*[,，、]\s*(?:S\d{2}|\d{4}|Git\s+\d+(?:\.\d+)+))*\s*$")
 CITE_LOOKALIKE = re.compile(r"^\s*[Ss]\s*\d")
-DECISION_MARK = re.compile(r"（(?:S\d{2}|lint) 討論）")  # CLAUDE.md 第 4-2 節：專案決定的標註
+DECISION_MARK = re.compile(r"（(?:(?:S\d{2}|lint) |大綱)討論）")  # CLAUDE.md 第 4-2 節：專案決定的標註
 MD_LINK = re.compile(r"\[([^\]\n]*)\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 FENCE = re.compile(r"^\s*(```|~~~)")
 INLINE_CODE = re.compile(r"`[^`\n]*`")
