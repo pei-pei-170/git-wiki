@@ -20,7 +20,7 @@
 
 ### 步驟二：在 GitHub 建立新的 repository
 
-用 Git 把本地 repository 加到 GitHub 之前，必須先在命令列完成 GitHub 的身分驗證。[S07]
+用 Git 把本地 repository 加到 GitHub 之前，必須先在命令列完成 GitHub 的身分驗證。[S07] 透過 HTTPS 進行 Git 操作時，出現密碼提示就輸入 personal access token 代替密碼，建立 token 的步驟見 [Personal access token（個人存取權杖）](personal-access-token.md)。[S08]
 
 1. 在 GitHub 建立新的 repository。為了避免錯誤，不要用 README、license 或 gitignore 檔案初始化新的 repository，這些檔案可以等專案 push 到 GitHub 之後再加。[S07]
 2. 在 repository 的 Quick Setup 頁面上方，點複製圖示，複製遠端 repository 的網址。[S07]
@@ -50,7 +50,7 @@ git push origin main
 ## 新手常見誤解
 
 - **以為在 GitHub 建立 repository 時，先勾選 README 比較好**：為了避免錯誤，不要用 README、license 或 gitignore 檔案初始化新的 repository，可以等 push 之後再加。[S07]
-- **以為用 Git 指令推送到 GitHub 不需要驗證身分**：用 Git 把本地 repository 加到 GitHub 之前，必須先在命令列完成 GitHub 的身分驗證。[S07]
+- **以為用 Git 指令推送到 GitHub 不需要驗證身分**：用 Git 把本地 repository 加到 GitHub 之前，必須先在命令列完成 GitHub 的身分驗證。[S07] 透過 HTTPS 時，在密碼提示輸入 personal access token。[S08]
 - **以為密碼或 API key 跟著專案 commit 也沒關係**：絕對不要把密碼、API key 之類的敏感資訊 add、commit 或 push 到遠端 repository。[S07]
 
 ## 時效註記
@@ -66,8 +66,10 @@ git push origin main
 - [Remote（遠端 repository）](remote.md)：步驟三新增的 origin
 - [git push（推送到遠端）](git-push.md)：步驟三的 push
 - [預設分支名稱（master 與 main）](default-branch.md)：push 指令中的分支名稱
+- [Personal access token（個人存取權杖）](personal-access-token.md)：步驟二的身分驗證
 
 ## 來源
 
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)
 - [S07｜Adding locally hosted code to GitHub](../sources/S07-github-adding-locally-hosted-code.md)
+- [S08｜Managing your personal access tokens](../sources/S08-github-personal-access-tokens.md)

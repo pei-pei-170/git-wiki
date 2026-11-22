@@ -16,6 +16,7 @@
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](sources/S05-progit-undoing-things.md)：復原操作：`git commit --amend`，以及 Git 2.23.0 前後兩種取消暫存與放棄修改的寫法。
 - [S06｜Pro Git 2.5 Git Basics - Working with Remotes](sources/S06-progit-working-with-remotes.md)：遠端 repository：`git remote`、`git push`，以及 fetch、pull 與遠端的管理。
 - [S07｜Adding locally hosted code to GitHub](sources/S07-github-adding-locally-hosted-code.md)：GitHub Docs：在 GitHub 建立 repository，把本地的程式碼推上去。
+- [S08｜Managing your personal access tokens](sources/S08-github-personal-access-tokens.md)：GitHub Docs：建立與使用 personal access token，在命令列代替密碼驗證身分。
 
 ## 概念
 
@@ -34,5 +35,6 @@
 - [Remote（遠端 repository）](concepts/remote.md)：放在網際網路或某個網路上的專案版本，clone 時預設名稱為 origin。
 - [git push（推送到遠端）](concepts/git-push.md)：把 commit 推送到遠端，需要寫入權限，而且沒有別人先 push。
 - [把本地 repository 推上 GitHub](concepts/push-to-github.md)：從 `git init` 到 `git push origin main` 的完整流程。
+- [Personal access token（個人存取權杖）](concepts/personal-access-token.md)：在命令列透過 HTTPS 驗證身分時，用來代替密碼的 token。
 - [.gitignore（忽略檔案）](concepts/gitignore.md)：列出不想被 Git 追蹤的檔名規則。
 - [git diff（查看變更內容）](concepts/git-diff.md)：查看確切改了哪幾行，分成未暫存與已暫存。

@@ -17,7 +17,7 @@ commit 只會記錄在你本地的副本裡，等有網路連線時再上傳。[
 
 ### 推送到 GitHub
 
-用 Git 把本地 repository 加到 GitHub 之前，必須先在命令列完成 GitHub 的身分驗證。[S07] GitHub Docs 用 `git push origin main` 把本地 repository 的變更推送到 GitHub，如果你的預設分支不叫 main，就換成你的預設分支名稱。[S07] 完整流程見 [把本地 repository 推上 GitHub](push-to-github.md)。[S07]
+用 Git 把本地 repository 加到 GitHub 之前，必須先在命令列完成 GitHub 的身分驗證。[S07] GitHub Docs 用 `git push origin main` 把本地 repository 的變更推送到 GitHub，如果你的預設分支不叫 main，就換成你的預設分支名稱。[S07] 完整流程見 [把本地 repository 推上 GitHub](push-to-github.md)。[S07] 透過 HTTPS 進行 Git 操作時，出現密碼提示就輸入 personal access token 代替密碼，見 [Personal access token（個人存取權杖）](personal-access-token.md)。[S08]
 
 ### push 之後
 
@@ -41,7 +41,7 @@ git push origin main
 
 - **以為 commit 之後就自動上傳到遠端**：commit 只記錄在本地的副本，要 push 才會推送到遠端。[S01] [S06]
 - **以為 push 一定會成功**：沒有寫入權限，或別人先 push 了，你的 push 就會被拒絕。[S06]
-- **以為用 Git 推送到 GitHub 不需要驗證身分**：用 Git 把本地 repository 加到 GitHub 之前，必須先在命令列完成 GitHub 的身分驗證。[S07]
+- **以為用 Git 推送到 GitHub 不需要驗證身分**：用 Git 把本地 repository 加到 GitHub 之前，必須先在命令列完成 GitHub 的身分驗證。[S07] 透過 HTTPS 時，在密碼提示輸入 personal access token。[S08]
 - **以為已經 push 的 commit 還可以隨意 amend**：已經 push 過的 commit 再 amend 並強制推送，會造成協作者的問題。[S05]
 
 ## 時效註記
@@ -56,6 +56,7 @@ git push origin main
 - [git clone（複製 repository）](git-clone.md)：clone 會自動設定 origin
 - [預設分支名稱（master 與 main）](default-branch.md)：push 指令中的分支名稱
 - [把本地 repository 推上 GitHub](push-to-github.md)：推上 GitHub 的完整流程
+- [Personal access token（個人存取權杖）](personal-access-token.md)：push 到 GitHub 時的身分驗證
 
 ## 來源
 
@@ -63,3 +64,4 @@ git push origin main
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)
 - [S06｜Pro Git 2.5 Git Basics - Working with Remotes](../sources/S06-progit-working-with-remotes.md)
 - [S07｜Adding locally hosted code to GitHub](../sources/S07-github-adding-locally-hosted-code.md)
+- [S08｜Managing your personal access tokens](../sources/S08-github-personal-access-tokens.md)

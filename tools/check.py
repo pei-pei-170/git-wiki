@@ -68,7 +68,7 @@ SLIDE_COUNT = (12, 18)
 ALLOWED_EXTERNAL_HOSTS = {"fonts.googleapis.com", "fonts.gstatic.com"}
 
 # 第 9 節：過時用語。發現新的過時用語時，請同時更新 CLAUDE.md 第 9 節與這份清單。
-# 格式：(正規表示式, 用語名稱, 建議做法)
+# 格式：(正規表示式, 用語名稱, 建議做法[, 例外])。同一張投影片符合「例外」時不報錯。
 LEGACY_TERMS = [
     (re.compile(r"git\s+checkout", re.I),
      "git checkout", "放棄修改請用 git restore <file>（Git 2.23.0 起，依 S05），本簡報不教分支"),
@@ -79,7 +79,9 @@ LEGACY_TERMS = [
                "改編為 main；說明「Git 本身預設是 master」的投影片要加 data-legacy"),
     (re.compile(r"帳號.{0,4}密碼|github.{0,8}密碼|密碼.{0,12}(?:push|推送)"
                 r"|(?:push|推送).{0,12}密碼|\bpassword\b", re.I),
-     "用帳號密碼推送到 GitHub", "需改用 personal access token 或 SSH"),
+     "用帳號密碼推送到 GitHub", "命令列透過 HTTPS 驗證時，輸入 personal access token 代替密碼（依 S08）",
+     # 「出現 Password 提示時輸入 token」是現行做法（S08 的範例輸出就有 Password:），同一張出現 token 時不報錯
+     re.compile(r"token", re.I)),
 ]
 
 # ──────────────────────────────────────────────
@@ -754,7 +756,9 @@ def check_slides(outline: list[tuple[int, list[str]]] | None) -> None:
             R.error(where, f"{label}{SEMICOLON_MSG}")
         if not s["legacy"]:
             body = re.sub(r"\s+", " ", " ".join(s["text"]))
-            for pattern, term, advice in LEGACY_TERMS:
+            for pattern, term, advice, *unless in LEGACY_TERMS:
+                if unless and unless[0].search(body):
+                    continue
                 m = pattern.search(body)
                 if m:
                     R.error(where, f"{label}出現過時用語「{term}」：…{m.group(0)}…"
