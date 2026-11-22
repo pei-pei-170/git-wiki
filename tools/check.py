@@ -373,7 +373,7 @@ def text_blocks(body: list[str], start_line: int) -> list[tuple[int, str]]:
 
     for offset, line in enumerate(body, 1):
         n = start_line + offset
-        if not line.strip():
+        if not line.strip() or line.lstrip().startswith("#"):  # 空行與小標題都是段落分隔
             flush()
         elif LIST_ITEM.match(line):
             flush()
