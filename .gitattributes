@@ -1,0 +1,2 @@
+# 所有文字檔一律以 LF 換行存進 repository 與工作目錄，避免 raw 證據在 Windows 上被轉成 CRLF
+* text=auto eol=lf
