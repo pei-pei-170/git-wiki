@@ -71,7 +71,7 @@ Changes to be committed:
 
 ## 時效註記
 
-- 指令範例的輸出中，分支名稱是 `master`，過時說法與現行做法見 [git status（查看檔案狀態）](git-status.md) 的「時效註記」。[S02]
+- 指令範例的輸出中，分支名稱是 `master`，過時說法、現行做法與簡報的處理方式，見 [預設分支名稱（master 與 main）](default-branch.md)。[S02] [S03]
 
 ## 相關頁面
 

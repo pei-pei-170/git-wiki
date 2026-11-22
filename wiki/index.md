@@ -11,11 +11,14 @@
 
 - [S01｜Pro Git 1.1 About Version Control；1.3 What is Git?](sources/S01-progit-version-control-and-what-is-git.md)：版本控制是什麼、三種版本控制系統，以及 Git 的特色與三種狀態。
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](sources/S02-progit-recording-changes.md)：用 `git status`、`git add`、`git commit` 記錄變更，以及 `.gitignore`、`git diff`、`git rm`、`git mv`。
+- [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](sources/S03-progit-first-time-git-setup.md)：第一次使用 Git 前的設定：身分、編輯器、預設分支名稱與檢查設定。
 
 ## 概念
 
 - [版本控制（Version Control）](concepts/version-control.md)：記錄檔案變化、可以叫回特定版本的系統，以及本地、集中式、分散式三種類型。
 - [Git](concepts/git.md)：用快照記錄資料的分散式版本控制系統，大部分操作在本地，commit 後很難遺失。
+- [git config（Git 設定）](concepts/git-config.md)：設定的三個層級，以及第一次 commit 前要設定的名稱與 email。
+- [預設分支名稱（master 與 main）](concepts/default-branch.md)：Git 預設 master、GitHub 預設 main，以及簡報範例改編為 main 的決定。
 - [三種狀態與三個區域](concepts/three-states.md)：已修改、已暫存、已提交，對應工作目錄、暫存區、Git 目錄，以及已追蹤與未追蹤；是學 commit 的核心。
 - [git status（查看檔案狀態）](concepts/git-status.md)：查看哪些檔案未追蹤、已修改或已暫存。
 - [git add（加入暫存區）](concepts/git-add.md)：開始追蹤新檔案、暫存修改；暫存的是 add 當下的版本。

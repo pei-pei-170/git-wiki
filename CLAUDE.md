@@ -99,6 +99,7 @@ retrieved: YYYY-MM-DD
 
 - **每一段事實陳述的句尾都要標註來源**，例如 `[S02]`。標註的來源必須存在於 `raw/`。
 - **不可加入 raw 中沒有的知識**。覺得重要但找不到來源的內容，寫進 `log.md` 的「待找資料」，不要寫進 wiki。
+- **專案的教學決定**（例如簡報要怎麼改編範例）不是知識，句尾標註「（Sxx 討論）」，代表依據是 `log.md` 中該次 ingest 的討論結果；決定中引用的事實仍要標註 `[Sxx]`。
 - 「相關頁面」用相對連結互相連結，例如 `[Branch（分支）](branch.md)`。
 - 「時效註記」沒有就寫「無」。
 
@@ -209,9 +210,9 @@ python tools/check.py
 - 所有 `[Sxx]` 標註都對應到存在的 raw 檔案
 - wiki 內部連結沒有斷掉、沒有孤立頁面、每一頁都列在 `index.md`
 - 簡報：每張 `section.slide` 都有 `data-sources`，且指向存在的 wiki 頁面；投影片張數與 `outline.md` 一致
-- **過時用語**：簡報中出現下列用語時發出錯誤，除非該投影片有 `data-legacy` 屬性（代表是刻意說明舊寫法）：
+- **過時用語**：簡報中出現下列用語時發出錯誤，除非該投影片有 `data-legacy` 屬性（代表是刻意說明舊寫法，或說明 Git 本身的預設值）：
   - `git checkout`（切換分支請用 `git switch`）
-  - `master` 作為預設分支名稱（GitHub 新 repository 預設為 `main`）
+  - `master`：本簡報教學生用 `init.defaultBranch` 把預設分支設成 `main`，與 GitHub 新 repository 的預設一致 [S02, S03]，範例輸出依 `wiki/concepts/default-branch.md` 改編為 `main`。說明「Git 本身預設是 `master`」的投影片要加上 `data-legacy`。
   - 用帳號密碼推送到 GitHub（需改用 personal access token 或 SSH）
 
   發現新的過時用語時，要加進這份清單與 `check.py`。

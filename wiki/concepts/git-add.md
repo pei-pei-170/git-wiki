@@ -71,7 +71,7 @@ Changes not staged for commit:
 
 ## 時效註記
 
-- 範例輸出中的分支名稱是 `master`，過時說法與現行做法見 [git status（查看檔案狀態）](git-status.md) 的「時效註記」。[S02]
+- 範例輸出中的分支名稱是 `master`，過時說法、現行做法與簡報的處理方式，見 [預設分支名稱（master 與 main）](default-branch.md)。[S02] [S03]
 - 範例輸出中，取消暫存的提示有兩種寫法：一個範例是 `git restore --staged <file>`，其他範例是 `git reset HEAD <file>`；S02 沒有說明哪一種是現行寫法，待 S05 確認。[S02]
 
 ## 相關頁面

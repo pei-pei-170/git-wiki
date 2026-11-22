@@ -68,7 +68,8 @@ LEGACY_TERMS = [
     (re.compile(r"git\s+checkout", re.I),
      "git checkout", "切換分支請用 git switch"),
     (re.compile(r"\bmaster\b", re.I),
-     "master（預設分支名稱）", "GitHub 新 repository 預設分支為 main"),
+     "master", "本簡報教學生用 init.defaultBranch 設成 main，範例輸出依 wiki/concepts/default-branch.md "
+               "改編為 main；說明「Git 本身預設是 master」的投影片要加 data-legacy"),
     (re.compile(r"帳號.{0,4}密碼|github.{0,8}密碼|密碼.{0,12}(?:push|推送)"
                 r"|(?:push|推送).{0,12}密碼|\bpassword\b", re.I),
      "用帳號密碼推送到 GitHub", "需改用 personal access token 或 SSH"),
@@ -80,6 +81,7 @@ LEGACY_TERMS = [
 CITE_BRACKET = re.compile(r"\[([^\[\]\n]+)\](?!\()")
 CITE_BODY = re.compile(r"^\s*S\d{2}(?:\s*[,，、]\s*(?:S\d{2}|\d{4}))*\s*$")
 CITE_LOOKALIKE = re.compile(r"^\s*[Ss]\s*\d")
+DECISION_MARK = re.compile(r"（S\d{2} 討論）")  # CLAUDE.md 第 4-2 節：專案決定的標註
 MD_LINK = re.compile(r"\[([^\]\n]*)\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 FENCE = re.compile(r"^\s*(```|~~~)")
 INLINE_CODE = re.compile(r"`[^`\n]*`")
@@ -434,6 +436,8 @@ def check_concepts() -> None:
                 if not plain or plain == "無" or plain.endswith(("：", ":")):
                     continue
                 if re.fullmatch(r"[|\-:\s]+", plain):
+                    continue
+                if DECISION_MARK.search(block):  # 專案的教學決定，依據是 log.md 的討論結果
                     continue
                 if not has_citation(block):
                     R.warn(rel(path, n), f"這段可能沒有標註來源：{plain[:30]}…")

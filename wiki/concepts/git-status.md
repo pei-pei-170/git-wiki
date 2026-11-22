@@ -69,7 +69,9 @@ M  lib/simplegit.rb
 ## 時效註記
 
 > ⚠️ 過時：原文範例輸出中的分支名稱是 `master` [S02, 2014]。
-> 現行做法：GitHub 在 2020 年中把預設分支名稱從 `master` 改成 `main`，其他 Git 平台也跟進；但 Git 本身仍以 `master` 為預設，而且預設分支名稱可以修改 [S02, 2020]。
+> 現行做法：GitHub 在 2020 年中把預設分支名稱從 `master` 改成 `main`，其他 Git 平台也跟進；但 Git 本身仍以 `master` 為預設，而且預設分支名稱可以修改 [S02, 2020]。從 Git 2.28 起，可以用 `init.defaultBranch` 設定新 repository 的初始分支名稱 [S03]。
+
+- 簡報如何處理範例輸出中的 master，見 [預設分支名稱（master 與 main）](default-branch.md)。[S02] [S03]
 
 - 範例輸出中，取消暫存的提示有兩種寫法：一個範例是 `git restore --staged <file>`，其他範例是 `git reset HEAD <file>`；放棄修改的提示則是 `git checkout -- <file>`。S02 沒有說明哪一種是現行寫法，待 S05 確認。[S02]
 
@@ -79,7 +81,9 @@ M  lib/simplegit.rb
 - [git add（加入暫存區）](git-add.md)：把未追蹤或已修改的檔案加入暫存區
 - [git diff（查看變更內容）](git-diff.md)：想看確切改了哪幾行時使用
 - [Commit（提交）](commit.md)：「Changes to be committed」區的內容會進入下一次 commit
+- [預設分支名稱（master 與 main）](default-branch.md)：輸出第一行顯示的分支名稱
 
 ## 來源
 
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](../sources/S02-progit-recording-changes.md)
+- [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](../sources/S03-progit-first-time-git-setup.md)
