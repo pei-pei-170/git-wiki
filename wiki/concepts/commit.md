@@ -22,6 +22,14 @@
 
 暫存區很適合精確地安排每次 commit 的內容，但有時比你的工作流程需要的更複雜。[S02] 在 `git commit` 加上 `-a`，Git 會在 commit 前自動暫存所有「已經追蹤」的檔案，讓你跳過 `git add`。[S02]
 
+### 修正上一個 commit（`--amend`）
+
+常見的復原情況之一，是太早 commit，可能忘了加某些檔案，或把 commit 訊息寫錯。[S05] 想重做這個 commit，就先補上忘記的修改並暫存，再用 `--amend` 重新 commit。[S05] 這個指令會用暫存區的內容來 commit。如果上次 commit 之後沒有任何變更，快照會完全一樣，改變的只有 commit 訊息。[S05] 它會開啟同一個 commit 訊息編輯器，裡面已經有上一個 commit 的訊息。[S05]
+
+最後只會有一個 commit，第二次 commit 會取代第一次的結果。[S05] 要特別了解，amend 不是修正上一個 commit，而是用一個新的 commit 把它完全取代，就像上一個 commit 從來沒發生過，也不會出現在 repository 的歷史中。[S05] 它的好處是可以小幅改進最後一個 commit，不必在歷史中留下「Oops, forgot to add a file」這類的 commit 訊息。[S05]
+
+**只能 amend 還在本地、還沒 push 到任何地方的 commit。** 已經 push 過的 commit 再 amend 並強制推送，會造成協作者的問題。[S05]
+
 ## 指令範例
 
 開啟編輯器寫 commit 訊息：[S02]
@@ -51,11 +59,21 @@ $ git commit -a -m 'Add new benchmarks'
  1 file changed, 5 insertions(+), 0 deletions(-)
 ```
 
+commit 之後才發現忘了暫存某個檔案，補上後用 `--amend` 重新 commit：[S05]
+
+```console
+$ git commit -m 'Initial commit'
+$ git add forgotten_file
+$ git commit --amend
+```
+
 ## 新手常見誤解
 
 - **以為 commit 會包含所有改過的檔案**：commit 只記錄暫存區的快照，改過但沒有執行 `git add` 的檔案，不會進入這次 commit。[S02]
 - **以為 `git add` 之後再改檔案，commit 會包含最新的版本**：commit 進去的是最後一次執行 `git add` 時的版本，之後的修改要再 add 一次。[S02]
 - **用 `git commit -a` 省事，卻包進不想要的變更**：`-a` 會把所有已追蹤且有變更的檔案都暫存起來，很方便，但有時會把不想要的變更也包進 commit。[S02] 而且 `-a` 只會自動暫存「已經追蹤」的檔案。[S02]
+- **以為 `--amend` 只是修改上一個 commit**：它是用新的 commit 把上一個 commit 完全取代，舊的 commit 不會出現在 repository 的歷史中。[S05]
+- **以為已經 push 的 commit 也可以隨意 amend**：只能 amend 還沒 push 的 commit，已經 push 過再 amend 並強制推送，會造成協作者的問題。[S05]
 
 ## 時效註記
 
@@ -67,6 +85,7 @@ $ git commit -a -m 'Add new benchmarks'
 - [git config（Git 設定）](git-config.md)：第一次 commit 前要設定名稱與 email
 - [預設分支名稱（master 與 main）](default-branch.md)：commit 輸出中的分支名稱
 - [git add（加入暫存區）](git-add.md)：commit 之前要先把變更加入暫存區
+- [git restore（復原檔案）](git-restore.md)：復原還沒 commit 的變更
 - [git status（查看檔案狀態）](git-status.md)：commit 前確認哪些變更已經暫存
 - [Git](git.md)：commit 記錄的是快照，以及 SHA-1 檢查碼
 
@@ -76,3 +95,4 @@ $ git commit -a -m 'Add new benchmarks'
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](../sources/S02-progit-recording-changes.md)
 - [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](../sources/S03-progit-first-time-git-setup.md)
 - [S04｜Pro Git 2.1 Git Basics - Getting a Git Repository](../sources/S04-progit-getting-a-git-repository.md)
+- [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)

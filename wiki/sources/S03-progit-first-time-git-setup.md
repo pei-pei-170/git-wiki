@@ -1,7 +1,7 @@
 # S03｜Pro Git 1.6 Getting Started - First-Time Git Setup
 
 - 來源：[1.6 Getting Started - First-Time Git Setup](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)（《Pro Git》第 2 版，Scott Chacon、Ben Straub 著，CC BY-NC-SA 3.0）
-- 年份：2014（第 2 版印刷版年份，線上版已修訂，包含 Git 2.28 之後才有的預設分支設定，本次取得日期為 2026-11-22）
+- 年份：2014（第 2 版印刷版年份，本次取得日期為 2026-11-22）
 - 時效風險：中（設定指令本身穩定，但部分路徑與編輯器的說明有時效性）
 
 ## 重點
@@ -22,5 +22,5 @@
 ## 與其他資料的衝突或過時之處
 
 - 與 S02 沒有衝突，而是互相補充：S02 的 Note 說 Git 本身仍以 master 為預設 [S02, 2020]，S03 進一步說明 `git init` 預設建立 master、Git 2.28 起可以修改 [S03]。
-- 線上版加入 Git 2.28 的內容，但文中沒有寫年份，所以 S03 的引用不標年份。過時與現行的年份沿用 S02 的標註（S03 討論的決定）。
+- 原文提到 Git 2.28，但沒有寫年份 [S03]，所以 S03 的引用不標年份。過時與現行的年份沿用 S02 的標註（S03 討論的決定）。
 - 有時效性、但不放進簡報的內容：Windows XP 的設定檔路徑，以及「撰寫當時 Notepad++ 的 64 位元版不支援所有外掛」。[S03]

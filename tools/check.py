@@ -71,7 +71,9 @@ ALLOWED_EXTERNAL_HOSTS = {"fonts.googleapis.com", "fonts.gstatic.com"}
 # 格式：(正規表示式, 用語名稱, 建議做法)
 LEGACY_TERMS = [
     (re.compile(r"git\s+checkout", re.I),
-     "git checkout", "切換分支請用 git switch"),
+     "git checkout", "放棄修改請用 git restore <file>（Git 2.23.0 起，依 S05），本簡報不教分支"),
+    (re.compile(r"git\s+reset\s+HEAD", re.I),
+     "git reset HEAD", "取消暫存請用 git restore --staged <file>（Git 2.23.0 起，依 S05）"),
     (re.compile(r"\bmaster\b", re.I),
      "master", "本簡報教學生用 init.defaultBranch 設成 main，範例輸出依 wiki/concepts/default-branch.md "
                "改編為 main；說明「Git 本身預設是 master」的投影片要加 data-legacy"),
@@ -84,7 +86,8 @@ LEGACY_TERMS = [
 # 共用工具
 # ──────────────────────────────────────────────
 CITE_BRACKET = re.compile(r"\[([^\[\]\n]+)\](?!\()")
-CITE_BODY = re.compile(r"^\s*S\d{2}(?:\s*[,，、]\s*(?:S\d{2}|\d{4}))*\s*$")
+# 來源後面可接年份（[S03, 2014]），原文只寫版本時可接版本號（[S05, Git 2.23.0]），見 CLAUDE.md 第 4-3 節
+CITE_BODY = re.compile(r"^\s*S\d{2}(?:\s*[,，、]\s*(?:S\d{2}|\d{4}|Git\s+\d+(?:\.\d+)+))*\s*$")
 CITE_LOOKALIKE = re.compile(r"^\s*[Ss]\s*\d")
 DECISION_MARK = re.compile(r"（(?:S\d{2}|lint) 討論）")  # CLAUDE.md 第 4-2 節：專案決定的標註
 MD_LINK = re.compile(r"\[([^\]\n]*)\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
@@ -485,14 +488,15 @@ def check_citations_and_legacy(pages: list[Path], raws: dict[str, dict[str, str]
                     # 線上版修訂的內容可能晚於 published（例如 Pro Git 線上版的 2020 年 Note），
                     # 所以只有「年份早於 published」才可疑（CLAUDE.md 第 4-3 節）
                     pub = raws[sid].get("published", "")
-                    if year and re.fullmatch(r"\d{4}", pub) and int(year) < int(pub):
+                    if year and re.fullmatch(r"\d{4}", year) and re.fullmatch(r"\d{4}", pub) \
+                            and int(year) < int(pub):
                         R.warn(rel(path, i), f"[{sid}, {year}] 的年份早於 raw 的 published（{pub}）")
             for bad in lookalike_citations(line):
-                R.warn(rel(path, i), f"疑似來源標註格式錯誤：{bad}（應為 [S02] 或 [S03, 2014]）")
+                R.warn(rel(path, i), f"疑似來源標註格式錯誤：{bad}（應為 [S02]、[S02, 2014] 或 [S05, Git 2.23.0]）")
             # 第 4-3 節：過時資訊必須同時保留新舊說法並標註年份
             if re.search(r"過時\s*[：:]", line):
                 if not has_year_citation(line):
-                    R.error(rel(path, i), "過時說法需標註來源與年份，例如 [S03, 2014]")
+                    R.error(rel(path, i), "過時說法需標註來源與年份（或版本），例如 [S02, 2014]")
                 following = []
                 for nxt in lines[i:]:
                     if not nxt.strip():
@@ -502,7 +506,7 @@ def check_citations_and_legacy(pages: list[Path], raws: dict[str, dict[str, str]
                 if cur is None:
                     R.error(rel(path, i), "過時說法下一行必須接「現行做法：」（第 4-3 節）")
                 elif not has_year_citation(cur):
-                    R.error(rel(path, i), "「現行做法」需標註來源與年份，例如 [S06, 2019]")
+                    R.error(rel(path, i), "「現行做法」需標註來源與年份或版本，例如 [S02, 2020]、[S05, Git 2.23.0]")
 
 
 def check_links_and_index(pages: list[Path]) -> None:

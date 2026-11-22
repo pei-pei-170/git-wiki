@@ -14,9 +14,10 @@
 6. [三種狀態與三個區域](concepts/three-states.md)：檔案先分成已追蹤與未追蹤，已追蹤的檔案會在已修改、已暫存、已提交之間循環，對應工作目錄、暫存區、Git 目錄。[S01] [S02] 這是之後學 commit 指令的核心。
 7. [git status（查看檔案狀態）](concepts/git-status.md)：隨時用它確認每個檔案處於哪種狀態。[S02]
 8. [git add（加入暫存區）](concepts/git-add.md)：開始追蹤新檔案、暫存修改。暫存的是 add 當下的版本，之後再改就要再 add。[S02]
-9. [Commit（提交）](concepts/commit.md)：把暫存區的快照記錄進歷史，用 `-m` 直接寫 commit 訊息。[S02]
-10. [.gitignore（忽略檔案）](concepts/gitignore.md)：開始專案前就設定好，避免不小心 commit 自動產生的檔案。[S02]
-11. [git diff（查看變更內容）](concepts/git-diff.md)：想知道確切改了哪幾行時使用（只留在 wiki，不放進簡報）。[S02]
+9. [Commit（提交）](concepts/commit.md)：把暫存區的快照記錄進歷史，用 `-m` 直接寫 commit 訊息。[S02] 忘了加檔案或訊息寫錯時，可以用 `--amend` 重做還沒 push 的上一個 commit。[S05]
+10. [git restore（復原檔案）](concepts/git-restore.md)：不小心暫存時用 `git restore --staged` 取消暫存，`git restore <file>` 會丟掉修改，是危險的指令。commit 過的幾乎都救得回來，沒 commit 過的可能永遠消失。[S05]
+11. [.gitignore（忽略檔案）](concepts/gitignore.md)：開始專案前就設定好，避免不小心 commit 自動產生的檔案。[S02]
+12. [git diff（查看變更內容）](concepts/git-diff.md)：想知道確切改了哪幾行時使用（只留在 wiki，不放進簡報）。[S02]
 
 ## 簡報範圍決定
 
@@ -40,12 +41,14 @@
 - 不放進簡報：各系統的 `cd` 路徑寫法（頂多一行帶過）、`.git` 的內部結構、伺服器端的 hooks、與 Subversion 的 checkout 比較、指定 clone 的資料夾名稱、`git://` 與 SSH 等傳輸協定（S04 討論）。
 - 簡報的 commit 訊息一律用雙引號，理由是與 S02 的範例一致（S04 討論）。
 - **待決事項**：push 到 GitHub 要教哪一條路線，一是先在本地 `git init`，之後再連到 GitHub 並 push，二是先在 GitHub 建立 repository，再 clone 下來。等 ingest S06（2.5 Working with Remotes）之後再決定（S04 討論）。
+- 放進簡報：`git restore --staged <file>` 放在「常見錯誤」（不小心 add 了不想 commit 的檔案）。`git restore <file>` 要搭配強烈的危險警告。「commit 過的幾乎都能救回，沒 commit 的可能永遠消失」放在總結，鼓勵學生常 commit。`git commit --amend` 用在忘了加檔案或訊息打錯，並提醒只能用在還沒 push 的 commit（S05 討論）。
+- 不放進簡報：`git reset` 的運作細節與 `--hard`、stash 與分支、資料救援、rebase 的風險。舊寫法 `git reset HEAD`、`git checkout --` 只留在 [git restore（復原檔案）](concepts/git-restore.md) 的過時／現行做法區塊（S05 討論）。
+- 簡報中 `git status` 的範例，改用 S05 新版段落（Git 2.23.0 起）的輸出，提示是 `git restore`，分支名稱依 [預設分支名稱（master 與 main）](concepts/default-branch.md) 改成 main（S05 討論）。
 
 ## 尚未涵蓋的主題
 
 教學目標是 commit 與 push，不教分支。依序待 ingest 的資料如下，找不到來源的主題記在 [操作紀錄](log.md) 各筆的「待找資料」：
 
-- S05：Pro Git 2.4 Undoing Things（復原操作、取消暫存的現行寫法）
 - S06：Pro Git 2.5 Working with Remotes（push 到遠端）
 - S07：GitHub Docs personal access tokens（推送到 GitHub 時的身分驗證）
 - 視時間決定：GitHub 的 email 隱私設定（commit 會永久記錄 email，push 到 GitHub 後別人看得到），S07 之後再決定要不要補一篇

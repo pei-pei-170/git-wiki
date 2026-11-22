@@ -116,7 +116,7 @@ retrieved: YYYY-MM-DD
 
 實際寫法見 `wiki/concepts/default-branch.md` 的「時效註記」。同一組過時／現行做法只寫在一個概念頁，其他頁面用一行連結指過去，避免之後修改時漏改。
 
-年份標註原文陳述該說法的年份。線上版的內容可能在出版後修訂（例如《Pro Git》線上版加入了 2020 年的說明），這時可以標註文中寫明的年份，但不可早於 raw 的 `published`。
+年份標註原文陳述該說法的年份。線上版的內容可能在出版後修訂（例如《Pro Git》線上版加入了 2020 年的說明），這時可以標註文中寫明的年份，但不可早於 raw 的 `published`。原文只寫版本、沒寫年份時，用版本號代替年份，例如 `[S05, Git 2.23.0]`。
 
 簡報一律教現行做法，必要時再補充舊寫法。
 
@@ -217,7 +217,8 @@ python tools/check.py
 - wiki 內部連結沒有斷掉、沒有孤立頁面、每一頁都列在 `index.md`
 - 簡報：每張 `section.slide` 都有 `data-sources`，且指向存在的 wiki 頁面；投影片張數與 `outline.md` 一致
 - **過時用語**：簡報中出現下列用語時發出錯誤，除非該投影片有 `data-legacy` 屬性（代表是刻意說明舊寫法，或說明 Git 本身的預設值）：
-  - `git checkout`（切換分支請用 `git switch`）
+  - `git checkout`：放棄修改請用 `git restore <file>`，Git 2.23.0 起 [S05]。本簡報不教分支。原本的建議「切換分支請用 `git switch`」，因為不 ingest Git 2.23 部落格文章而失去來源，已於 S05 改寫。
+  - `git reset HEAD`：取消暫存請用 `git restore --staged <file>`，Git 2.23.0 起 [S05]。
   - `master`：本簡報教學生用 `init.defaultBranch` 把預設分支設成 `main`，與 GitHub 新 repository 的預設一致 [S02, S03]，範例輸出依 `wiki/concepts/default-branch.md` 改編為 `main`。說明「Git 本身預設是 `master`」的投影片要加上 `data-legacy`。
   - 用帳號密碼推送到 GitHub（需改用 personal access token 或 SSH）
 

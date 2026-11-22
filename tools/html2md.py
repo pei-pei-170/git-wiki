@@ -70,7 +70,7 @@ class Conv(HTMLParser):
         lines = [l.strip() for l in text.split("\n")]
         lines = [l for l in lines if l]
         if lines:
-            if self.kind in ("h1", "h2", "h3"):
+            if self.kind in ("h1", "h2", "h3", "h4"):
                 md = "#" * int(self.kind[1]) + " " + " ".join(lines)
             elif self.kind == "caption":
                 # 提示框的標題（Note、Tip 等）用粗體，圖片說明用斜體
@@ -104,7 +104,7 @@ class Conv(HTMLParser):
             elif "title" in cls:
                 self.start_block("caption")
         elif tag in ("h1", "h2", "h3", "h4"):
-            self.start_block("h" + str(min(int(tag[1]), 3)))
+            self.start_block(tag)
         elif tag == "p":
             self.start_block("p")
         elif tag in ("ul", "ol"):

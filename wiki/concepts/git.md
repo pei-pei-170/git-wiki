@@ -40,7 +40,7 @@ S01 只示範了 SHA-1 雜湊值的樣子，沒有提供 Git 指令：[S01]
 
 - **「Git 和其他版本控制系統一樣，存的是每次的差異」**：Git 存的是快照，沒有變更的檔案只存連結。[S01]
 - **「沒有網路就不能用 Git」**：大部分操作都在本地進行，離線也能 commit，有網路時再上傳。[S01]
-- **「用了 Git 還是很容易弄丟資料」**：commit 之後的快照很難遺失，容易遺失的是還沒 commit 的變更。[S01]
+- **「用了 Git 還是很容易弄丟資料」**：commit 之後的快照很難遺失，容易遺失的是還沒 commit 的變更。[S01] commit 過的東西幾乎都能救回來，連被 `--amend` 覆蓋的 commit 也可以，但從來沒有 commit 過的東西一旦遺失，很可能再也找不回來。[S05]
 
 ## 時效註記
 
@@ -51,7 +51,9 @@ S01 只示範了 SHA-1 雜湊值的樣子，沒有提供 Git 指令：[S01]
 - [版本控制（Version Control）](version-control.md)：Git 屬於其中的分散式版本控制系統
 - [三種狀態與三個區域](three-states.md)：Git 管理檔案的核心觀念，commit 就是把暫存區的內容做成快照
 - [Commit（提交）](commit.md)：每次 commit 都是記錄一份專案快照
+- [git restore（復原檔案）](git-restore.md)：復原還沒 commit 的變更，以及 commit 過的幾乎都救得回來
 
 ## 來源
 
 - [S01｜Pro Git 1.1 About Version Control、1.3 What is Git?](../sources/S01-progit-version-control-and-what-is-git.md)
+- [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)

@@ -47,6 +47,18 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 ```
 
+從 Git 2.23.0 起，輸出中的復原提示改用 `git restore`，例如不小心用 `git add *` 暫存了兩個檔案時：[S05]
+
+```console
+$ git add *
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   CONTRIBUTING.md
+	renamed:    README.md -> README
+```
+
 精簡格式：[S02]
 
 ```console
@@ -70,7 +82,7 @@ M  lib/simplegit.rb
 
 - 範例輸出中的分支名稱是 `master`，過時說法、現行做法與簡報的處理方式，見 [預設分支名稱（master 與 main）](default-branch.md)。[S02] [S03]
 
-- 範例輸出中，取消暫存的提示有兩種寫法：一個範例是 `git restore --staged <file>`，其他範例是 `git reset HEAD <file>`。放棄修改的提示則是 `git checkout -- <file>`。S02 沒有說明哪一種是現行寫法，待 S05 確認。[S02]
+- S02 範例輸出中，取消暫存的提示大多是 `git reset HEAD <file>`，放棄修改的提示是 `git checkout -- <file>`，這與 S05 前半段（舊做法）的輸出相同。[S02] [S05] S05 說從 Git 2.23.0 起，很多復原操作改用 `git restore`，過時說法與現行做法見 [git restore（復原檔案）](git-restore.md)。[S05]
 
 ## 相關頁面
 
@@ -80,8 +92,10 @@ M  lib/simplegit.rb
 - [Commit（提交）](commit.md)：「Changes to be committed」區的內容會進入下一次 commit
 - [預設分支名稱（master 與 main）](default-branch.md)：輸出第一行顯示的分支名稱
 - [.gitignore（忽略檔案）](gitignore.md)：被忽略的檔案不會出現在未追蹤清單
+- [git restore（復原檔案）](git-restore.md)：依照輸出中的提示取消暫存或放棄修改
 
 ## 來源
 
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](../sources/S02-progit-recording-changes.md)
 - [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](../sources/S03-progit-first-time-git-setup.md)
+- [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)

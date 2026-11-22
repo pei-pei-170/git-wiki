@@ -55,3 +55,9 @@
 - 討論結果：使用者要求把檢查往前移到寫入當下。原因是寫入時加入了原文沒有的說法，而且兩次都是事後才發現。第 1 次是 S01 摘要頁的「線上版會持續修訂」，在 S01–S03 的 lint 發現。第 2 次是 version-control.md 相關頁面中「最常見的」分散式版本控制系統，在 S04 修改分號時逐行檢查發現
 - 檢查結果：check.py 通過，0 個錯誤、0 個警告
 - 待找資料：無
+
+## 2026-11-22 19:31｜ingest｜S05
+- 做了什麼：用 curl 下載 Pro Git 2.4 Undoing Things，以 tools/html2md.py 轉成 raw/S05-progit-undoing-things.md（HTML 正文與 markdown 皆為 1463 字）。html2md.py 改為把 h4 標題轉成 ####（原本會轉成與 h3 同級的 ###），以 S02 回歸測試輸出與 raw 完全相同。新增 sources/S05-progit-undoing-things.md、concepts/git-restore.md（過時／現行做法區塊只寫在這頁）。更新 commit.md（新增 --amend 段落）、git-status.md（新增 Git 2.23.0 起的輸出範例，時效註記改連到 git-restore.md）、git-add.md（時效註記改連到 git-restore.md）、git.md（commit 過的幾乎都能救回）、index.md、overview.md（學習路線、S05 的簡報取捨）。CLAUDE.md 第 4-3 節與 check.py 允許用版本號代替年份。CLAUDE.md 第 9 節與 check.py 的過時用語清單新增 git reset HEAD，git checkout 的建議文字改成用 git restore（依 S05）
+- 討論結果：頁面規劃照建議，--amend 放在 commit.md。原文只寫版本時，用版本號代替年份，寫成 [S05, Git 2.23.0]。git reset HEAD 加進過時用語清單，git checkout 規則的建議文字改成用 git restore（S03 記錄的「建議文字失去來源」已處理）。簡報中 git status 的範例改用 S05 新版段落的輸出，分支名稱依 default-branch.md 改成 main
+- 檢查結果：依第 5 節第 4 步逐句核對，本輪新增或修改的事實陳述 52 句，另順帶核對上一輪 S03 摘要頁的 2 句，共 54 句。每句對照 raw 列出英文原句，並以程式確認原句逐字存在於標註的 raw 檔。找不到原句、刪改 4 句：(1) S05 摘要頁重點 2「它會用新的 commit 完全取代舊的，所以只能用在還沒 push 的 commit」，原文沒有寫「所以」的因果關係，改寫成兩個獨立的句子。(2) S05 摘要頁年份「線上版已修訂，包含 Git 2.23.0 新增的 git restore」，原文沒有說 Git 2.23.0 晚於印刷版，刪除。(3) S03 摘要頁年份「線上版已修訂，包含 Git 2.28 之後才有的預設分支設定」，同樣是推論，刪除。(4) S03 摘要頁「線上版加入 Git 2.28 的內容」，「加入」暗示是後來才加的，改寫成「原文提到 Git 2.28，但沒有寫年份」。S02 摘要頁的「線上版已修訂，包含 2020 年中之後才寫的 Note」有原文的 mid-2020 可以推得，保留。check.py 通過，0 個錯誤、0 個警告
+- 待找資料：無（S02 待找資料第 1 項「取消暫存與放棄修改的現行寫法」已由 S05 解決，S03 待找資料第 3 項「git checkout 規則建議文字的新來源」也已由 S05 解決）
