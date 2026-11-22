@@ -15,7 +15,7 @@
 
 進入這個新資料夾，就會看到專案的檔案，可以開始修改或使用。[S04] clone 下來的檔案全部都是已追蹤且未修改的狀態，因為 Git 才剛把它們取出來，你還沒編輯任何東西。[S02]
 
-clone 時，Git 會自動把來源 repository 加成名為 origin 的遠端，見 [Remote（遠端 repository）](remote.md)。[S06] 預設上，`git clone` 也會自動讓本地的 master 分支，追蹤 clone 來源伺服器上的遠端 master 分支（或不論預設分支叫什麼名字）。[S06]
+clone 時，Git 會自動把來源 repository 加成名為 origin 的遠端，見 [Remote（遠端 repository）](remote.md)。[S06] 預設上，`git clone` 也會自動讓本地的 master 分支，追蹤 clone 來源伺服器上的遠端 master 分支（或不論預設分支叫什麼名字）。[S06] 簡報中分支名稱的處理方式，見 [預設分支名稱（master 與 main）](default-branch.md)。[S06]
 
 如果想用不同的資料夾名稱，可以在網址後面再加上資料夾名稱。[S04]
 

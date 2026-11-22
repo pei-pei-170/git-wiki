@@ -91,3 +91,9 @@
 - 討論結果：原文正文只有兩句重點，整句引用等於貼上幾乎全文，所以 excerpt 只引用兩個關鍵片段，使用者同意。頁面規劃照建議，不新增概念頁。過時用語規則不恢復「或 SSH」，只在 PAT 頁提一句 SSH key 也是其中一種方式。raw 的 license 欄位原本寫「未標示（GitHub Blog，非 CC 授權）」，使用者指出網頁上只是沒有標示授權，不能確定是哪一種，改成「未標示」（raw 當時還沒 commit，修改不違反規則）
 - 檢查結果：依第 5 節第 4 步逐句核對 15 句，以 tools/verify_quotes.py 驗證 checks/S09-quotes.md，15 句都找到原句，刪改 0 句。check.py 通過，0 個錯誤、0 個警告
 - 待找資料：無（「GitHub 已不接受密碼」的來源已由 S09 補上）
+
+## 2026-11-22 21:03｜lint｜S04–S09
+- 做了什麼：依第 8 節檢查 S04～S09 相關的 wiki 頁面（全 wiki 共 30 頁）。自動檢查：check.py（孤立頁面、斷掉的連結、來源標註、index 登記、分號、raw 未被修改）通過，tools/verify_quotes.py 驗證 checks/ 中 S05～S09 的 5 份對照表全部通過（共 237 筆）。另以程式掃描摘要頁與 overview.md 中沒有 [Sxx] 也沒有「（Sxx 討論）」的句子，以及提到 master、git reset HEAD、git checkout --、密碼的概念頁是否連到集中說明的頁面。S04 是在逐句核對流程建立前寫入的，沒有對照表，抽查 15 句 S04 時期的事實陳述，都在 raw 中找到原句。人工檢查頁面之間的矛盾、用語與過時標註。修正 5 處：(1) git-clone.md 提到 master 但沒有連到 default-branch.md，補上連結。(2) git-init.md 直接寫 S03 的「git init 預設建立 master」，沒有提醒與 S07 說法不一致，補上指向 default-branch.md 的說明。(3) push-to-github.md 把 S07 的 current working directory 譯成「目前的工作目錄」，與本 wiki 中 Git 的工作目錄（working tree）撞名，改成「切換到本地專案的資料夾」並加註，checks/S07-quotes.md 第 25 筆的句子一併更新後重新驗證通過。(4) overview.md 的簡報取捨仍寫「如果採用先 git init 的路線」，改成路線 A 已於 S07 決定。(5) overview.md 漏記「--amend 會開啟編輯器，與一律用 -m 的決定矛盾，等規劃大綱時再決定」這個待決事項（原本只記在 log.md），因為規劃大綱時只能讀 wiki，補進「簡報範圍決定」
+- 討論結果：無（lint 結果中需要判斷的項目已列出，等使用者回覆）
+- 檢查結果：掃描到的其他結果經確認不需修改：overview.md「簡報範圍決定」的引言不是事實陳述。commit.md 的「密碼」出自「不要 commit 密碼或 API key」，講的是敏感資訊，不是用密碼驗證，屬於誤判。三組過時／現行做法區塊各只寫在一頁（default-branch.md、git-restore.md、personal-access-token.md），其他頁面都用連結指過去。頁面之間沒有其他互相矛盾的說法。修正後 check.py 通過，0 個錯誤、0 個警告，verify_quotes.py 通過
+- 待找資料：彙整目前狀態：(1) push 到 GitHub 的指令，已由 S02、S06、S07 補上。(2) SHA-1 的現況，依 lint 討論不另外找來源。(3) git checkout 與 git switch，已由 S05 處理，不教分支。(4) Git 本身的預設分支是否仍為 master，依 lint 討論不另外找來源。(5) GitHub 的 email 隱私設定，已知但本專案不涵蓋。(6) 「GitHub 已不接受密碼」的來源，已由 S09 補上。目前沒有待找的資料

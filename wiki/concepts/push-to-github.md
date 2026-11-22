@@ -27,7 +27,7 @@
 
 ### 步驟三：連到遠端並 push
 
-1. 在終端機中，把目前的工作目錄切換到本地專案。[S07]
+1. 在終端機中，切換到本地專案的資料夾。[S07] 這裡的原文是終端機的 current working directory（目前所在的資料夾），不是 Git 的工作目錄（working tree）。（lint 討論）
 2. 新增遠端 repository 的網址，你的本地 repository 會被推送到這裡。把 `REMOTE-URL` 換成 GitHub 上 repository 的完整網址。[S07]
 3. 確認遠端網址設定正確。[S07]
 4. 把本地 repository 的變更推送到 GitHub。如果你的預設分支不叫 main，就把 main 換成你的預設分支名稱。[S07]

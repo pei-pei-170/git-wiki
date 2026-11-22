@@ -8,7 +8,7 @@
 
 **這時專案中還沒有任何檔案被追蹤。** [S04] 如果資料夾裡已經有檔案，想開始管理它們，應該先追蹤這些檔案，再做第一次 commit。[S04] 做法是用幾個 `git add` 指定要追蹤的檔案，再執行 `git commit`。[S04] 完成後，你就有一個包含已追蹤檔案與第一次 commit 的 Git repository。[S04]
 
-用 `git init` 建立新 repository 時，Git 預設會建立名為 master 的分支，從 Git 2.28 起可以改成其他名稱，見 [預設分支名稱（master 與 main）](default-branch.md)。[S03]
+用 `git init` 建立新 repository 時，Git 預設會建立名為 master 的分支，從 Git 2.28 起可以改成其他名稱，見 [預設分支名稱（master 與 main）](default-branch.md)。[S03] S07 對預設分支的說法與 S03 不一致，兩種說法都記在該頁的「兩份資料的說法不一致」。[S03] [S07]
 
 GitHub Docs 的做法是：開啟終端機（Windows 使用 Git Bash），進入專案的根目錄，把本地資料夾初始化為 Git repository。[S07] Git 2.28.0 以上可以用 `git init -b main` 設定預設分支名稱，Git 2.27.1 以下可以用 `git init && git symbolic-ref HEAD refs/heads/main`。[S07] 接著用 `git add .` 加入新 repository 中的檔案並暫存，再用 `git commit` 完成第一次 commit。[S07] 簡報設定預設分支名稱的方法是 `git config --global init.defaultBranch main`，`git init -b main` 只留在 wiki。（S07 討論）
 

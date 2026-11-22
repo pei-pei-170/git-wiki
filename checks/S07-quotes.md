@@ -168,7 +168,7 @@
   - to copy the remote repository URL.
 
 ## 25｜push-to-github 步驟三 1
-- 句子：在終端機中，把目前的工作目錄切換到本地專案。
+- 句子：在終端機中，切換到本地專案的資料夾。（S04～S09 lint 時改寫：原本寫「把目前的工作目錄切換到本地專案」，與 Git 的工作目錄撞名）
 - 來源：S07
 - 原句：
   - Change the current working directory to your local project.

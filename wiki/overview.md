@@ -46,7 +46,7 @@
 - 簡報的 commit 訊息一律用雙引號，理由是與 S02 的範例一致（S04 討論）。
 - ~~**待決事項**：push 到 GitHub 要教哪一條路線，一是先在本地 `git init`，之後再連到 GitHub 並 push，二是先在 GitHub 建立 repository，再 clone 下來。等 ingest S06（2.5 Working with Remotes）之後再決定（S04 討論）。S06 討論時延到 ingest S07 之後再決定，因為兩條路線都缺「在 GitHub 上建立 repository」這一步的資料（S06 討論）。~~ 已於 S07 決定，見下一點。
 - push 到 GitHub 採用路線 A：本地 `git init` → `git add .` → `git commit -m` → 在 GitHub 建立 repository（不用 README、license 或 gitignore 初始化）→ 複製網址 → `git remote add origin <url>` → `git remote -v` → `git push origin main`。S07 把這條路線的每一步都寫齊了，流程寫在 [把本地 repository 推上 GitHub](concepts/push-to-github.md)，可以當簡報「實際操作」的主軸（S07 討論）。
-- 放進簡報：遠端 repository 的概念（GitHub 上的那一份）、origin 是預設的遠端名稱、用 `git remote -v` 確認遠端、`git remote add origin <url>`（如果採用先 `git init` 的路線）、`git push origin main`。push 被拒絕的兩個原因（沒有寫入權限、別人先 push 了）放在「常見錯誤」，只用一句話說明需要先取得別人的更新，不教合併（S06 討論）。
+- 放進簡報：遠端 repository 的概念（GitHub 上的那一份）、origin 是預設的遠端名稱、用 `git remote -v` 確認遠端、`git remote add origin <url>`（路線 A 已於 S07 決定採用）、`git push origin main`。push 被拒絕的兩個原因（沒有寫入權限、別人先 push 了）放在「常見錯誤」，只用一句話說明需要先取得別人的更新，不教合併（S06 討論）。
 - 不放進簡報：多個遠端、`git remote show`、rename、remove、fetch 與 pull 的細節、`pull.rebase`、遠端追蹤分支與合併、各種傳輸協定（S06 討論）。
 - 放進簡報：Windows 使用者要用 Git Bash、push 前要先完成身分驗證（接 S08）、「不要 commit 密碼或 API key」放在常見錯誤（S07 討論）。
 - 設定預設分支名稱教 `git config --global init.defaultBranch main`，`git init -b main` 只留在 wiki。S07 與 S03 對預設分支的說法不一致，兩種都保留在 [預設分支名稱（master 與 main）](concepts/default-branch.md)（S07 討論）。
@@ -56,6 +56,7 @@
 - 不放進簡報：classic token 的細節、組織政策、SAML 單一登入、用網址參數預先填寫 token、權限的完整表格、GitHub Apps、Actions 與 Codespaces 的 secrets、macOS Keychain。刪除 token 頂多一句話帶過（S08 討論）。
 - 不放進簡報：GitHub CLI（`gh repo create`）與 GitHub Desktop（頂多一句話帶過）、從其他版本控制系統轉換、`git symbolic-ref`、`git reset --soft HEAD~1`、2 GiB 的 push 上限、組織帳號（S07 討論）。
 - 放進簡報：`git restore --staged <file>` 放在「常見錯誤」（不小心 add 了不想 commit 的檔案）。`git restore <file>` 要搭配強烈的危險警告。「commit 過的幾乎都能救回，沒 commit 的可能永遠消失」放在總結，鼓勵學生常 commit。`git commit --amend` 用在忘了加檔案或訊息打錯，並提醒只能用在還沒 push 的 commit（S05 討論）。
+- **待決事項**：`git commit --amend` 會開啟編輯器，裡面已經有上一個 commit 的訊息 [S05]，這與「commit 一律用 `-m`，避免卡在編輯器」的決定矛盾，而且目前的資料沒有示範 `--amend` 搭配 `-m`。簡報要說明它會開啟編輯器，或只在常見錯誤中提到這個指令，等規劃大綱時再決定（S05 討論）。
 - 不放進簡報：`git reset` 的運作細節與 `--hard`、stash 與分支、資料救援、rebase 的風險。舊寫法 `git reset HEAD`、`git checkout --` 只留在 [git restore（復原檔案）](concepts/git-restore.md) 的過時／現行做法區塊（S05 討論）。
 - 簡報中 `git status` 的範例，改用 S05 新版段落（Git 2.23.0 起）的輸出，提示是 `git restore`，分支名稱依 [預設分支名稱（master 與 main）](concepts/default-branch.md) 改成 main（S05 討論）。
 
