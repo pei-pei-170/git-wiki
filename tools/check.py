@@ -58,6 +58,11 @@ WIKI_TOP_PAGES = {"index.md", "overview.md", "log.md"}
 LOG_TYPES = {"setup", "ingest", "lint", "outline", "slide", "regenerate", "fix"}
 LOG_FIELDS = ["做了什麼", "討論結果", "檢查結果", "待找資料"]
 
+# 第 1 節：中文不使用全形分號。log.md 只檢查規則訂定之後的紀錄（舊紀錄依第 7 節不可修改）
+SEMICOLON = "；"
+SEMICOLON_SINCE = "2026-11-22 19:13"
+SEMICOLON_MSG = "使用了全形分號「；」，請改用句號分成兩句，或用逗號連接（CLAUDE.md 第 1 節）"
+
 # 第 6 節：簡報
 SLIDE_COUNT = (12, 18)
 ALLOWED_EXTERNAL_HOSTS = {"fonts.googleapis.com", "fonts.gstatic.com"}
@@ -544,6 +549,20 @@ def check_links_and_index(pages: list[Path]) -> None:
                 R.error("wiki/index.md", f"缺少「## {sec}」分類")
 
 
+def check_semicolons(pages: list[Path]) -> None:
+    """第 1 節：wiki 頁面與 slides/outline.md 不使用全形分號（程式碼除外）。log.md 由 check_log 處理。"""
+    targets = [p for p in pages if p != WIKI / "log.md"]
+    if OUTLINE.is_file():
+        targets.append(OUTLINE)
+    for path in targets:
+        text = read(path)
+        if text is None:
+            continue
+        for i, line in enumerate(masked_lines(text), 1):
+            if SEMICOLON in line:
+                R.error(rel(path, i), SEMICOLON_MSG)
+
+
 # ──────────────────────────────────────────────
 # 5. wiki/log.md
 # ──────────────────────────────────────────────
@@ -570,6 +589,10 @@ def check_log() -> None:
             entries[-1][2].append(line)
     last = ""
     for line_no, stamp, body in entries:
+        if stamp and stamp >= SEMICOLON_SINCE:
+            for offset, l in enumerate(body, 1):
+                if SEMICOLON in l:
+                    R.error(rel(path, line_no + offset), SEMICOLON_MSG)
         for field in LOG_FIELDS:
             if not any(re.match(rf"^\s*-\s*{field}\s*[：:]\s*\S", l) for l in body):
                 R.error(rel(path, line_no), f"這筆紀錄缺少「- {field}：」（沒有就寫「無」）")
@@ -628,6 +651,7 @@ class SlideParser(HTMLParser):
         self.cur: dict | None = None
         self.depth = 0
         self.skip = 0
+        self.code = 0  # 在 <code>、<pre> 裡的文字是指令，不檢查分號
         self.in_style = False
         self.external: list[tuple[int, str]] = []
 
@@ -644,12 +668,14 @@ class SlideParser(HTMLParser):
         if tag in ("script", "style"):
             self.skip += 1
             self.in_style = tag == "style"
+        if tag in ("code", "pre"):
+            self.code += 1
         if tag == "section":
             if self.cur is not None:
                 self.depth += 1
             elif "slide" in (a.get("class") or "").split():
                 self.cur = {"line": self.getpos()[0], "sources": a.get("data-sources"),
-                            "legacy": "data-legacy" in a, "text": [], "hrefs": []}
+                            "legacy": "data-legacy" in a, "text": [], "prose": [], "hrefs": []}
                 self.depth = 1
                 return
         if self.cur is not None and tag == "a" and a.get("href"):
@@ -659,6 +685,8 @@ class SlideParser(HTMLParser):
         if tag in ("script", "style") and self.skip:
             self.skip -= 1
             self.in_style = False
+        if tag in ("code", "pre") and self.code:
+            self.code -= 1
         if tag == "section" and self.cur is not None:
             self.depth -= 1
             if self.depth == 0:
@@ -671,6 +699,8 @@ class SlideParser(HTMLParser):
                 self.external.append((self.getpos()[0], m.group(1)))
         if self.cur is not None and not self.skip:
             self.cur["text"].append(data)
+            if not self.code:
+                self.cur["prose"].append(data)
 
 
 def check_slides(outline: list[tuple[int, list[str]]] | None) -> None:
@@ -716,6 +746,8 @@ def check_slides(outline: list[tuple[int, list[str]]] | None) -> None:
                 R.warn(where, f"{label}底部沒有連到 GitHub 上的 wiki/{p}")
         if outline is not None and k <= len(outline) and srcs and set(srcs) != set(outline[k - 1][1]):
             R.error(where, f"{label}的 data-sources 與 outline.md 第 {outline[k - 1][0]} 行的「依據」不同")
+        if SEMICOLON in "".join(s["prose"]):
+            R.error(where, f"{label}{SEMICOLON_MSG}")
         if not s["legacy"]:
             body = re.sub(r"\s+", " ", " ".join(s["text"]))
             for pattern, term, advice in LEGACY_TERMS:
@@ -738,6 +770,7 @@ def main() -> int:
     check_concepts()
     pages = all_wiki_pages()
     check_citations_and_legacy(pages, raws)
+    check_semicolons(pages)
     check_links_and_index(pages)
     check_log()
     check_slides(check_outline())

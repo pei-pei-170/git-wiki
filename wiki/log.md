@@ -43,3 +43,9 @@
 - 討論結果：使用者同意 lint 提出的兩項修改；「（S03 討論）」標註規則保留；兩項沒有規劃來源的待找資料（SHA-1 的現況、Git 本身預設是否仍為 master）不另外找來源，簡報如果要提到 Git 預設是 master，寫成「依 Pro Git 線上版，2026-11-22 擷取」
 - 檢查結果：check.py 通過，0 個錯誤、0 個警告
 - 待找資料：無（lint 彙整的第 2、4 項依使用者決定不再尋找）
+
+## 2026-11-22 19:17｜ingest｜S04
+- 做了什麼：用 curl 下載 Pro Git 2.1 Getting a Git Repository，以 tools/html2md.py 轉成 raw/S04-progit-getting-a-git-repository.md（HTML 正文與 markdown 皆為 759 字，html2md.py 不需修改）。新增 sources/S04-progit-getting-a-git-repository.md、concepts/repository.md、git-init.md、git-clone.md。更新 three-states.md（Git 目錄就是 .git 子資料夾、S04 的 check out 一般動詞例子）、version-control.md（S04 對完整副本的佐證）、commit.md（第一次 commit 的連結）、git-status.md（連到 git clone）、index.md、overview.md（學習路線、S04 的簡報取捨、push 路線的待決事項）。另外新增分號寫作規則：CLAUDE.md 第 1 節與第 9 節、check.py 新增全形分號檢查（wiki 頁面、slides/outline.md、簡報內文、log.md 中 2026-11-22 19:13 之後的紀錄，程式碼除外）
+- 討論結果：repository 另外建一頁 repository.md，git-init.md 連過去。簡報的 commit 訊息一律用雙引號，理由是與 S02 的範例一致。push 到 GitHub 的路線記成待決事項，等 S06 後再決定。使用者新增寫作規則：wiki、簡報、log.md 的中文不使用全形分號，改用句號分成兩句或用逗號連接，raw、程式碼區塊與指令不適用
+- 檢查結果：寫入 S04 頁面後 check.py 通過。分號規則與 log.md「不可刪改舊紀錄」衝突，因此 log.md 的舊紀錄維持原樣，check.py 只檢查 2026-11-22 19:13 之後的紀錄。現有 wiki 頁面共 108 個分號（15 個舊頁面 107 個，加上新寫的 repository.md 連結文字 1 個），逐行決定改成句號、逗號或頓號後以程式替換，替換前核對每一行的數量，程式碼與行內程式碼不動。S01 的頁面標題原本用分號分隔兩節，改成頓號，所有連到 S01 的連結文字一併更新。逐行檢查時另外修正兩處：S02 摘要頁的連結仍指向 git-status.md 的時效註記（該區塊已在上一筆 fix 移到 default-branch.md），改連 default-branch.md。version-control.md 的相關頁面把 Git 寫成「最常見的」分散式版本控制系統，raw 沒有依據，改成「一種」。另用暫存資料測試分號檢查，正文、大綱、新紀錄、投影片內文都會報錯，行內程式碼、程式碼區塊、投影片的 pre 與舊紀錄不會。最後 check.py 通過，0 個錯誤、0 個警告
+- 待找資料：無

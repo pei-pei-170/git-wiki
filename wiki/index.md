@@ -9,9 +9,10 @@
 
 ## 資料摘要
 
-- [S01｜Pro Git 1.1 About Version Control；1.3 What is Git?](sources/S01-progit-version-control-and-what-is-git.md)：版本控制是什麼、三種版本控制系統，以及 Git 的特色與三種狀態。
+- [S01｜Pro Git 1.1 About Version Control、1.3 What is Git?](sources/S01-progit-version-control-and-what-is-git.md)：版本控制是什麼、三種版本控制系統，以及 Git 的特色與三種狀態。
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](sources/S02-progit-recording-changes.md)：用 `git status`、`git add`、`git commit` 記錄變更，以及 `.gitignore`、`git diff`、`git rm`、`git mv`。
 - [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](sources/S03-progit-first-time-git-setup.md)：第一次使用 Git 前的設定：身分、編輯器、預設分支名稱與檢查設定。
+- [S04｜Pro Git 2.1 Git Basics - Getting a Git Repository](sources/S04-progit-getting-a-git-repository.md)：取得 repository 的兩種方式：`git init` 與 `git clone`。
 
 ## 概念
 
@@ -19,9 +20,12 @@
 - [Git](concepts/git.md)：用快照記錄資料的分散式版本控制系統，大部分操作在本地，commit 後很難遺失。
 - [git config（Git 設定）](concepts/git-config.md)：設定的三個層級，以及第一次 commit 前要設定的名稱與 email。
 - [預設分支名稱（master 與 main）](concepts/default-branch.md)：Git 預設 master、GitHub 預設 main，以及簡報範例改編為 main 的決定。
-- [三種狀態與三個區域](concepts/three-states.md)：已修改、已暫存、已提交，對應工作目錄、暫存區、Git 目錄，以及已追蹤與未追蹤；是學 commit 的核心。
+- [Repository（儲存庫）](concepts/repository.md)：Git 用來記錄專案的地方，也就是專案資料夾中的 `.git` 子資料夾。
+- [git init（建立 repository）](concepts/git-init.md)：把既有的資料夾變成 repository，再 add、commit 完成第一次 commit。
+- [git clone（複製 repository）](concepts/git-clone.md)：複製一個現有的 repository，包含完整的歷史。
+- [三種狀態與三個區域](concepts/three-states.md)：已修改、已暫存、已提交，對應工作目錄、暫存區、Git 目錄，以及已追蹤與未追蹤，是學 commit 的核心。
 - [git status（查看檔案狀態）](concepts/git-status.md)：查看哪些檔案未追蹤、已修改或已暫存。
-- [git add（加入暫存區）](concepts/git-add.md)：開始追蹤新檔案、暫存修改；暫存的是 add 當下的版本。
+- [git add（加入暫存區）](concepts/git-add.md)：開始追蹤新檔案、暫存修改。暫存的是 add 當下的版本。
 - [Commit（提交）](concepts/commit.md)：把暫存區的快照記錄進歷史，用 `-m` 直接寫訊息。
 - [.gitignore（忽略檔案）](concepts/gitignore.md)：列出不想被 Git 追蹤的檔名規則。
 - [git diff（查看變更內容）](concepts/git-diff.md)：查看確切改了哪幾行，分成未暫存與已暫存。

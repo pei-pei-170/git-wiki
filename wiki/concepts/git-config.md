@@ -4,33 +4,33 @@
 
 ## 白話解釋
 
-裝好 Git 之後，要先做幾件事來自訂 Git 的環境；這些事在每台電腦上通常只要做一次，升級 Git 後設定也會保留，之後也可以隨時重新執行指令來修改。[S03]
+裝好 Git 之後，要先做幾件事來自訂 Git 的環境。這些事在每台電腦上通常只要做一次，升級 Git 後設定也會保留，之後也可以隨時重新執行指令來修改。[S03]
 
 ### 設定存在三個地方
 
 | 層級 | 設定檔位置 | 選項 | 影響範圍 |
 |---|---|---|---|
-| 系統 | `[path]/etc/gitconfig` | `--system` | 這台電腦的每個使用者與他們所有的 repository；修改需要管理員權限。[S03] |
+| 系統 | `[path]/etc/gitconfig` | `--system` | 這台電腦的每個使用者與他們所有的 repository，修改需要管理員權限。[S03] |
 | 個人 | `~/.gitconfig` 或 `~/.config/git/config` | `--global` | 你這個使用者在這台電腦上所有的 repository。[S03] |
-| 單一 repository | 該 repository 的 `.git/config` | `--local`（預設） | 只有這個 repository；必須在 repository 裡執行。[S03] |
+| 單一 repository | 該 repository 的 `.git/config` | `--local`（預設） | 只有這個 repository，必須在 repository 裡執行。[S03] |
 
 每個層級都會覆蓋前一個層級的值，所以 `.git/config` 中的值，優先於 `[path]/etc/gitconfig` 中的值。[S03] 在 Windows 上，Git 會在 `$HOME` 資料夾（大多數人是 `C:\Users\$USER`）尋找 `.gitconfig`。[S03]
 
 ### 身分：名稱與 email
 
-安裝 Git 後的第一件事，是設定你的使用者名稱與 email；這很重要，因為每個 Git commit 都會使用這些資訊，而且它們會永久寫進你之後建立的 commit 裡。[S03] 加上 `--global` 只需要設定一次，之後 Git 在這台電腦上都會使用這些資訊；如果某個專案想用不同的名稱或 email，就在該專案中執行同樣的指令，但不加 `--global`。[S03] 許多圖形介面工具在第一次執行時，也會協助你完成這個設定。[S03]
+安裝 Git 後的第一件事，是設定你的使用者名稱與 email，這很重要，因為每個 Git commit 都會使用這些資訊，而且它們會永久寫進你之後建立的 commit 裡。[S03] 加上 `--global` 只需要設定一次，之後 Git 在這台電腦上都會使用這些資訊。如果某個專案想用不同的名稱或 email，就在該專案中執行同樣的指令，但不加 `--global`。[S03] 許多圖形介面工具在第一次執行時，也會協助你完成這個設定。[S03]
 
 ### 編輯器
 
-Git 需要你輸入訊息時，會開啟預設的文字編輯器；如果沒有設定，Git 會使用系統預設的編輯器。[S03] 可以用 `core.editor` 改成其他編輯器；在 Windows 上，必須寫出編輯器執行檔的完整路徑。[S03] 原文提醒：如果沒有這樣設定好編輯器，Git 嘗試開啟它時，你可能會陷入非常混亂的狀態，例如在 Windows 上，Git 的操作在編輯途中提早中止。[S03]
+Git 需要你輸入訊息時，會開啟預設的文字編輯器，如果沒有設定，Git 會使用系統預設的編輯器。[S03] 可以用 `core.editor` 改成其他編輯器，在 Windows 上，必須寫出編輯器執行檔的完整路徑。[S03] 原文提醒：如果沒有這樣設定好編輯器，Git 嘗試開啟它時，你可能會陷入非常混亂的狀態，例如在 Windows 上，Git 的操作在編輯途中提早中止。[S03]
 
 ### 預設分支名稱
 
-用 `git init` 建立新 repository 時，Git 預設會建立名為 master 的分支；從 Git 2.28 起，可以用 `init.defaultBranch` 設定成其他名稱。[S03] 詳見 [預設分支名稱（master 與 main）](default-branch.md)。[S03]
+用 `git init` 建立新 repository 時，Git 預設會建立名為 master 的分支，從 Git 2.28 起，可以用 `init.defaultBranch` 設定成其他名稱。[S03] 詳見 [預設分支名稱（master 與 main）](default-branch.md)。[S03]
 
 ### 檢查設定
 
-`git config --list` 會列出 Git 目前找得到的所有設定。[S03] 你可能會看到同一個設定出現不只一次，因為 Git 從不同的檔案讀到了同一個設定；這時 Git 會使用每個設定最後讀到的值。[S03] 想查看某個設定的值，可以輸入 `git config <key>`；想知道某個值來自哪個設定檔，可以加上 `--show-origin`。[S03]
+`git config --list` 會列出 Git 目前找得到的所有設定。[S03] 你可能會看到同一個設定出現不只一次，因為 Git 從不同的檔案讀到了同一個設定，這時 Git 會使用每個設定最後讀到的值。[S03] 想查看某個設定的值，可以輸入 `git config <key>`。想知道某個值來自哪個設定檔，可以加上 `--show-origin`。[S03]
 
 ## 指令範例
 

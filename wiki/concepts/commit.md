@@ -1,6 +1,6 @@
 # Commit（提交）
 
-> Commit 是把你在暫存區準備好的快照記錄進專案歷史；每次 commit，都是記錄一份之後可以回復或拿來比較的專案快照。[S02]
+> Commit 是把你在暫存區準備好的快照記錄進專案歷史。每次 commit，都是記錄一份之後可以回復或拿來比較的專案快照。[S02]
 
 ## 白話解釋
 
@@ -12,9 +12,9 @@
 
 ### 寫 commit 訊息
 
-最簡單的 commit 方式是輸入 `git commit`，這會開啟你選擇的編輯器，通常是 vim 或 emacs，也可以用 `git config --global core.editor` 設定成其他編輯器。[S02] 編輯器中預設的 commit 訊息，包含被註解掉的最新 `git status` 輸出，以及最上方的一行空白；你可以刪掉這些註解、輸入自己的訊息，離開編輯器後，Git 就會用這個訊息建立 commit（註解會被去掉）。[S02]
+最簡單的 commit 方式是輸入 `git commit`，這會開啟你選擇的編輯器，通常是 vim 或 emacs，也可以用 `git config --global core.editor` 設定成其他編輯器。[S02] 編輯器中預設的 commit 訊息，包含被註解掉的最新 `git status` 輸出，以及最上方的一行空白。你可以刪掉這些註解、輸入自己的訊息，離開編輯器後，Git 就會用這個訊息建立 commit（註解會被去掉）。[S02]
 
-如果沒有設定編輯器，Git 會使用系統預設的編輯器；沒有設定好編輯器時，Git 開啟它可能會讓你陷入非常混亂的狀態。[S03]
+如果沒有設定編輯器，Git 會使用系統預設的編輯器。沒有設定好編輯器時，Git 開啟它可能會讓你陷入非常混亂的狀態。[S03]
 
 另一種方式是在 `-m` 後面直接寫 commit 訊息，這樣就不會開啟編輯器。[S02]
 
@@ -29,6 +29,8 @@
 ```console
 $ git commit
 ```
+
+在新建立的 repository 中做第一次 commit，流程是先 `git add` 再 `git commit`，見 [git init（建立 repository）](git-init.md)。[S04]
 
 在 `-m` 後面直接寫 commit 訊息：[S02]
 
@@ -51,8 +53,8 @@ $ git commit -a -m 'Add new benchmarks'
 
 ## 新手常見誤解
 
-- **以為 commit 會包含所有改過的檔案**：commit 只記錄暫存區的快照；改過但沒有執行 `git add` 的檔案，不會進入這次 commit。[S02]
-- **以為 `git add` 之後再改檔案，commit 會包含最新的版本**：commit 進去的是最後一次執行 `git add` 時的版本；之後的修改要再 add 一次。[S02]
+- **以為 commit 會包含所有改過的檔案**：commit 只記錄暫存區的快照，改過但沒有執行 `git add` 的檔案，不會進入這次 commit。[S02]
+- **以為 `git add` 之後再改檔案，commit 會包含最新的版本**：commit 進去的是最後一次執行 `git add` 時的版本，之後的修改要再 add 一次。[S02]
 - **用 `git commit -a` 省事，卻包進不想要的變更**：`-a` 會把所有已追蹤且有變更的檔案都暫存起來，很方便，但有時會把不想要的變更也包進 commit。[S02] 而且 `-a` 只會自動暫存「已經追蹤」的檔案。[S02]
 
 ## 時效註記
@@ -70,6 +72,7 @@ $ git commit -a -m 'Add new benchmarks'
 
 ## 來源
 
-- [S01｜Pro Git 1.1 About Version Control；1.3 What is Git?](../sources/S01-progit-version-control-and-what-is-git.md)
+- [S01｜Pro Git 1.1 About Version Control、1.3 What is Git?](../sources/S01-progit-version-control-and-what-is-git.md)
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](../sources/S02-progit-recording-changes.md)
 - [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](../sources/S03-progit-first-time-git-setup.md)
+- [S04｜Pro Git 2.1 Git Basics - Getting a Git Repository](../sources/S04-progit-getting-a-git-repository.md)
