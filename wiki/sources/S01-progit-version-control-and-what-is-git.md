@@ -1,7 +1,7 @@
 # S01｜Pro Git 1.1 About Version Control；1.3 What is Git?
 
 - 來源：[1.1 Getting Started - About Version Control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)、[1.3 Getting Started - What is Git?](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)（《Pro Git》第 2 版，Scott Chacon、Ben Straub 著，CC BY-NC-SA 3.0）
-- 年份：2014（第 2 版印刷版年份；線上版持續修訂，本次取得日期為 2026-11-22）
+- 年份：2014（第 2 版印刷版年份；線上版可能已修訂，見下方「與其他資料的衝突或過時之處」；本次取得日期為 2026-11-22）
 - 時效風險：中
 
 ## 重點
@@ -22,5 +22,5 @@
 ## 與其他資料的衝突或過時之處
 
 - 目前沒有其他資料可以比對。
-- 線上版會持續修訂，內容不一定等於 2014 年的印刷版；之後若有其他年份的資料，需要比對用語與說法。
+- S01 這兩節沒有寫出修訂年份；但同一本書的 S02、S03 線上版，都包含 2014 年之後才寫的內容 [S02, 2020] [S03]，所以 S01 的線上版內容也可能與 2014 年的印刷版不同。之後若有其他年份的資料，需要比對用語與說法。
 - 原文多處的 check out 是一般動詞「取出」，不是 Git 指令，說明見 [三種狀態與三個區域](../concepts/three-states.md) 的「新手常見誤解」。

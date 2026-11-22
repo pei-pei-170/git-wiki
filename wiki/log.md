@@ -31,3 +31,9 @@
 - 討論結果：頁面規劃照建議；年份標註的過時與現行兩行沿用 [S02, 2014]、[S02, 2020]，S03 只標 [S03]；簡報範例輸出改成 main 並註明改編自 S02、依 S03 設定，改編決定先寫進 default-branch.md、簡報再引用該頁，說明「Git 本身預設是 master」的投影片加 data-legacy；第 9 節的 master 規則照建議修正（S02 記錄的「規則寫得太簡化」已處理）；git checkout 規則原本的建議「切換分支請用 git switch」，因為不 ingest Git 2.23 部落格文章（S02 討論的資料規劃調整）而失去來源，建議文字等 S05 之後再改；寫入 wiki、修正規則、commit 之後接著做 lint
 - 檢查結果：check.py 第一次執行有 3 個錯誤、4 個警告：3 個錯誤是 index.md 尚未登記新頁面（當時還沒更新 index.md），4 個警告是 default-branch.md 中的專案決定段落沒有 [Sxx] 標註；決定段落加上「（S03 討論）」並修改 check.py、更新 index.md 後重跑，0 個錯誤、0 個警告
 - 待找資料：(1) GitHub 的 email 隱私設定（commit 會永久記錄 email，push 到 GitHub 後別人看得到），S07 之後視時間決定要不要補一篇；(2) 「Git 本身預設是 master」是否仍成立（S02、S03 都沒有寫年份更新的確認）；(3) git checkout 規則建議文字的新來源，待 S05
+
+## 2026-11-22 18:42｜lint｜S01–S03
+- 做了什麼：依第 8 節檢查 S01～S03 的 16 個 wiki 頁面。check.py 自動檢查（孤立頁面、斷掉的連結、來源標註、index 登記、raw 未被修改）全部通過；另以人工檢查用語、頁面之間的矛盾、事實陳述是否有 raw 依據，以及過時資訊的標註。修正 3 處：(1) S01 摘要頁原本寫「線上版會持續修訂」，S01 原文沒有這個說法，屬於寫入時的推論，改為引用 S02、S03 線上版含 2014 年之後內容的證據 [S02, 2020] [S03]；(2) commit.md、git-status.md、default-branch.md 三處「過時／現行做法」區塊的用字統一；(3) 補上 3 組只有單向的相關頁面連結（git.md → commit.md、three-states.md → git-diff.md、git-status.md → gitignore.md）
+- 討論結果：無（lint 結果中需要判斷的項目已列出，等使用者回覆）：(1) 「過時／現行做法」區塊在 commit.md、git-status.md、default-branch.md 重複出現三次，之後修改容易漏改，是否只保留在 default-branch.md、其他兩頁改成連結；(2) CLAUDE.md 第 4-3 節的範例引用 [S03, 2014]（git checkout）與 [S06, 2019]（git switch），但實際的 S03 是 1.6 First-Time Git Setup，S06 規劃為 2.5 Working with Remotes，而且不教分支，範例容易誤導，是否改寫
+- 檢查結果：用語掃描未發現非台灣用語，「工作目錄」譯名一致；頁面之間沒有互相矛盾的說法；抽查 16 個事實陳述，都能在標註的 raw 中找到對應原文；master 已依第 4-3 節標註；SHA-1、RCS 等有時效性的說法已寫在時效註記；S02 範例輸出中的 git reset HEAD、git checkout -- 因為還沒有現行做法的來源，未使用第 4-3 節格式，已註明待 S05 確認。修正後 check.py 通過，0 個錯誤、0 個警告
+- 待找資料：彙整目前仍待處理的項目：(1) push 到 GitHub 的指令（S01 待找資料第 1 項，status、add、commit 已由 S02 補上），待 S06；(2) 現行 Git 的雜湊演算法是否仍只有 SHA-1（S01），目前沒有規劃來源；(3) 取消暫存與放棄修改的現行寫法（S02），待 S05；(4) 「Git 本身預設是 master」是否仍成立（S02、S03），目前沒有規劃來源；(5) git checkout 規則建議文字的新來源（S03），待 S05；(6) GitHub 的 email 隱私設定（S03），S07 之後視時間決定

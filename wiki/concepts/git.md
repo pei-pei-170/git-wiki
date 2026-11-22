@@ -50,6 +50,7 @@ S01 只示範了 SHA-1 雜湊值的樣子，沒有提供 Git 指令：[S01]
 
 - [版本控制（Version Control）](version-control.md)：Git 屬於其中的分散式版本控制系統
 - [三種狀態與三個區域](three-states.md)：Git 管理檔案的核心觀念，commit 就是把暫存區的內容做成快照
+- [Commit（提交）](commit.md)：每次 commit 都是記錄一份專案快照
 
 ## 來源
 

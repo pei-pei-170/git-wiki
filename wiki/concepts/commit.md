@@ -57,7 +57,7 @@ $ git commit -a -m 'Add new benchmarks'
 
 ## 時效註記
 
-> ⚠️ 過時：原文範例輸出中的分支名稱是 `master` [S02, 2014]。
+> ⚠️ 過時：《Pro Git》範例輸出中的分支名稱是 `master` [S02, 2014]。
 > 現行做法：GitHub 在 2020 年中把預設分支名稱從 `master` 改成 `main`，其他 Git 平台也跟進；但 Git 本身仍以 `master` 為預設，而且預設分支名稱可以修改 [S02, 2020]。從 Git 2.28 起，可以用 `init.defaultBranch` 設定新 repository 的初始分支名稱 [S03]。
 
 - 簡報如何處理範例輸出中的 master，見 [預設分支名稱（master 與 main）](default-branch.md)。[S02] [S03]

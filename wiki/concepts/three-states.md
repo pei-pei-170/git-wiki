@@ -80,6 +80,7 @@ Changes to be committed:
 - [git status（查看檔案狀態）](git-status.md)：查看檔案目前處於哪種狀態
 - [git add（加入暫存區）](git-add.md)：已修改 → 已暫存
 - [Commit（提交）](commit.md)：已暫存 → 已提交
+- [git diff（查看變更內容）](git-diff.md)：比較工作目錄、暫存區與上一次 commit 之間的差異
 
 ## 來源
 
