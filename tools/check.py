@@ -473,9 +473,11 @@ def check_citations_and_legacy(pages: list[Path], raws: dict[str, dict[str, str]
                     if sid not in raws:
                         R.error(rel(path, i), f"來源標註 [{sid}] 在 raw/ 中不存在")
                         continue
+                    # 線上版修訂的內容可能晚於 published（例如 Pro Git 線上版的 2020 年 Note），
+                    # 所以只有「年份早於 published」才可疑（CLAUDE.md 第 4-3 節）
                     pub = raws[sid].get("published", "")
-                    if year and re.fullmatch(r"\d{4}", pub) and year != pub:
-                        R.warn(rel(path, i), f"[{sid}, {year}] 的年份與 raw 的 published（{pub}）不同")
+                    if year and re.fullmatch(r"\d{4}", pub) and int(year) < int(pub):
+                        R.warn(rel(path, i), f"[{sid}, {year}] 的年份早於 raw 的 published（{pub}）")
             for bad in lookalike_citations(line):
                 R.warn(rel(path, i), f"疑似來源標註格式錯誤：{bad}（應為 [S02] 或 [S03, 2014]）")
             # 第 4-3 節：過時資訊必須同時保留新舊說法並標註年份

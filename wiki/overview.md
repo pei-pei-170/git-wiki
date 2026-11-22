@@ -6,7 +6,12 @@
 
 1. [版本控制（Version Control）](concepts/version-control.md)：先理解為什麼需要版本控制。很多人用「把檔案複製到加上日期的資料夾」來管理版本，但這很容易出錯；版本控制可以回到先前的版本、比較變化、查出是誰改的、救回遺失的檔案。[S01] 接著認識集中式與分散式的差別：集中式的伺服器是單點故障，分散式的每一份 clone 都是完整備份。[S01]
 2. [Git](concepts/git.md)：Git 是分散式版本控制系統，用快照記錄專案；大部分操作都在本地，離線也能 commit；commit 之後的資料很難遺失。[S01]
-3. [三種狀態與三個區域](concepts/three-states.md)：檔案會在已修改、已暫存、已提交三種狀態間移動，對應工作目錄、暫存區、Git 目錄；基本流程是「修改 → 暫存 → commit」。[S01] 這是之後學 commit 指令的核心。
+3. [三種狀態與三個區域](concepts/three-states.md)：檔案先分成已追蹤與未追蹤；已追蹤的檔案會在已修改、已暫存、已提交之間循環，對應工作目錄、暫存區、Git 目錄。[S01] [S02] 這是之後學 commit 指令的核心。
+4. [git status（查看檔案狀態）](concepts/git-status.md)：隨時用它確認每個檔案處於哪種狀態。[S02]
+5. [git add（加入暫存區）](concepts/git-add.md)：開始追蹤新檔案、暫存修改；暫存的是 add 當下的版本，之後再改就要再 add。[S02]
+6. [Commit（提交）](concepts/commit.md)：把暫存區的快照記錄進歷史，用 `-m` 直接寫 commit 訊息。[S02]
+7. [.gitignore（忽略檔案）](concepts/gitignore.md)：開始專案前就設定好，避免不小心 commit 自動產生的檔案。[S02]
+8. [git diff（查看變更內容）](concepts/git-diff.md)：想知道確切改了哪幾行時使用（只留在 wiki，不放進簡報）。[S02]
 
 ## 簡報範圍決定
 
@@ -16,7 +21,18 @@
 - 版本控制的類型：只用一句話對比集中式與分散式，本地版本控制不放（S01 討論）。
 - 不放進簡報：SHA-1 雜湊、暫存區的技術名稱 index、RCS（S01 討論）。
 - 原文的 check out 是一般動詞「取出」，簡報中要避免讓新手和指令混淆（S01 討論）。
+- commit 一律教 `git commit -m`，強調用 `-m` 可以避免卡在編輯器（S02 討論）。
+- `git commit -a` 放在「常見錯誤」：它可能把不想要的變更也包進 commit（S02 討論）。
+- `git diff` 留在 wiki，不放進簡報（S02 討論）。
+- 不放進簡報：`git status -s` 精簡格式、`.gitignore` 萬用字元細節與子資料夾規則、`git diff --staged`、`--cached` 與 `difftool`、編輯器設定與 `commit -v`、`git rm`、`git mv`（S02 討論）。
+- **待決事項**：範例輸出中的分支名稱 `master` 在簡報中怎麼處理（改成 `main` 並註明依據，或加上 `data-legacy`），等 ingest S03（1.6 First-Time Git Setup）之後再決定（S02 討論）。
 
 ## 尚未涵蓋的主題
 
-- 修改、暫存、commit 的實際指令，以及 push 到 GitHub 的流程：目前的資料沒有指令範例，待之後 ingest。找不到來源的主題記在 [操作紀錄](log.md) 各筆的「待找資料」。
+教學目標是 commit 與 push，不教分支。依序待 ingest 的資料如下，找不到來源的主題記在 [操作紀錄](log.md) 各筆的「待找資料」：
+
+- S03：Pro Git 1.6 First-Time Git Setup（設定使用者名稱、email 與預設分支名稱）
+- S04：Pro Git 2.1 Getting a Git Repository（`git init`、`git clone`）
+- S05：Pro Git 2.4 Undoing Things（復原操作、取消暫存的現行寫法）
+- S06：Pro Git 2.5 Working with Remotes（push 到遠端）
+- S07：GitHub Docs personal access tokens（推送到 GitHub 時的身分驗證）

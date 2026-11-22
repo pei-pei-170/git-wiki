@@ -32,10 +32,29 @@ class Conv(HTMLParser):
         self.pending_li = None
         self.links = []
         self.pre = None
+        self.pre_lang = ""
         self.divs = []
+        self.admon = 0        # 目前在幾層 Note / Tip 等提示框裡
+        self.admon_id = 0     # 提示框編號，同一個提示框的區塊要接在同一個引用區塊中
         self.plain = []  # 正文純文字，用來核對轉換前後字數
 
     # ---- block helpers ----
+    def emit(self, md, kind):
+        """輸出一個區塊；在提示框裡的區塊轉成 markdown 引用（> ）。"""
+        aid = self.admon_id if self.admon else None
+        if aid:
+            md = "\n".join("> " + l if l else ">" for l in md.split("\n"))
+        self.blocks.append((md, aid, kind))
+
+    def markdown(self):
+        out, prev = [], None
+        for md, aid, _ in self.blocks:
+            if out:
+                out.append("\n>\n" if aid and aid == prev else "\n\n")
+            out.append(md)
+            prev = aid
+        return "".join(out)
+
     def start_block(self, kind):
         self.flush()
         self.buf, self.kind = [], kind
@@ -54,11 +73,13 @@ class Conv(HTMLParser):
             if self.kind in ("h1", "h2", "h3"):
                 md = "#" * int(self.kind[1]) + " " + " ".join(lines)
             elif self.kind == "caption":
-                md = "*" + " ".join(lines) + "*"
+                # 提示框的標題（Note、Tip 等）用粗體，圖片說明用斜體
+                mark = "**" if self.admon else "*"
+                md = mark + " ".join(lines) + mark
             else:
                 pad = " " * len(self.prefix)
                 md = self.prefix + ("\n" + pad).join(lines)
-            self.blocks.append(md)
+            self.emit(md, self.kind)
         self.buf, self.kind, self.prefix = None, None, ""
 
     # ---- parser events ----
@@ -76,7 +97,11 @@ class Conv(HTMLParser):
         if tag == "div":
             cls = (a.get("class") or "").split()
             self.divs.append(cls)
-            if "title" in cls:
+            if "admonitionblock" in cls:
+                self.flush()
+                self.admon += 1
+                self.admon_id += 1
+            elif "title" in cls:
                 self.start_block("caption")
         elif tag in ("h1", "h2", "h3", "h4"):
             self.start_block("h" + str(min(int(tag[1]), 3)))
@@ -93,18 +118,24 @@ class Conv(HTMLParser):
         elif tag == "pre":
             self.flush()
             self.pre = []
-        elif tag == "code" and self.pre is None:
+            self.pre_lang = ""
+        elif tag == "code" and self.pre is not None:
+            lang = [c for c in (a.get("class") or "").split() if c.startswith("language-")]
+            self.pre_lang = lang[0][len("language-"):] if lang else ""
+        elif self.pre is not None:
+            return  # 程式碼區塊裡的其他標籤只保留文字
+        elif tag == "code":
             self._inline("`")
         elif tag == "em":
             self._inline("*")
         elif tag == "strong":
             self._inline("**")
-        elif tag == "a" and self.pre is None:
+        elif tag == "a":
             self._inline("[")
             self.links.append(urljoin(self.base, a.get("href", "")))
         elif tag == "img":
             self.flush()
-            self.blocks.append(f"![{a.get('alt', '')}]({urljoin(self.base, a.get('src', ''))})")
+            self.emit(f"![{a.get('alt', '')}]({urljoin(self.base, a.get('src', ''))})", "img")
         elif tag == "br" and self.buf is not None:
             self.buf.append("\n")
 
@@ -117,8 +148,12 @@ class Conv(HTMLParser):
         if not self.on or self.done:
             return
         if tag == "div" and self.divs:
-            if "title" in self.divs.pop():
+            cls = self.divs.pop()
+            if "title" in cls:
                 self.flush()
+            elif "admonitionblock" in cls:
+                self.flush()
+                self.admon -= 1
         elif tag in ("h1", "h2", "h3", "h4", "p"):
             self.flush()
         elif tag in ("ul", "ol"):
@@ -128,15 +163,17 @@ class Conv(HTMLParser):
             self.flush()
             self.pending_li = None
         elif tag == "pre":
-            self.blocks.append("```\n" + "".join(self.pre).strip("\n") + "\n```")
+            self.emit(f"```{self.pre_lang}\n" + "".join(self.pre).strip("\n") + "\n```", "code")
             self.pre = None
-        elif tag == "code" and self.pre is None:
+        elif self.pre is not None:
+            return
+        elif tag == "code":
             self._inline("`")
         elif tag == "em":
             self._inline("*")
         elif tag == "strong":
             self._inline("**")
-        elif tag == "a" and self.pre is None and self.links:
+        elif tag == "a" and self.links:
             self.buf.append(f"]({self.links.pop()})")
 
     def handle_data(self, data):
@@ -157,9 +194,14 @@ WORD = re.compile(r"[A-Za-z0-9]+(?:['’\-][A-Za-z0-9]+)*")
 
 
 def md_words(md):
-    md = re.sub(r"!\[([^\]]*)\]\([^)]*\)", "", md)      # 圖片 alt 是屬性，HTML 正文不含，不算
-    md = re.sub(r"\]\([^)]*\)", "]", md)                # 連結只算文字
-    md = re.sub(r"(?m)^\d+\. ", "", md)                 # 編號清單的數字是 markdown 加上的，不算
+    # 圖片與連結的網址只在程式碼區塊外處理；程式碼區塊裡的 [x](y) 是原文文字，要照算
+    parts = re.split(r"(?m)(^(?:> )?```\w*\n.*?^(?:> )?```$)", md, flags=re.S)
+    for i in range(0, len(parts), 2):
+        parts[i] = re.sub(r"!\[([^\]]*)\]\([^)]*\)", "", parts[i])  # 圖片 alt 是屬性，HTML 正文不含，不算
+        parts[i] = re.sub(r"\]\([^)]*\)", "]", parts[i])            # 連結只算文字
+        parts[i] = re.sub(r"(?m)^(> )?\d+\. ", "", parts[i])        # 編號清單的數字是 markdown 加上的，不算
+    md = "".join(parts)
+    md = re.sub(r"(?m)^(> )?```\w*$", "", md)           # 程式碼區塊的語言標記是 markdown 加上的，不算
     md = re.sub(r"(?s)\A---\n.*?\n---\n", "", md)
     return len(WORD.findall(md))
 
@@ -178,8 +220,8 @@ def main():
         c.close()
         if not c.done:
             sys.exit(f"{path}: 找不到正文結尾 <div id=\"nav\">")
-        md = "\n\n".join(c.blocks)
-        body_paras = [b for b in c.blocks if not b.startswith(("#", "![", "*Figure", "```"))]
+        md = c.markdown()
+        body_paras = [b for b, _, kind in c.blocks if kind == "p"]
         report.append({
             "url": url,
             "html_words": len(WORD.findall(" ".join(c.plain))),

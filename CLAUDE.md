@@ -111,6 +111,8 @@ retrieved: YYYY-MM-DD
 > 現行做法：Git 2.23 起新增 `git switch` 專門用來切換分支 [S06, 2019]。
 ```
 
+年份標註原文陳述該說法的年份。線上版的內容可能在出版後修訂（例如《Pro Git》線上版加入了 2020 年的說明），這時可以標註文中寫明的年份，但不可早於 raw 的 `published`。
+
 簡報一律教現行做法，必要時再補充舊寫法。
 
 ### 4-4. `wiki/index.md` 與 `wiki/overview.md`
