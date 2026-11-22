@@ -14,6 +14,7 @@
 - [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](sources/S03-progit-first-time-git-setup.md)：第一次使用 Git 前的設定：身分、編輯器、預設分支名稱與檢查設定。
 - [S04｜Pro Git 2.1 Git Basics - Getting a Git Repository](sources/S04-progit-getting-a-git-repository.md)：取得 repository 的兩種方式：`git init` 與 `git clone`。
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](sources/S05-progit-undoing-things.md)：復原操作：`git commit --amend`，以及 Git 2.23.0 前後兩種取消暫存與放棄修改的寫法。
+- [S06｜Pro Git 2.5 Git Basics - Working with Remotes](sources/S06-progit-working-with-remotes.md)：遠端 repository：`git remote`、`git push`，以及 fetch、pull 與遠端的管理。
 
 ## 概念
 
@@ -29,5 +30,7 @@
 - [git add（加入暫存區）](concepts/git-add.md)：開始追蹤新檔案、暫存修改。暫存的是 add 當下的版本。
 - [Commit（提交）](concepts/commit.md)：把暫存區的快照記錄進歷史，用 `-m` 直接寫訊息，用 `--amend` 修正還沒 push 的上一個 commit。
 - [git restore（復原檔案）](concepts/git-restore.md)：取消暫存與放棄修改，Git 2.23.0 起取代舊的 `git reset HEAD`、`git checkout --`。
+- [Remote（遠端 repository）](concepts/remote.md)：放在網際網路或某個網路上的專案版本，clone 時預設名稱為 origin。
+- [git push（推送到遠端）](concepts/git-push.md)：把 commit 推送到遠端，需要寫入權限，而且沒有別人先 push。
 - [.gitignore（忽略檔案）](concepts/gitignore.md)：列出不想被 Git 追蹤的檔名規則。
 - [git diff（查看變更內容）](concepts/git-diff.md)：查看確切改了哪幾行，分成未暫存與已暫存。

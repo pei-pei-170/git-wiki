@@ -67,3 +67,9 @@
 - 討論結果：使用者要求對照表放在 checks/，不放在 wiki/ 裡，核對程式整理成可重複使用的工具，之後每次 ingest 都產生 checks/Sxx-quotes.md 並驗證。資料清單調整：S06 照原本的 Pro Git 2.5 Working with Remotes。S07 改成 GitHub Docs〈Adding locally hosted code to GitHub〉，原因是目前沒有資料說明如何在 GitHub 建立 repository 並推上去。personal access token 改成 S08。GitHub email 隱私是否補一篇，改為 S08 之後再決定。--amend 和編輯器的矛盾等規劃大綱時再決定
 - 檢查結果：verify_quotes.py 驗證 checks/S05-quotes.md 通過。check.py 通過，0 個錯誤、0 個警告
 - 待找資料：無
+
+## 2026-11-22 20:03｜ingest｜S06
+- 做了什麼：用 curl 下載 Pro Git 2.5 Working with Remotes，以 tools/html2md.py 轉成 raw/S06-progit-working-with-remotes.md（HTML 正文與 markdown 皆為 1729 字，html2md.py 不需修改）。新增 sources/S06-progit-working-with-remotes.md（含 fetch、pull 與 git remote show、rename、remove 的補充）、concepts/remote.md、concepts/git-push.md。更新 git-clone.md（clone 會自動加上 origin 並設定追蹤）、commit.md（amend 連到 git push）、default-branch.md（改編範圍擴大成範例指令與輸出、S06 的佐證、S07 的待補依據）、index.md、overview.md（學習路線、S06 的簡報取捨、push 路線延到 S07 後決定）。產生 checks/S06-quotes.md
+- 討論結果：fetch 和 pull 只寫在摘要頁，不建概念頁，比照 git rm、git mv。default-branch.md 的改編範圍擴大成「範例指令與輸出」，S07 的文件本身用 git push origin main，ingest S07 後補上作為直接依據。push 被拒絕時，簡報只用一句話說明需要先取得別人的更新，不教合併。push 路線延到 S07 之後決定
+- 檢查結果：依第 5 節第 4 步逐句核對 60 句，以 tools/verify_quotes.py 驗證 checks/S06-quotes.md，60 句都找到原句，刪改 0 句。另外，ingest 討論時曾說「S06 說 clone 會自動加上 origin，和 S04 一致」，但 S04 沒有提到 origin，寫入摘要頁時已改寫成「S06 補充了 S04 沒有提到的部分」，沒有寫進 wiki。check.py 通過，0 個錯誤、0 個警告
+- 待找資料：push 到 GitHub 時的身分驗證（S06 沒有說明），待 S08

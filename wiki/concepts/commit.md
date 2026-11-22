@@ -28,7 +28,7 @@
 
 最後只會有一個 commit，第二次 commit 會取代第一次的結果。[S05] 要特別了解，amend 不是修正上一個 commit，而是用一個新的 commit 把它完全取代，就像上一個 commit 從來沒發生過，也不會出現在 repository 的歷史中。[S05] 它的好處是可以小幅改進最後一個 commit，不必在歷史中留下「Oops, forgot to add a file」這類的 commit 訊息。[S05]
 
-**只能 amend 還在本地、還沒 push 到任何地方的 commit。** 已經 push 過的 commit 再 amend 並強制推送，會造成協作者的問題。[S05]
+**只能 amend 還在本地、還沒 push 到任何地方的 commit。** 已經 push 過的 commit 再 amend 並強制推送，會造成協作者的問題。[S05] push 的說明見 [git push（推送到遠端）](git-push.md)。[S06]
 
 ## 指令範例
 
@@ -88,6 +88,7 @@ $ git commit --amend
 - [git restore（復原檔案）](git-restore.md)：復原還沒 commit 的變更
 - [git status（查看檔案狀態）](git-status.md)：commit 前確認哪些變更已經暫存
 - [Git](git.md)：commit 記錄的是快照，以及 SHA-1 檢查碼
+- [git push（推送到遠端）](git-push.md)：commit 之後，用 push 分享到遠端
 
 ## 來源
 
@@ -96,3 +97,4 @@ $ git commit --amend
 - [S03｜Pro Git 1.6 Getting Started - First-Time Git Setup](../sources/S03-progit-first-time-git-setup.md)
 - [S04｜Pro Git 2.1 Git Basics - Getting a Git Repository](../sources/S04-progit-getting-a-git-repository.md)
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)
+- [S06｜Pro Git 2.5 Git Basics - Working with Remotes](../sources/S06-progit-working-with-remotes.md)

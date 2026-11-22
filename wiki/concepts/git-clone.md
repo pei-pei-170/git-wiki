@@ -15,6 +15,8 @@
 
 進入這個新資料夾，就會看到專案的檔案，可以開始修改或使用。[S04] clone 下來的檔案全部都是已追蹤且未修改的狀態，因為 Git 才剛把它們取出來，你還沒編輯任何東西。[S02]
 
+clone 時，Git 會自動把來源 repository 加成名為 origin 的遠端，見 [Remote（遠端 repository）](remote.md)。[S06] 預設上，`git clone` 也會自動讓本地的 master 分支，追蹤 clone 來源伺服器上的遠端 master 分支（或不論預設分支叫什麼名字）。[S06]
+
 如果想用不同的資料夾名稱，可以在網址後面再加上資料夾名稱。[S04]
 
 Git 有好幾種傳輸協定可以用。上面的例子用的是 `https://`，你也可能看到 `git://`，或是使用 SSH 傳輸協定的 `user@server:path/to/repo.git`。[S04]
@@ -48,8 +50,10 @@ $ git clone https://github.com/libgit2/libgit2 mylibgit
 - [git init（建立 repository）](git-init.md)：取得 repository 的另一種方式
 - [版本控制（Version Control）](version-control.md)：分散式版本控制中，每份 clone 都是完整備份
 - [git status（查看檔案狀態）](git-status.md)：剛 clone 完執行 `git status` 的樣子
+- [Remote（遠端 repository）](remote.md)：clone 會自動加上名為 origin 的遠端
 
 ## 來源
 
 - [S02｜Pro Git 2.2 Git Basics - Recording Changes to the Repository](../sources/S02-progit-recording-changes.md)
 - [S04｜Pro Git 2.1 Git Basics - Getting a Git Repository](../sources/S04-progit-getting-a-git-repository.md)
+- [S06｜Pro Git 2.5 Git Basics - Working with Remotes](../sources/S06-progit-working-with-remotes.md)
