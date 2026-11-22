@@ -37,3 +37,9 @@
 - 討論結果：無（lint 結果中需要判斷的項目已列出，等使用者回覆）：(1) 「過時／現行做法」區塊在 commit.md、git-status.md、default-branch.md 重複出現三次，之後修改容易漏改，是否只保留在 default-branch.md、其他兩頁改成連結；(2) CLAUDE.md 第 4-3 節的範例引用 [S03, 2014]（git checkout）與 [S06, 2019]（git switch），但實際的 S03 是 1.6 First-Time Git Setup，S06 規劃為 2.5 Working with Remotes，而且不教分支，範例容易誤導，是否改寫
 - 檢查結果：用語掃描未發現非台灣用語，「工作目錄」譯名一致；頁面之間沒有互相矛盾的說法；抽查 16 個事實陳述，都能在標註的 raw 中找到對應原文；master 已依第 4-3 節標註；SHA-1、RCS 等有時效性的說法已寫在時效註記；S02 範例輸出中的 git reset HEAD、git checkout -- 因為還沒有現行做法的來源，未使用第 4-3 節格式，已註明待 S05 確認。修正後 check.py 通過，0 個錯誤、0 個警告
 - 待找資料：彙整目前仍待處理的項目：(1) push 到 GitHub 的指令（S01 待找資料第 1 項，status、add、commit 已由 S02 補上），待 S06；(2) 現行 Git 的雜湊演算法是否仍只有 SHA-1（S01），目前沒有規劃來源；(3) 取消暫存與放棄修改的現行寫法（S02），待 S05；(4) 「Git 本身預設是 master」是否仍成立（S02、S03），目前沒有規劃來源；(5) git checkout 規則建議文字的新來源（S03），待 S05；(6) GitHub 的 email 隱私設定（S03），S07 之後視時間決定
+
+## 2026-11-22 18:46｜fix｜lint 後續修正
+- 做了什麼：「過時／現行做法」區塊只保留在 concepts/default-branch.md，commit.md 與 git-status.md 改成一行連結；CLAUDE.md 第 4-3 節的範例改用本專案實際的 master 與 main 例子，並補充「同一組過時／現行做法只寫在一個概念頁」；default-branch.md 與 overview.md 記錄「Git 本身預設是 master」在簡報中的寫法；CLAUDE.md 第 4-2 節與 check.py 的決定標註擴充為「（Sxx 討論）」或「（lint 討論）」
+- 討論結果：使用者同意 lint 提出的兩項修改；「（S03 討論）」標註規則保留；兩項沒有規劃來源的待找資料（SHA-1 的現況、Git 本身預設是否仍為 master）不另外找來源，簡報如果要提到 Git 預設是 master，寫成「依 Pro Git 線上版，2026-11-22 擷取」
+- 檢查結果：check.py 通過，0 個錯誤、0 個警告
+- 待找資料：無（lint 彙整的第 2、4 項依使用者決定不再尋找）

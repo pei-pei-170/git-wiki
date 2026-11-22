@@ -29,6 +29,7 @@
 - 不放進簡報：`git status -s` 精簡格式、`.gitignore` 萬用字元細節與子資料夾規則、`git diff --staged`、`--cached` 與 `difftool`、編輯器設定與 `commit -v`、`git rm`、`git mv`（S02 討論）。
 - ~~**待決事項**：範例輸出中的分支名稱 `master` 在簡報中怎麼處理，等 ingest S03 之後再決定（S02 討論）。~~ 已於 S03 決定，見下一點。
 - 範例輸出中的分支名稱改成 `main`，並註明「輸出改編自 S02，分支名稱依 S03 的設定改為 main」；改編的依據、原因與範圍寫在 [預設分支名稱（master 與 main）](concepts/default-branch.md)，簡報引用該頁。說明「Git 本身預設是 master」的投影片加上 `data-legacy`（S03 討論）。
+- 簡報如果要提到「Git 本身預設是 master」，寫成「依 Pro Git 線上版，2026-11-22 擷取」；這個說法與 SHA-1 的現況都不另外找來源（lint 討論）。
 - 放進簡報：第一次使用前設定 `user.name` 與 `user.email`，並強調 commit 會永久記錄這兩項；`git config --global init.defaultBranch main`；用 `git config --list` 或 `git config user.name` 確認設定（S03 討論）。
 - 編輯器只用一句話帶過：沒設定時會開啟系統預設的編輯器，所以簡報一律用 `-m`（S03 討論）。
 - 不放進簡報：設定的三個層級細節（含 `--system` 與各系統的設定檔路徑）、`core.editor` 的設定（含 Notepad++ 路徑寫法）、`--show-origin`、重複的設定值；「在特定專案使用不同 email」頂多一句話帶過（S03 討論）。

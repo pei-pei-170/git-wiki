@@ -19,6 +19,7 @@
 - **改編範圍**：只把範例輸出中的分支名稱 master 改成 main（例如 `On branch master` 改成 `On branch main`、`'origin/master'` 改成 `'origin/main'`、`[master 463dc4f]` 改成 `[main 463dc4f]`），其他內容照原文。（S03 討論）
 - **前提**：`init.defaultBranch` 要 Git 2.28 以上的版本才能使用。[S03]
 - **例外**：說明「Git 本身預設是 master」的投影片，要加上 `data-legacy` 屬性。（S03 討論）
+- **時效的寫法**：「Git 本身預設是 master」沒有更新的資料可以確認，也不另外找來源；簡報如果要提到這一點，要寫成「依 Pro Git 線上版，2026-11-22 擷取」。（lint 討論）
 
 ## 指令範例
 
@@ -38,7 +39,8 @@ $ git config --global init.defaultBranch main
 > ⚠️ 過時：《Pro Git》範例輸出中的分支名稱是 `master` [S02, 2014]。
 > 現行做法：GitHub 在 2020 年中把預設分支名稱從 `master` 改成 `main`，其他 Git 平台也跟進；但 Git 本身仍以 `master` 為預設，而且預設分支名稱可以修改 [S02, 2020]。從 Git 2.28 起，可以用 `init.defaultBranch` 設定新 repository 的初始分支名稱 [S03]。
 
-- 「Git 本身預設是 master」這個說法有時效性，目前沒有更新的資料可以確認。[S02] [S03]
+- 「Git 本身預設是 master」這個說法有時效性，目前沒有更新的資料可以確認；本專案不另外找來源，簡報的寫法見上方「時效的寫法」。[S02] [S03]
+- 其他頁面範例輸出中的 master，都用一行連結指到這裡，這組過時／現行做法只寫在本頁。（lint 討論）
 
 ## 相關頁面
 
