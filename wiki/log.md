@@ -13,3 +13,9 @@
 - 討論結果：使用者決定新增 setup 類型、curl 規則、git init 與 raw 修改檢查，檢查通過後 commit
 - 檢查結果：check.py 通過（以這次 commit 的內容檢查）；raw 修改檢查另用暫存 repository 測試「未 commit 的修改」「已 commit 的修改」「刪除」三種情況，皆回報錯誤
 - 待找資料：無
+
+## 2026-11-22 17:46｜ingest｜S01
+- 做了什麼：用 curl 下載 Pro Git 1.1 About Version Control 與 1.3 What is Git?，以 tools/html2md.py 轉成 raw/S01-progit-version-control-and-what-is-git.md（1.1 有 806 字、1.3 有 1373 字，轉換前 HTML 正文與轉換後 markdown 字數一致）；新增 sources/S01-progit-version-control-and-what-is-git.md、concepts/version-control.md、concepts/git.md、concepts/three-states.md；更新 index.md、overview.md（含「簡報範圍決定」）
+- 討論結果：三個概念頁照規劃建立，three-states.md 寫得最完整；三種版本控制類型在概念頁保留，簡報只用一句話對比集中式與分散式，本地版本控制不放；「複製資料夾加上日期」的痛點當簡報開場；SHA-1、index、RCS 不放進簡報；commit.md 等 S02 再建立；原文的 check out 是一般動詞，記在 three-states.md 的「新手常見誤解」
+- 檢查結果：轉檔程式第一次執行時，因終端機 cp950 編碼無法輸出 U+2009 字元而中斷（markdown 檔已完整寫出），修正輸出編碼後重跑，結果與第一次相同。check.py 第一次執行通過但有 9 個警告，全是 ### 小標題被誤判為「未標註來源的段落」，屬於 check.py 的錯誤；修正 check.py（小標題視為段落分隔）後重跑，0 個錯誤、0 個警告
+- 待找資料：(1) 修改、暫存、commit 與 push 到 GitHub 的實際指令（S01 沒有任何指令範例）；(2) 現行 Git 使用的雜湊演算法是否仍只有 SHA-1（S01 為 2014 年的描述）；(3) git checkout 與 git switch 的說明，用來在簡報中區分一般動詞 check out 與指令
