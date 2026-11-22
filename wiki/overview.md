@@ -19,7 +19,7 @@
 11. [Remote（遠端 repository）](concepts/remote.md)：放在網際網路或某個網路上的專案版本，clone 下來的 repository 會有名為 origin 的遠端，也可以用 `git remote add` 新增。[S06]
 12. [git push（推送到遠端）](concepts/git-push.md)：commit 只記錄在本地，要用 `git push <remote> <branch>` 推送到遠端。沒有寫入權限，或別人先 push 了，push 就會被拒絕。[S01] [S06]
 13. [把本地 repository 推上 GitHub](concepts/push-to-github.md)：把前面的步驟串起來，在本地 init、add、commit，在 GitHub 建立 repository，再用 `git remote add origin` 與 `git push origin main` 推上去。用 Git 推送到 GitHub 之前，必須先完成身分驗證。[S07]
-14. [Personal access token（個人存取權杖）](concepts/personal-access-token.md)：在 GitHub 建立 fine-grained token，只給最小的權限並設定有效期限。push 時出現密碼提示就輸入 token，token 要像密碼一樣保管。[S08]
+14. [Personal access token（個人存取權杖）](concepts/personal-access-token.md)：在 GitHub 建立 fine-grained token，只給最小的權限並設定有效期限。push 時出現密碼提示就輸入 token，token 要像密碼一樣保管。[S08] GitHub 從 2021 年 8 月 13 日起，不再接受用帳號密碼驗證 Git 操作。[S09]
 15. [.gitignore（忽略檔案）](concepts/gitignore.md)：開始專案前就設定好，避免不小心 commit 自動產生的檔案。[S02]
 16. [git diff（查看變更內容）](concepts/git-diff.md)：想知道確切改了哪幾行時使用（只留在 wiki，不放進簡報）。[S02]
 
@@ -52,6 +52,7 @@
 - 設定預設分支名稱教 `git config --global init.defaultBranch main`，`git init -b main` 只留在 wiki。S07 與 S03 對預設分支的說法不一致，兩種都保留在 [預設分支名稱（master 與 main）](concepts/default-branch.md)（S07 討論）。
 - push 指令一律用 `git push origin main`，不加 `-u`。S07 的 macOS 段落寫法不同，只記在 wiki（S07 討論）。
 - 放進簡報：PAT 是代替密碼的 token，要像密碼一樣保管。建立 fine-grained token 的步驟，只給最小的權限（push 需要 Contents 設成 write，依 S08 的範例網址）並設定有效期限。push 時出現 `Username` 輸入使用者名稱，出現 `Password` 貼上 token。PAT 只能用在 HTTPS。讓 Git 快取 token 或改用 Git Credential Manager，頂多一句話帶過（S08 討論）。
+- 放進簡報：一句話說明「GitHub 從 2021 年 8 月起不接受用密碼驗證 Git 操作，要改用 personal access token」，放在常見錯誤（輸入 GitHub 密碼 push 結果失敗）。OAuth、GitHub App installation token、SSH key 不放（S09 討論）。
 - 不放進簡報：classic token 的細節、組織政策、SAML 單一登入、用網址參數預先填寫 token、權限的完整表格、GitHub Apps、Actions 與 Codespaces 的 secrets、macOS Keychain。刪除 token 頂多一句話帶過（S08 討論）。
 - 不放進簡報：GitHub CLI（`gh repo create`）與 GitHub Desktop（頂多一句話帶過）、從其他版本控制系統轉換、`git symbolic-ref`、`git reset --soft HEAD~1`、2 GiB 的 push 上限、組織帳號（S07 討論）。
 - 放進簡報：`git restore --staged <file>` 放在「常見錯誤」（不小心 add 了不想 commit 的檔案）。`git restore <file>` 要搭配強烈的危險警告。「commit 過的幾乎都能救回，沒 commit 的可能永遠消失」放在總結，鼓勵學生常 commit。`git commit --amend` 用在忘了加檔案或訊息打錯，並提醒只能用在還沒 push 的 commit（S05 討論）。
@@ -60,7 +61,6 @@
 
 ## 尚未涵蓋的主題
 
-教學目標是 commit 與 push，不教分支。依序待 ingest 的資料如下，找不到來源的主題記在 [操作紀錄](log.md) 各筆的「待找資料」：
+教學目標是 commit 與 push，不教分支。規劃的資料 S01～S09 已全部 ingest，找不到來源的主題記在 [操作紀錄](log.md) 各筆的「待找資料」。（S09 討論）
 
-- S09：GitHub Changelog〈Git password authentication is shutting down〉（「GitHub 已不接受密碼」的來源，部落格文章，stored 用 excerpt）
 - 已知但本專案不涵蓋：GitHub 的 email 隱私設定（commit 會永久記錄 email，push 到 GitHub 後別人看得到）。S08 討論時決定不補資料（S08 討論）

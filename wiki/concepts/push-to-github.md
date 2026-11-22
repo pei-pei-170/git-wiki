@@ -57,6 +57,7 @@ git push origin main
 
 - S07 的 macOS 段落寫 `git push -u origin main`，Windows 與 Linux 段落寫 `git push origin main`。[S07] 簡報用不加 `-u` 的寫法。（S07 討論）
 - S07 在 `git add .` 範例的註解中，取消暫存的寫法是 `git reset HEAD YOUR-FILE`，現行寫法見 [git restore（復原檔案）](git-restore.md)。[S05] [S07]
+- GitHub 從 2021 年 8 月 13 日起不再接受用帳號密碼驗證 Git 操作，過時說法與現行做法見 [Personal access token（個人存取權杖）](personal-access-token.md) 的「時效註記」。[S09]
 
 ## 相關頁面
 
@@ -73,3 +74,4 @@ git push origin main
 - [S05｜Pro Git 2.4 Git Basics - Undoing Things](../sources/S05-progit-undoing-things.md)
 - [S07｜Adding locally hosted code to GitHub](../sources/S07-github-adding-locally-hosted-code.md)
 - [S08｜Managing your personal access tokens](../sources/S08-github-personal-access-tokens.md)
+- [S09｜Git password authentication is shutting down](../sources/S09-github-changelog-password-auth-shutdown.md)

@@ -48,6 +48,7 @@ git push origin main
 
 - 範例指令中的分支名稱是 `master`，過時說法、現行做法與簡報的處理方式，見 [預設分支名稱（master 與 main）](default-branch.md)。[S06]
 - S07 的 macOS 段落寫 `git push -u origin main`，Windows 與 Linux 段落寫 `git push origin main`。[S07] 簡報用不加 `-u` 的寫法。（S07 討論）
+- GitHub 從 2021 年 8 月 13 日起不再接受用帳號密碼驗證 Git 操作，過時說法與現行做法見 [Personal access token（個人存取權杖）](personal-access-token.md) 的「時效註記」。[S09]
 
 ## 相關頁面
 
@@ -65,3 +66,4 @@ git push origin main
 - [S06｜Pro Git 2.5 Git Basics - Working with Remotes](../sources/S06-progit-working-with-remotes.md)
 - [S07｜Adding locally hosted code to GitHub](../sources/S07-github-adding-locally-hosted-code.md)
 - [S08｜Managing your personal access tokens](../sources/S08-github-personal-access-tokens.md)
+- [S09｜Git password authentication is shutting down](../sources/S09-github-changelog-password-auth-shutdown.md)

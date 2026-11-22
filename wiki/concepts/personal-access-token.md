@@ -40,6 +40,10 @@ fine-grained token 雖然比較安全、容易控制，但不能完成 classic t
 
 原文列出的常用範例網址中，「Push access to repositories」的設定是 `contents=write`，也就是把 Contents 權限設成 write。[S08]
 
+### 為什麼不能用密碼
+
+從 2021 年 8 月 13 日起，在 GitHub.com 驗證 Git 操作時，GitHub 不再接受帳號密碼，所有需要驗證的 Git 操作，都必須使用以 token 為基礎的驗證方式。[S09] 這些方式除了 personal access token，還有 OAuth、SSH key 與 GitHub App installation token。[S09] 本專案只教 personal access token。（S09 討論）
+
 ### 在命令列使用
 
 有了 PAT 之後，透過 HTTPS 進行 Git 操作時，就可以輸入它來代替密碼。[S08] 例如在命令列 clone 時，會提示你輸入使用者名稱和密碼，在密碼提示時，輸入 PAT 而不是密碼。[S08] 使用者名稱仍然要輸入，但驗證身分靠的是 PAT，不輸入使用者名稱會收到憑證無效的錯誤訊息。[S08]
@@ -64,9 +68,14 @@ Password: YOUR-PERSONAL-ACCESS-TOKEN
 - **以為有了 token 就不用輸入使用者名稱**：使用者名稱仍然要輸入，不輸入會收到憑證無效的錯誤訊息。[S08]
 - **以為 token 外流沒關係**：PAT 和密碼一樣，有相同的安全風險，要像對待密碼一樣對待它。[S08]
 - **以為權限給越多越方便**：repository 的存取範圍與權限，都應該選擇符合需要的最小範圍。[S08]
+- **以為還可以用 GitHub 帳號密碼 push**：從 2021 年 8 月 13 日起，在 GitHub.com 驗證 Git 操作時不再接受帳號密碼。[S09]
 
 ## 時效註記
 
+> ⚠️ 過時：在 GitHub.com 驗證 Git 操作時使用帳號密碼 [S09, 2021]。
+> 現行做法：從 2021 年 8 月 13 日起，GitHub 不再接受帳號密碼，需要驗證的 Git 操作都必須使用以 token 為基礎的驗證方式，例如 personal access token [S09, 2021]。透過 HTTPS 時，在密碼提示輸入 personal access token [S08]。
+
+- 這組過時／現行做法只寫在本頁，其他頁面用一行連結指到這裡。（S09 討論）
 - fine-grained token 目前不支援 classic token 的所有功能，原文說 GitHub 正在補上這些缺口，會隨時間解決。[S08]
 
 ## 相關頁面
@@ -78,3 +87,4 @@ Password: YOUR-PERSONAL-ACCESS-TOKEN
 ## 來源
 
 - [S08｜Managing your personal access tokens](../sources/S08-github-personal-access-tokens.md)
+- [S09｜Git password authentication is shutting down](../sources/S09-github-changelog-password-auth-shutdown.md)

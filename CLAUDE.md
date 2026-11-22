@@ -225,7 +225,7 @@ python tools/check.py
   - `git checkout`：放棄修改請用 `git restore <file>`，Git 2.23.0 起 [S05]。本簡報不教分支。原本的建議「切換分支請用 `git switch`」，因為不 ingest Git 2.23 部落格文章而失去來源，已於 S05 改寫。
   - `git reset HEAD`：取消暫存請用 `git restore --staged <file>`，Git 2.23.0 起 [S05]。
   - `master`：本簡報教學生用 `init.defaultBranch` 把預設分支設成 `main`，與 GitHub 新 repository 的預設一致 [S02, S03]，範例輸出依 `wiki/concepts/default-branch.md` 改編為 `main`。說明「Git 本身預設是 `master`」的投影片要加上 `data-legacy`。
-  - 用帳號密碼推送到 GitHub：命令列透過 HTTPS 驗證時，輸入 personal access token 代替密碼 [S08]。「GitHub 已不接受密碼」的來源待 S09。同一張投影片也出現「token」時不報錯，因為「在 Password 提示輸入 token」是現行做法，不是舊寫法。
+  - 用帳號密碼推送到 GitHub：命令列透過 HTTPS 驗證時，輸入 personal access token 代替密碼 [S08]。GitHub 從 2021 年 8 月 13 日起，不再接受用帳號密碼驗證 Git 操作 [S09, 2021]。同一張投影片也出現「token」時不報錯，因為「在 Password 提示輸入 token」是現行做法，不是舊寫法。
 
   發現新的過時用語時，要加進這份清單與 `check.py`。
 

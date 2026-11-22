@@ -79,7 +79,8 @@ LEGACY_TERMS = [
                "改編為 main；說明「Git 本身預設是 master」的投影片要加 data-legacy"),
     (re.compile(r"帳號.{0,4}密碼|github.{0,8}密碼|密碼.{0,12}(?:push|推送)"
                 r"|(?:push|推送).{0,12}密碼|\bpassword\b", re.I),
-     "用帳號密碼推送到 GitHub", "命令列透過 HTTPS 驗證時，輸入 personal access token 代替密碼（依 S08）",
+     "用帳號密碼推送到 GitHub",
+     "GitHub 自 2021-08-13 起不再接受帳號密碼（依 S09），命令列透過 HTTPS 驗證時，輸入 personal access token 代替密碼（依 S08）",
      # 「出現 Password 提示時輸入 token」是現行做法（S08 的範例輸出就有 Password:），同一張出現 token 時不報錯
      re.compile(r"token", re.I)),
 ]

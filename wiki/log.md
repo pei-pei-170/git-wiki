@@ -85,3 +85,9 @@
 - 討論結果：頁面規劃照建議。「用帳號密碼推送」規則的建議文字改成「命令列透過 HTTPS 驗證時，輸入 personal access token 代替密碼 [S08]」，拿掉 SSH。另外補一篇 S09（GitHub Changelog〈Git password authentication is shutting down〉，stored 用 excerpt），作為「GitHub 已不接受密碼」的來源。password 規則改成同一張投影片出現 token 時不報錯。GitHub email 隱私不補資料，在待找資料標記為「已知但本專案不涵蓋」。lint 等 S09 寫入後再做，範圍是 S04 到 S09
 - 檢查結果：依第 5 節第 4 步逐句核對 52 句，以 tools/verify_quotes.py 驗證 checks/S08-quotes.md，52 句都找到原句，刪改 0 句。**規則本身含有沒來源的知識**：CLAUDE.md 第 9 節「用帳號密碼推送到 GitHub 是過時用語（需改用 personal access token 或 SSH）」這條規則，是在建立專案時就寫好的，它的依據（GitHub 已不接受密碼、可以改用 SSH）從來沒有 ingest 進 wiki。S08 只說 PAT 可以代替密碼，沒有說密碼已不能用，也沒有說明 SSH，等於規則本身含有沒來源的知識。這次拿掉「或 SSH」，「GitHub 已不接受密碼」改由 S09 補上來源。**password 規則的誤判**：原本的規則只要投影片文字出現 password 或「GitHub 密碼」等字樣就報錯，但 S08 的現行做法就是在「Password:」提示輸入 token，範例輸出本身就有 Password 這個字，照這個做法寫的投影片會被誤判成過時用語。誤判的原因是規則只比對字面，沒有區分「用密碼推送」和「在密碼提示輸入 token」。修改後，同一張投影片也出現 token 時不報錯，並用暫存資料測試：只寫「GitHub 密碼」的投影片會報錯，寫「Password: 提示時貼上 personal access token」的投影片不會。check.py 通過，0 個錯誤、0 個警告
 - 待找資料：(1) 「GitHub 已不接受密碼」的來源，待 S09。(2) GitHub 的 email 隱私設定：已知但本專案不涵蓋
+
+## 2026-11-22 21:02｜ingest｜S09
+- 做了什麼：用 curl 下載 GitHub Changelog〈Git password authentication is shutting down〉並完整讀過（下載的檔案只放在暫存資料夾）。依第 3 節存成 excerpt：raw/S09-github-changelog-password-auth-shutdown.md 只保存連結、發布日期、2 個引用片段與 3 點自己的摘要，正文 988 字元。新增 sources/S09-github-changelog-password-auth-shutdown.md。更新 personal-access-token.md（新增「為什麼不能用密碼」與第 4-3 節的過時／現行做法區塊，提到 SSH key 也是其中一種方式）、git-push.md、push-to-github.md（時效註記連到 PAT 頁）、index.md、overview.md。CLAUDE.md 第 9 節與 check.py 的「用帳號密碼推送」規則，改為標註 [S09, 2021]。產生 checks/S09-quotes.md
+- 討論結果：原文正文只有兩句重點，整句引用等於貼上幾乎全文，所以 excerpt 只引用兩個關鍵片段，使用者同意。頁面規劃照建議，不新增概念頁。過時用語規則不恢復「或 SSH」，只在 PAT 頁提一句 SSH key 也是其中一種方式。raw 的 license 欄位原本寫「未標示（GitHub Blog，非 CC 授權）」，使用者指出網頁上只是沒有標示授權，不能確定是哪一種，改成「未標示」（raw 當時還沒 commit，修改不違反規則）
+- 檢查結果：依第 5 節第 4 步逐句核對 15 句，以 tools/verify_quotes.py 驗證 checks/S09-quotes.md，15 句都找到原句，刪改 0 句。check.py 通過，0 個錯誤、0 個警告
+- 待找資料：無（「GitHub 已不接受密碼」的來源已由 S09 補上）

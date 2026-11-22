@@ -17,6 +17,7 @@
 - [S06｜Pro Git 2.5 Git Basics - Working with Remotes](sources/S06-progit-working-with-remotes.md)：遠端 repository：`git remote`、`git push`，以及 fetch、pull 與遠端的管理。
 - [S07｜Adding locally hosted code to GitHub](sources/S07-github-adding-locally-hosted-code.md)：GitHub Docs：在 GitHub 建立 repository，把本地的程式碼推上去。
 - [S08｜Managing your personal access tokens](sources/S08-github-personal-access-tokens.md)：GitHub Docs：建立與使用 personal access token，在命令列代替密碼驗證身分。
+- [S09｜Git password authentication is shutting down](sources/S09-github-changelog-password-auth-shutdown.md)：GitHub Changelog（摘錄）：2021 年 8 月 13 日起不再接受用帳號密碼驗證 Git 操作。
 
 ## 概念
 
