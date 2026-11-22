@@ -14,7 +14,7 @@
 6. [三種狀態與三個區域](concepts/three-states.md)：檔案先分成已追蹤與未追蹤，已追蹤的檔案會在已修改、已暫存、已提交之間循環，對應工作目錄、暫存區、Git 目錄。[S01] [S02] 這是之後學 commit 指令的核心。
 7. [git status（查看檔案狀態）](concepts/git-status.md)：隨時用它確認每個檔案處於哪種狀態。[S02]
 8. [git add（加入暫存區）](concepts/git-add.md)：開始追蹤新檔案、暫存修改。暫存的是 add 當下的版本，之後再改就要再 add。[S02]
-9. [Commit（提交）](concepts/commit.md)：把暫存區的快照記錄進歷史，用 `-m` 直接寫 commit 訊息。[S02] 忘了加檔案或訊息寫錯時，可以用 `--amend` 重做還沒 push 的上一個 commit。[S05]
+9. [Commit（提交）](concepts/commit.md)：把暫存區的快照記錄進歷史，用 `-m` 直接寫 commit 訊息。[S02] 忘了加檔案或訊息寫錯時，可以用 `--amend` 重做還沒 push 的上一個 commit（只留在 wiki，不放進簡報）。[S05]
 10. [git restore（復原檔案）](concepts/git-restore.md)：不小心暫存時用 `git restore --staged` 取消暫存，`git restore <file>` 會丟掉修改，是危險的指令。commit 過的幾乎都救得回來，沒 commit 過的可能永遠消失。[S05]
 11. [Remote（遠端 repository）](concepts/remote.md)：放在網際網路或某個網路上的專案版本，clone 下來的 repository 會有名為 origin 的遠端，也可以用 `git remote add` 新增。[S06]
 12. [git push（推送到遠端）](concepts/git-push.md)：commit 只記錄在本地，要用 `git push <remote> <branch>` 推送到遠端。沒有寫入權限，或別人先 push 了，push 就會被拒絕。[S01] [S06]
@@ -55,8 +55,9 @@
 - 放進簡報：一句話說明「GitHub 從 2021 年 8 月起不接受用密碼驗證 Git 操作，要改用 personal access token」，放在常見錯誤（輸入 GitHub 密碼 push 結果失敗）。OAuth、GitHub App installation token、SSH key 不放（S09 討論）。
 - 不放進簡報：classic token 的細節、組織政策、SAML 單一登入、用網址參數預先填寫 token、權限的完整表格、GitHub Apps、Actions 與 Codespaces 的 secrets、macOS Keychain。刪除 token 頂多一句話帶過（S08 討論）。
 - 不放進簡報：GitHub CLI（`gh repo create`）與 GitHub Desktop（頂多一句話帶過）、從其他版本控制系統轉換、`git symbolic-ref`、`git reset --soft HEAD~1`、2 GiB 的 push 上限、組織帳號（S07 討論）。
-- 放進簡報：`git restore --staged <file>` 放在「常見錯誤」（不小心 add 了不想 commit 的檔案）。`git restore <file>` 要搭配強烈的危險警告。「commit 過的幾乎都能救回，沒 commit 的可能永遠消失」放在總結，鼓勵學生常 commit。`git commit --amend` 用在忘了加檔案或訊息打錯，並提醒只能用在還沒 push 的 commit（S05 討論）。
-- **待決事項**：`git commit --amend` 會開啟編輯器，裡面已經有上一個 commit 的訊息 [S05]，這與「commit 一律用 `-m`，避免卡在編輯器」的決定矛盾，而且目前的資料沒有示範 `--amend` 搭配 `-m`。簡報要說明它會開啟編輯器，或只在常見錯誤中提到這個指令，等規劃大綱時再決定（S05 討論）。
+- 放進簡報：`git restore --staged <file>` 放在「常見錯誤」（不小心 add 了不想 commit 的檔案）。`git restore <file>` 要搭配強烈的危險警告。「commit 過的幾乎都能救回，沒 commit 的可能永遠消失」放在總結，鼓勵學生常 commit。~~`git commit --amend` 用在忘了加檔案或訊息打錯，並提醒只能用在還沒 push 的 commit~~（S05 討論，後於 lint 討論改為不放進簡報）。
+- ~~**待決事項**：`git commit --amend` 會開啟編輯器，裡面已經有上一個 commit 的訊息 [S05]，這與「commit 一律用 `-m`，避免卡在編輯器」的決定矛盾，而且目前的資料沒有示範 `--amend` 搭配 `-m`。簡報要說明它會開啟編輯器，或只在常見錯誤中提到這個指令，等規劃大綱時再決定（S05 討論）。~~ 已決定，見下一點。
+- `git commit --amend` 不放進簡報，只留在 wiki 的 [Commit（提交）](concepts/commit.md)（lint 討論）。
 - 不放進簡報：`git reset` 的運作細節與 `--hard`、stash 與分支、資料救援、rebase 的風險。舊寫法 `git reset HEAD`、`git checkout --` 只留在 [git restore（復原檔案）](concepts/git-restore.md) 的過時／現行做法區塊（S05 討論）。
 - 簡報中 `git status` 的範例，改用 S05 新版段落（Git 2.23.0 起）的輸出，提示是 `git restore`，分支名稱依 [預設分支名稱（master 與 main）](concepts/default-branch.md) 改成 main（S05 討論）。
 

@@ -97,3 +97,9 @@
 - 討論結果：無（lint 結果中需要判斷的項目已列出，等使用者回覆）
 - 檢查結果：掃描到的其他結果經確認不需修改：overview.md「簡報範圍決定」的引言不是事實陳述。commit.md 的「密碼」出自「不要 commit 密碼或 API key」，講的是敏感資訊，不是用密碼驗證，屬於誤判。三組過時／現行做法區塊各只寫在一頁（default-branch.md、git-restore.md、personal-access-token.md），其他頁面都用連結指過去。頁面之間沒有其他互相矛盾的說法。修正後 check.py 通過，0 個錯誤、0 個警告，verify_quotes.py 通過
 - 待找資料：彙整目前狀態：(1) push 到 GitHub 的指令，已由 S02、S06、S07 補上。(2) SHA-1 的現況，依 lint 討論不另外找來源。(3) git checkout 與 git switch，已由 S05 處理，不教分支。(4) Git 本身的預設分支是否仍為 master，依 lint 討論不另外找來源。(5) GitHub 的 email 隱私設定，已知但本專案不涵蓋。(6) 「GitHub 已不接受密碼」的來源，已由 S09 補上。目前沒有待找的資料
+
+## 2026-11-22 21:24｜fix｜lint 後續修正
+- 做了什麼：checks/S07-quotes.md 改為只能往後新增：lint 時直接改寫的第 25 筆恢復原狀，改寫後的句子在檔案最後追加為第 55 筆，並註明是 lint 時改寫與原因。確認前 54 筆與 lint 之前的版本完全相同。CLAUDE.md 第 5 節第 4 步加入「checks/Sxx-quotes.md commit 之後只能往後新增」的規則。overview.md 把 --amend 的待決事項標成已決定，S05 討論時「--amend 放進簡報」的取捨與學習路線的 --amend 也一併註明不放進簡報
+- 討論結果：使用者決定對照表比照 log.md，只能往後新增。--amend 不放進簡報，只留在 wiki。完成後依第 6-1 節規劃 slides/outline.md
+- 檢查結果：verify_quotes.py 驗證 checks/S07-quotes.md 通過（55 筆）。check.py 通過，0 個錯誤、0 個警告
+- 待找資料：無

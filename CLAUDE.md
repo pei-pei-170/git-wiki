@@ -141,7 +141,7 @@ retrieved: YYYY-MM-DD
    - 與既有 wiki 有沒有衝突或過時的地方
    - 哪些內容適合新手、哪些太進階不放進簡報
 3. 我確認或調整後，才寫入 wiki：摘要頁、概念頁、更新 `index.md` 與 `overview.md`。
-4. **逐句核對**：寫入 wiki 後，把這次新增或修改的每一句事實陳述，對照 raw 列出對應的英文原句，寫成 `checks/Sxx-quotes.md`（格式見 `tools/verify_quotes.py` 的說明）。找不到原句的句子要刪除或改寫，在對照表中寫「原句：（找不到）」與「處理」，並在回報中列出被刪改的句子。執行 `python tools/verify_quotes.py checks/Sxx-quotes.md`，確認每句英文原句都逐字存在於 raw，未通過就修正。核對結果的數量（核對幾句、刪改幾句）記進 `log.md` 該筆紀錄的「檢查結果」。
+4. **逐句核對**：寫入 wiki 後，把這次新增或修改的每一句事實陳述，對照 raw 列出對應的英文原句，寫成 `checks/Sxx-quotes.md`（格式見 `tools/verify_quotes.py` 的說明）。找不到原句的句子要刪除或改寫，在對照表中寫「原句：（找不到）」與「處理」，並在回報中列出被刪改的句子。執行 `python tools/verify_quotes.py checks/Sxx-quotes.md`，確認每句英文原句都逐字存在於 raw，未通過就修正。核對結果的數量（核對幾句、刪改幾句）記進 `log.md` 該筆紀錄的「檢查結果」。`checks/Sxx-quotes.md` 是核對當下的紀錄，commit 之後只能往後新增：之後改寫已核對過的句子時，不修改舊的筆數，在檔案最後追加一筆，並註明改寫的時機與原因。
 5. 執行 `python tools/check.py`，有錯誤就修正。
 6. 在 `log.md` 寫一筆紀錄（格式見第 7 節）。
 7. 依第 11 節格式 commit。
