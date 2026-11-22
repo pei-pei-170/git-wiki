@@ -28,12 +28,15 @@ git-wiki/
 │   ├── log.md             ← 操作紀錄（只能往後新增）
 │   ├── sources/           ← 每篇原始資料一頁摘要，檔名與 raw 相同
 │   └── concepts/          ← 每個概念一頁，檔名為小寫英文 slug
+├── checks/                ← 逐句核對的對照表（不屬於 wiki，見第 5 節第 4 步）
+│   └── Sxx-quotes.md      ← 每次 ingest 一份，檔名的編號與 raw 相同
 ├── slides/
 │   ├── outline.md         ← 簡報大綱
 │   └── index.html         ← 教學 HTML 簡報
 └── tools/
     ├── check.py           ← 規則檢查程式
-    └── html2md.py         ← 把下載的 HTML 轉成 markdown（目前支援 git-scm.com 的 Pro Git 頁面）
+    ├── html2md.py         ← 把下載的 HTML 轉成 markdown（目前支援 git-scm.com 的 Pro Git 頁面）
+    └── verify_quotes.py   ← 驗證 checks/ 對照表中的英文原句確實存在於 raw
 ```
 
 ## 3. 原始資料 `raw/`
@@ -136,7 +139,7 @@ retrieved: YYYY-MM-DD
    - 與既有 wiki 有沒有衝突或過時的地方
    - 哪些內容適合新手、哪些太進階不放進簡報
 3. 我確認或調整後，才寫入 wiki：摘要頁、概念頁、更新 `index.md` 與 `overview.md`。
-4. **逐句核對**：寫入 wiki 後，把這次新增或修改的每一句事實陳述，對照 raw 列出對應的英文原句。找不到原句的句子要刪除或改寫，並在回報中列出被刪改的句子。核對結果的數量（核對幾句、刪改幾句）記進 `log.md` 該筆紀錄的「檢查結果」。
+4. **逐句核對**：寫入 wiki 後，把這次新增或修改的每一句事實陳述，對照 raw 列出對應的英文原句，寫成 `checks/Sxx-quotes.md`（格式見 `tools/verify_quotes.py` 的說明）。找不到原句的句子要刪除或改寫，在對照表中寫「原句：（找不到）」與「處理」，並在回報中列出被刪改的句子。執行 `python tools/verify_quotes.py checks/Sxx-quotes.md`，確認每句英文原句都逐字存在於 raw，未通過就修正。核對結果的數量（核對幾句、刪改幾句）記進 `log.md` 該筆紀錄的「檢查結果」。
 5. 執行 `python tools/check.py`，有錯誤就修正。
 6. 在 `log.md` 寫一筆紀錄（格式見第 7 節）。
 7. 依第 11 節格式 commit。

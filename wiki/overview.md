@@ -50,5 +50,6 @@
 教學目標是 commit 與 push，不教分支。依序待 ingest 的資料如下，找不到來源的主題記在 [操作紀錄](log.md) 各筆的「待找資料」：
 
 - S06：Pro Git 2.5 Working with Remotes（push 到遠端）
-- S07：GitHub Docs personal access tokens（推送到 GitHub 時的身分驗證）
-- 視時間決定：GitHub 的 email 隱私設定（commit 會永久記錄 email，push 到 GitHub 後別人看得到），S07 之後再決定要不要補一篇
+- S07：GitHub Docs〈Adding locally hosted code to GitHub〉（在 GitHub 建立 repository 並把本地的程式碼推上去，目前的資料都沒有說明這一步）
+- S08：GitHub Docs personal access tokens（推送到 GitHub 時的身分驗證）
+- 視時間決定：GitHub 的 email 隱私設定（commit 會永久記錄 email，push 到 GitHub 後別人看得到），S08 之後再決定要不要補一篇

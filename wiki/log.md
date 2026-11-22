@@ -61,3 +61,9 @@
 - 討論結果：頁面規劃照建議，--amend 放在 commit.md。原文只寫版本時，用版本號代替年份，寫成 [S05, Git 2.23.0]。git reset HEAD 加進過時用語清單，git checkout 規則的建議文字改成用 git restore（S03 記錄的「建議文字失去來源」已處理）。簡報中 git status 的範例改用 S05 新版段落的輸出，分支名稱依 default-branch.md 改成 main
 - 檢查結果：依第 5 節第 4 步逐句核對，本輪新增或修改的事實陳述 52 句，另順帶核對上一輪 S03 摘要頁的 2 句，共 54 句。每句對照 raw 列出英文原句，並以程式確認原句逐字存在於標註的 raw 檔。找不到原句、刪改 4 句：(1) S05 摘要頁重點 2「它會用新的 commit 完全取代舊的，所以只能用在還沒 push 的 commit」，原文沒有寫「所以」的因果關係，改寫成兩個獨立的句子。(2) S05 摘要頁年份「線上版已修訂，包含 Git 2.23.0 新增的 git restore」，原文沒有說 Git 2.23.0 晚於印刷版，刪除。(3) S03 摘要頁年份「線上版已修訂，包含 Git 2.28 之後才有的預設分支設定」，同樣是推論，刪除。(4) S03 摘要頁「線上版加入 Git 2.28 的內容」，「加入」暗示是後來才加的，改寫成「原文提到 Git 2.28，但沒有寫年份」。S02 摘要頁的「線上版已修訂，包含 2020 年中之後才寫的 Note」有原文的 mid-2020 可以推得，保留。check.py 通過，0 個錯誤、0 個警告
 - 待找資料：無（S02 待找資料第 1 項「取消暫存與放棄修改的現行寫法」已由 S05 解決，S03 待找資料第 3 項「git checkout 規則建議文字的新來源」也已由 S05 解決）
+
+## 2026-11-22 19:47｜setup｜逐句核對工具與資料清單調整
+- 做了什麼：新增 tools/verify_quotes.py，驗證 checks/Sxx-quotes.md 中的每一句英文原句都逐字存在於標註的 raw，找不到原句卻沒寫處理方式時也會報錯。把 S05 的對照表從暫存資料夾移進專案，轉成 checks/S05-quotes.md（56 筆，即核對的 54 句加上改寫後的 2 句），以 verify_quotes.py 驗證通過。另用暫存資料測試，改錯的原句與缺少處理方式都會報錯。CLAUDE.md 第 2 節結構圖新增 checks/ 與 tools/verify_quotes.py，第 5 節第 4 步改為產生 checks/Sxx-quotes.md 並用這支程式驗證。overview.md 的待 ingest 清單依新規劃更新
+- 討論結果：使用者要求對照表放在 checks/，不放在 wiki/ 裡，核對程式整理成可重複使用的工具，之後每次 ingest 都產生 checks/Sxx-quotes.md 並驗證。資料清單調整：S06 照原本的 Pro Git 2.5 Working with Remotes。S07 改成 GitHub Docs〈Adding locally hosted code to GitHub〉，原因是目前沒有資料說明如何在 GitHub 建立 repository 並推上去。personal access token 改成 S08。GitHub email 隱私是否補一篇，改為 S08 之後再決定。--amend 和編輯器的矛盾等規劃大綱時再決定
+- 檢查結果：verify_quotes.py 驗證 checks/S05-quotes.md 通過。check.py 通過，0 個錯誤、0 個警告
+- 待找資料：無
