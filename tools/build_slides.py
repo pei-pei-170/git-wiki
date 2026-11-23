@@ -1,0 +1,479 @@
+"""產生教學簡報 slides/index.html（CLAUDE.md 第 6-2 節）。
+
+投影片的內容寫在本程式的 SLIDES 中，標題與 data-sources 從 slides/outline.md 讀取，
+所以 data-sources 一定與大綱的「依據」相同。每張底部的資料來源會連到 GitHub 上對應的 wiki 頁面。
+
+用法：
+    python tools/build_slides.py
+
+修改投影片時，改本程式後重新產生，不要直接改 slides/index.html。
+依第 6-3 節，重新生成某一張時只改那一張的 SLIDES 內容，並記錄在 wiki/log.md。
+只使用 Python 標準函式庫。
+"""
+import html
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+REPO = "https://github.com/pei-pei-170/git-wiki/blob/main/wiki/"
+
+
+def outline_sources():
+    text = (ROOT / "slides" / "outline.md").read_text(encoding="utf-8")
+    out = {}
+    cur = None
+    for line in text.split("\n"):
+        m = re.match(r"^##\s*第\s*(\d+)\s*張｜(.+)$", line)
+        if m:
+            cur = int(m.group(1))
+            out[cur] = {"title": m.group(2).strip(), "sources": []}
+        b = re.match(r"^- 依據：(.+)$", line)
+        if b and cur:
+            out[cur]["sources"] = [s.strip() for s in re.split(r"[、,，\s]+", b.group(1)) if s.strip()]
+    return out
+
+
+def code(text):
+    return f'<pre><code>{html.escape(text.strip(chr(10)))}</code></pre>'
+
+
+def c(text):
+    return f"<code>{html.escape(text)}</code>"
+
+
+# 每張投影片的內容（標題取自大綱）。legacy=True 的投影片加上 data-legacy。
+SLIDES = {}
+
+SLIDES[1] = dict(body=f"""
+<div class="folders" aria-label="教學例子：用資料夾管理版本">
+  <div class="folder">📁 報告_v1</div>
+  <div class="folder">📁 報告_v2_最終版</div>
+  <div class="folder">📁 報告_v2_最終版_真的最終版</div>
+</div>
+<p>很多人把檔案複製到另一個資料夾來管理版本，聰明一點的還會加上日期。</p>
+<p>這種做法很簡單，但非常容易出錯：</p>
+<ul>
+  <li>忘了自己在哪個資料夾</li>
+  <li>不小心寫到錯的檔案</li>
+  <li>覆蓋掉不想覆蓋的檔案</li>
+</ul>
+<p class="question">有沒有辦法隨時回到任何一個版本，又不會弄亂？</p>
+""")
+
+SLIDES[2] = dict(body=f"""
+<p class="definition"><strong>版本控制</strong>是一種記錄一個或一組檔案隨時間變化的系統，讓你之後可以叫回特定的版本。</p>
+<p>做這件事的工具叫做<strong>版本控制系統</strong>（Version Control System，簡稱 VCS）。不只程式碼，電腦上幾乎任何類型的檔案都可以做版本控制。</p>
+<h3>可以做到什麼？</h3>
+<ul>
+  <li>把檔案或整個專案回復到先前的狀態</li>
+  <li>比較檔案隨時間的變化</li>
+  <li>查出是誰在什麼時候改了什麼</li>
+  <li>把東西弄壞或檔案遺失時，可以輕鬆救回來</li>
+</ul>
+<div class="compare">
+  <div><h3>集中式</h3><p>所有版本放在一台伺服器上。伺服器壞了，大家都不能工作，這叫單點故障。</p></div>
+  <div><h3>分散式</h3><p>每個人都完整複製一份，包含完整的歷史，每一份 clone 都是完整的備份。</p></div>
+</div>
+<p class="term"><strong>clone</strong>：從別處複製一份完整的專案，第 6 張會再說明。</p>
+""")
+
+SLIDES[3] = dict(body=f"""
+<p class="definition"><strong>Git</strong> 是一種分散式版本控制系統。</p>
+<p class="term"><strong>commit</strong>（提交）：把專案目前的狀態存起來，成為一個<strong>快照</strong>，就像替所有檔案拍一張照片。</p>
+<div class="cards">
+  <div class="card"><h3>📸 存的是快照</h3><p>每次 commit，Git 會把所有檔案當下的樣子拍成一張快照。沒有變更的檔案不會再存一次，只存一個連結。</p></div>
+  <div class="card"><h3>💻 大部分在本地</h3><p>大部分操作只需要你電腦上的檔案。沒有網路也能 commit，等有網路時再上傳。</p></div>
+  <div class="card"><h3>🛟 很難遺失</h3><p>快照一旦 commit 進 Git，就很難遺失。</p></div>
+</div>
+""")
+
+SLIDES[4] = dict(body=f"""
+<p class="badge">課前準備：已安裝 Git、已註冊 GitHub 帳號</p>
+<p>以下指令都在<strong>終端機</strong>輸入。Windows 請開啟 <strong>Git Bash</strong> 輸入指令。</p>
+{code('''
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+git config --global init.defaultBranch main
+git config --list
+''')}
+<ul>
+  <li><strong>名字與 email</strong>：把範例中的 John Doe 與 email 換成你自己的。每個 commit 都會永久記錄這兩項，所以第一次 commit 前就要設定好。加上 {c('--global')} 只要設定一次。</li>
+  <li><strong>預設分支名稱</strong>：讓之後建立的 repository（儲存庫，第 6 張說明）預設分支叫 main，和 GitHub 新 repository 的預設一致。GitHub 自 2020 年中起，新 repository 的預設分支名稱是 main。設定預設分支需要 Git 2.28 以上。</li>
+  <li><strong>確認設定</strong>：用 {c('git config --list')} 或 {c('git config user.name')} 查看。</li>
+</ul>
+<p class="note">main 是這個專案預設的分支名稱，本簡報不教分支，只要記得名稱要和 GitHub 一致即可。</p>
+""")
+
+SLIDES[5] = dict(body=f"""
+<div class="flow" aria-label="三個區域與三種狀態">
+  <div class="box"><h3>工作目錄</h3><p>你使用、修改檔案的地方</p><span class="state">已修改</span></div>
+  <div class="arrow">{c('git add')}<span>→</span></div>
+  <div class="box"><h3>暫存區</h3><p>記錄下一次 commit 要包含哪些內容</p><span class="state">已暫存</span></div>
+  <div class="arrow">{c('git commit')}<span>→</span></div>
+  <div class="box"><h3>Git 目錄</h3><p>Git 存放專案資料的地方</p><span class="state">已提交</span></div>
+</div>
+<ul>
+  <li><strong>已修改</strong>：檔案改過了，但還沒 commit。</li>
+  <li><strong>已暫存</strong>：標記好，要放進下一次 commit。</li>
+  <li><strong>已提交</strong>：資料已經安全地存進本地資料庫。</li>
+</ul>
+<p><strong>已追蹤與未追蹤</strong>：新檔案一開始是<strong>未追蹤</strong>的，在你用 {c('git add')} 之前，Git 不會把它放進 commit。</p>
+<p class="note">循環：編輯 → 暫存 → commit，然後不斷重複。</p>
+""")
+
+SLIDES[6] = dict(body=f"""
+<p class="definition"><strong>repository</strong>（儲存庫）：Git 用來記錄專案的地方，也就是專案資料夾裡的 {c('.git')} 子資料夾。</p>
+<div class="compare">
+  <div><h3>{c('git init')}</h3><p>把既有的資料夾變成 repository。<strong>本課使用這個方式。</strong></p></div>
+  <div><h3>{c('git clone <url>')}</h3><p>複製一個現有的 repository，會下載完整的歷史。</p></div>
+</div>
+<p>先用 {c('cd')} 進入專案資料夾，再執行 {c('git init')}（Windows 的路徑寫法如下）：</p>
+{code('''
+cd C:/Users/user/my_project
+git init
+''')}
+<p class="note">執行後只建立了 {c('.git')}，這時還<strong>沒有任何檔案被追蹤</strong>，要先 add 再 commit。</p>
+""")
+
+SLIDES[7] = dict(body=f"""
+<p>不確定檔案現在是什麼狀態？先執行 {c('git status')}。</p>
+<div class="split"><div>
+{code('''
+$ git add *
+$ git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   CONTRIBUTING.md
+	renamed:    README.md -> README
+''')}
+<p class="caption">輸出改編自 Pro Git（Git 2.23.0 起的輸出），分支名稱依 S03 的設定改為 main。</p>
+</div><div>
+<table>
+  <tr><th>輸出中的區塊</th><th>意思</th></tr>
+  <tr><td>{c('Untracked files')}</td><td>未追蹤的新檔案</td></tr>
+  <tr><td>{c('Changes to be committed')}</td><td>已暫存，會進入下一次 commit</td></tr>
+  <tr><td>{c('Changes not staged for commit')}</td><td>已修改，但還沒暫存</td></tr>
+  <tr><td>{c('nothing to commit, working tree clean')}</td><td>沒有任何變更</td></tr>
+</table>
+</div></div>
+<p class="note">{c('git status')} 只列出檔名，不會顯示改了哪幾行。</p>
+""")
+
+SLIDES[8] = dict(body=f"""
+{code('''
+git add README
+git add .
+''')}
+<ul>
+  <li>{c('git add <檔案>')}：開始追蹤新檔案，或暫存修改過的檔案。</li>
+  <li>{c('git add .')}：GitHub Docs 用這個指令加入新 repository 中的檔案並暫存，準備第一次 commit。</li>
+</ul>
+<p class="term"><strong>暫存</strong>（stage）：把變更放進暫存區，準備進入下一次 commit。</p>
+<p class="definition">把 {c('git add')} 想成「把這份內容加進下一次 commit」，而不是「把檔案加進專案」。</p>
+<p class="note">暫存的是執行 {c('git add')} 那一刻的內容。之後再改，就要再 add 一次。</p>
+""")
+
+SLIDES[9] = dict(body=f"""
+{code('''
+git commit -m "First commit"
+''')}
+<ul>
+  <li>在 {c('-m')} 後面直接寫這次的 <strong>commit 訊息</strong>，不必開啟編輯器。</li>
+  <li>不加 {c('-m')} 時會開啟系統預設的編輯器，所以本課一律用 {c('-m')}。</li>
+  <li>commit 只記錄<strong>暫存區</strong>的快照，改過但沒有 add 的檔案，不會進入這次 commit。</li>
+</ul>
+<h3>看懂 commit 的輸出</h3>
+{code('''
+$ git commit -m "Story 182: fix benchmarks for speed"
+[main 463dc4f] Story 182: fix benchmarks for speed
+ 2 files changed, 2 insertions(+)
+ create mode 100644 README
+''')}
+<p class="caption">輸出改編自 Pro Git，分支名稱依 S03 的設定改為 main。</p>
+<p>{c('main')} 是 commit 到的分支，{c('463dc4f')} 是這個 commit 的檢查碼，最後是改了幾個檔案、新增幾行。</p>
+""")
+
+SLIDES[10] = dict(body=f"""
+<p class="definition">{c('.gitignore')} 是一個列出檔名規則的檔案，讓 Git 不要自動加入符合規則的檔案，也不要把它們列為未追蹤。</p>
+<ul>
+  <li>通常用於自動產生的檔案，例如記錄檔，或建置系統產生的檔案。</li>
+  <li>在開始專案之前就設定好，避免不小心 commit 不想放進 repository 的檔案。</li>
+</ul>
+<h3>簡單的例子（{c('.gitignore')} 檔案的內容）</h3>
+{code('''
+*.[oa]
+build/
+''')}
+<ul>
+  <li>{c('*.[oa]')}：忽略以 .o 或 .a 結尾的檔案</li>
+  <li>{c('build/')}：忽略名為 build 的資料夾中所有的檔案</li>
+</ul>
+<p class="note">GitHub 提供各種專案與程式語言的 {c('.gitignore')} 範本，可以當作起點：github.com/github/gitignore</p>
+""")
+
+SLIDES[11] = dict(body=f"""
+<p class="definition"><strong>遠端 repository</strong>（remote）：放在網際網路或某個網路上的專案版本，例如 GitHub 上的那一份。</p>
+<p>commit 只記錄在你電腦上的副本，要 <strong>push</strong>（推送）才會把 commit 推送到遠端，分享給別人。</p>
+<ul>
+  <li><strong>origin</strong>：clone 時 Git 預設替來源取的遠端名稱。自己新增遠端時用 {c('git remote add origin REMOTE-URL')}，把 REMOTE-URL 換成 GitHub 上 repository 的完整網址。GitHub Docs 也用 origin 這個名稱。</li>
+  <li>用 {c('git remote -v')} 確認遠端的網址：</li>
+</ul>
+{code('''
+$ git remote -v
+origin	https://github.com/schacon/ticgit (fetch)
+origin	https://github.com/schacon/ticgit (push)
+''')}
+""")
+
+SLIDES[12] = dict(body=f"""
+<p class="warning">GitHub 從 2021 年 8 月 13 日起，不再接受用帳號密碼驗證 Git 操作，要改用以 token 為基礎的驗證方式。</p>
+<p class="definition"><strong>personal access token</strong>（PAT）：可以代替密碼的 token。要像對待密碼一樣保管它。</p>
+<h3>建立 fine-grained token</h3>
+<ol>
+  <li>如果 email 還沒驗證，先驗證 email。</li>
+  <li>點右上角大頭貼 → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</li>
+  <li>填入名稱，設定有效期限。</li>
+  <li>repository 只選需要的，權限只給最小的（push 需要把 Contents 設成 write）。</li>
+  <li>點 Generate token。</li>
+</ol>
+<p class="note">PAT 只能用在 HTTPS 的 Git 操作，遠端網址是 SSH 時要改成 HTTPS。</p>
+""")
+
+SLIDES[13] = dict(body=f"""
+<div class="steps">
+  <div class="step"><h3>① 本地：建立並 commit</h3>
+{code('''
+git init
+git add .
+git commit -m "First commit"
+''')}
+  </div>
+  <div class="step"><h3>② GitHub：建立 repository</h3>
+    <p>建立新的 repository，<strong>不要</strong>用 README、license 或 gitignore 初始化。在 Quick Setup 頁面複製網址，用來取代下面的 REMOTE-URL。</p>
+  </div>
+  <div class="step"><h3>③ 連到遠端並推上去</h3>
+{code('''
+git remote add origin REMOTE-URL
+git remote -v
+git push origin main
+''')}
+  </div>
+  <div class="step"><h3>④ 驗證身分</h3>
+{code('''
+Username: YOUR-USERNAME
+Password: YOUR-PERSONAL-ACCESS-TOKEN
+''')}
+    <p>Username 輸入使用者名稱，Password 貼上 personal access token。如果沒有出現提示，可能是電腦已經快取了憑證。</p>
+  </div>
+</div>
+""")
+
+SLIDES[14] = dict(body=f"""
+<div class="cards two">
+  <div class="card"><h3>add 之後又改了檔案</h3><p>同一個檔案會同時出現在已暫存與未暫存兩區。直接 commit，進去的是上次 add 的版本。<strong>要再 add 一次。</strong></p></div>
+  <div class="card"><h3>{c('git commit -a')} 包進不想要的變更</h3><p>{c('-a')} 會自動暫存所有已追蹤的檔案，很方便，但有時會把不想要的變更也包進 commit。</p></div>
+  <div class="card"><h3>不小心 add 了不想 commit 的檔案</h3><p>用 {c('git restore --staged <file>')} 取消暫存，檔案的修改還在。</p></div>
+  <div class="card danger"><h3>⚠️ 危險：{c('git restore <file>')}</h3><p>不加 {c('--staged')} 時，會丟掉這個檔案的所有修改。除非非常確定，否則不要使用。</p></div>
+</div>
+""")
+
+SLIDES[15] = dict(legacy=True, body=f"""
+<div class="cards two">
+  <div class="card"><h3>輸入 GitHub 密碼，結果失敗</h3><p>從 2021 年 8 月起不接受密碼。在 Password 提示貼上 personal access token。</p></div>
+  <div class="card"><h3>push 被拒絕</h3><p>沒有寫入權限，或別人先 push 了。需要先取得別人的更新，才能再 push（本課不教合併）。</p></div>
+  <div class="card"><h3>建立 repository 時勾了 README</h3><p>要推上本地專案時，為了避免錯誤，不要用 README 初始化，可以 push 之後再加。</p></div>
+  <div class="card danger"><h3>⚠️ 不要上傳敏感資訊</h3><p>不要把密碼、API key 之類的敏感資訊 add、commit 或 push 到遠端。</p></div>
+  <div class="card wide"><h3>分支名稱不是 main</h3><p>例如沒有做第 4 張的設定，Git 預設會用 master（依 Pro Git 線上版，2026-11-22 擷取）。這時要把 {c('git push origin main')} 中的 main，換成你的預設分支名稱。</p>
+  </div>
+</div>
+""")
+
+SLIDES[16] = dict(body=f"""
+<div class="chain" aria-label="完整流程">
+  <span class="chip">設定</span><span class="to">→</span>
+  <span class="chip">{c('git init')}</span><span class="to">→</span>
+  <span class="chip">{c('git add')}</span><span class="to">→</span>
+  <span class="chip">{c('git commit -m')}</span><span class="to">→</span>
+  <span class="chip">{c('git remote add origin')}</span><span class="to">→</span>
+  <span class="chip">{c('git push origin main')}</span>
+</div>
+<ul class="big">
+  <li>commit 過的東西幾乎都能救回來。從來沒有 commit 過的東西一旦遺失，很可能就找不回來了，<strong>所以要常 commit</strong>。</li>
+  <li>commit 只在本地，<strong>push 之後才會出現在 GitHub</strong>。</li>
+</ul>
+""")
+
+QUIZ = [
+    ("第一次 commit 之前，一定要用 git config 設定哪兩項？", f"{c('user.name')} 與 {c('user.email')}"),
+    ("git add 之後又修改了檔案，直接 commit，進去的是哪個版本？", "上次 add 時的版本"),
+    ("不小心 add 了不想 commit 的檔案，用哪個指令取消暫存？", c("git restore --staged <file>")),
+    ("push 到 GitHub 出現 Password 提示時，要輸入什麼？", "personal access token"),
+    ("在 GitHub 建立要推上本地專案的 repository 時，要不要勾選 README？", "不要"),
+]
+SLIDES[17] = dict(body="<ol class=\"quiz\">" + "".join(
+    f"<li><p>{html.escape(q)}</p><details><summary>點一下看答案</summary><p class=\"answer\">{a}</p></details></li>"
+    for q, a in QUIZ) + "</ol>")
+
+
+CSS = """
+:root{--bg:#f7f7f4;--fg:#1d1f23;--muted:#5b616b;--accent:#0b6bcb;--accent-soft:#e3effb;--danger:#b42318;--danger-soft:#fdecea;
+--warn-soft:#fff4d6;--code-bg:#1f2430;--code-fg:#e8edf4;--line:#d9dbe0;--card:#ffffff}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg)}
+body{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;font-size:clamp(18px,1.15vw + 11px,28px);line-height:1.6}
+.progress{position:fixed;top:0;left:0;height:6px;background:var(--accent);transition:width .25s}
+.slide{display:none;height:100dvh;overflow-y:auto;padding:clamp(16px,3vw,44px) clamp(16px,5vw,80px) 76px}
+.slide.active{display:flex;flex-direction:column}
+.slide .content{max-width:1180px;width:100%;margin:0 auto;flex:1}
+h1{font-size:1.75em;line-height:1.25;margin:0 0 .5em;color:var(--fg)}
+h1 .no{display:inline-block;font-size:.55em;color:var(--accent);margin-right:.5em;vertical-align:middle}
+h3{font-size:1.05em;margin:.6em 0 .3em}
+p{margin:.45em 0}
+ul,ol{margin:.4em 0;padding-left:1.4em}
+li{margin:.25em 0}
+code{font-family:"JetBrains Mono",Consolas,"Courier New",monospace;font-size:.88em;background:#e9ebef;padding:.08em .35em;border-radius:6px}
+pre{background:var(--code-bg);color:var(--code-fg);padding:.7em 1em;border-radius:12px;overflow-x:auto;font-size:.82em;line-height:1.5;margin:.5em 0;tab-size:4}
+pre code{background:none;padding:0;color:inherit;font-size:1em}
+.definition{background:var(--accent-soft);border-left:6px solid var(--accent);padding:.6em .9em;border-radius:8px}
+.term{color:var(--muted)}
+.term strong{color:var(--fg)}
+.note{background:var(--warn-soft);padding:.5em .9em;border-radius:8px}
+.warning{background:var(--danger-soft);border-left:6px solid var(--danger);padding:.6em .9em;border-radius:8px;font-weight:700}
+.badge{display:inline-block;background:var(--fg);color:#fff;padding:.3em .8em;border-radius:999px;font-size:.85em}
+.caption{color:var(--muted);font-size:.8em;margin-top:-.2em}
+.question{font-size:1.25em;font-weight:700;color:var(--accent);margin-top:1em}
+.folders{display:flex;flex-wrap:wrap;gap:.6em;margin:.4em 0 1em}
+.folder{background:var(--card);border:2px dashed var(--line);border-radius:10px;padding:.4em .8em;font-weight:700}
+.compare,.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1em;margin:.8em 0}
+.cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1em;align-items:start}
+.split table{margin-top:.5em}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:.5em;margin:.6em 0 1em}
+.chain .chip{background:var(--card);border:2px solid var(--accent);border-radius:12px;padding:.35em .7em;font-weight:700;white-space:nowrap}
+.chain .chip code{background:none;padding:0}
+.chain .to{color:var(--accent);font-size:1.4em;line-height:1}
+.compare>div,.card,.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.7em 1em}
+.card.danger{border-color:var(--danger);background:var(--danger-soft)}
+.card.wide{grid-column:1/-1}
+.flow{display:flex;align-items:stretch;gap:.5em;flex-wrap:wrap;margin:.6em 0 1em}
+.flow .box{flex:1 1 200px;background:var(--card);border:2px solid var(--accent);border-radius:14px;padding:.6em .9em;text-align:center}
+.flow .box h3{margin:.1em 0}
+.flow .box p{font-size:.85em;color:var(--muted)}
+.flow .state{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:.1em .7em;font-size:.85em;font-weight:700}
+.flow .arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.8em;min-width:3.5em}
+.flow .arrow span{font-size:2em;color:var(--accent);line-height:1}
+.flow.small .box{flex:1 1 150px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8em}
+.big li{font-size:1.1em;margin:.6em 0}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.9em}
+th,td{border:1px solid var(--line);padding:.4em .6em;text-align:left;vertical-align:top}
+th{background:#eceef2}
+.quiz li{margin:.8em 0}
+.quiz details{margin-top:.3em}
+.quiz summary{cursor:pointer;color:var(--accent);font-weight:700;display:inline-block;padding:.2em .8em;border:2px solid var(--accent);border-radius:999px;font-size:.85em}
+.quiz .answer{background:var(--accent-soft);padding:.4em .8em;border-radius:8px;font-weight:700}
+.sources{margin-top:1.4em;padding-top:.6em;border-top:1px solid var(--line);font-size:13px;color:var(--muted);line-height:1.8}
+.sources a{color:var(--muted);margin-right:.9em;word-break:break-all}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:1em;padding:.6em;background:rgba(247,247,244,.95);border-top:1px solid var(--line)}
+nav button{font:inherit;font-size:18px;padding:.4em 1.1em;border-radius:999px;border:2px solid var(--accent);background:#fff;color:var(--accent);cursor:pointer;min-width:5.5em}
+nav button:disabled{opacity:.35;cursor:default}
+#counter{font-size:18px;min-width:4.5em;text-align:center;font-variant-numeric:tabular-nums}
+@media (max-width:640px){pre{white-space:pre-wrap;overflow-wrap:anywhere}.split{grid-template-columns:1fr}.chain .chip{white-space:normal}.slide{padding-bottom:96px}.flow .arrow{min-width:100%;flex-direction:row;gap:.4em}.flow .arrow span{transform:rotate(90deg)}.steps,.cards.two{grid-template-columns:1fr}}
+"""
+
+JS = """
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('section.slide'));
+  var cur=0, counter=document.getElementById('counter'), bar=document.getElementById('progress');
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+  var MIN=16;
+  function fit(s){
+    s.style.fontSize='';
+    if(window.innerWidth<=640)return;
+    var size=parseFloat(getComputedStyle(s).fontSize);
+    while(s.scrollHeight>s.clientHeight+1&&size>MIN){size-=1;s.style.fontSize=size+'px';}
+  }
+  function show(i){
+    i=Math.max(0,Math.min(slides.length-1,i));
+    slides[cur].classList.remove('active'); slides[cur].setAttribute('aria-hidden','true');
+    cur=i;
+    slides[cur].classList.add('active'); slides[cur].removeAttribute('aria-hidden'); slides[cur].scrollTop=0; fit(slides[cur]);
+    counter.textContent=(cur+1)+' / '+slides.length;
+    bar.style.width=((cur+1)/slides.length*100)+'%';
+    prev.disabled=cur===0; next.disabled=cur===slides.length-1;
+    if(location.hash!=='#'+(cur+1)) history.replaceState(null,'','#'+(cur+1));
+  }
+  slides.forEach(function(s){s.setAttribute('aria-hidden','true');});
+  prev.addEventListener('click',function(){show(cur-1);});
+  next.addEventListener('click',function(){show(cur+1);});
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='SUMMARY'&&(e.key===' '||e.key==='Enter'))return;
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();show(cur+1);}
+    else if(['ArrowLeft','PageUp'].indexOf(e.key)>=0){e.preventDefault();show(cur-1);}
+    else if(e.key==='Home'){show(0);} else if(e.key==='End'){show(slides.length-1);}
+  });
+  var x0=null,y0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return; var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){show(cur+(dx<0?1:-1));} x0=null;
+  },{passive:true});
+  window.addEventListener('hashchange',function(){var n=parseInt(location.hash.slice(1),10);if(n)show(n-1);});
+  var n=parseInt(location.hash.slice(1),10); slides[0].classList.add('active'); show(n?n-1:0);
+  window.addEventListener('resize',function(){fit(slides[cur]);});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fit(slides[cur]);});
+})();
+"""
+
+
+def build():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    outline = outline_sources()
+    if sorted(outline) != sorted(SLIDES):
+        sys.exit(f"大綱的張數 {sorted(outline)} 與 SLIDES {sorted(SLIDES)} 不一致")
+    parts = []
+    for no in sorted(SLIDES):
+        s, o = SLIDES[no], outline[no]
+        srcs = o["sources"]
+        links = "".join(f'<a href="{REPO}{p}">{html.escape(p)}</a>' for p in srcs)
+        legacy = " data-legacy" if s.get("legacy") else ""
+        parts.append(
+            f'<section class="slide" id="slide-{no}" data-sources="{" ".join(srcs)}"{legacy}>\n'
+            f'<div class="content">\n<h1><span class="no">{no:02d}</span>{html.escape(o["title"])}</h1>\n'
+            f'{s["body"].strip()}\n</div>\n'
+            f'<footer class="sources">資料來源：{links}</footer>\n</section>')
+    page = f"""<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git 與 GitHub 入門</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>{CSS}</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<main>
+{chr(10).join(parts)}
+</main>
+<nav aria-label="換頁">
+<button id="prev" type="button" aria-label="上一張">← 上一張</button>
+<span id="counter" aria-live="polite"></span>
+<button id="next" type="button" aria-label="下一張">下一張 →</button>
+</nav>
+<script>{JS}</script>
+</body>
+</html>
+"""
+    out = ROOT / "slides" / "index.html"
+    out.write_text(page, encoding="utf-8", newline="\n")
+    print(f"已產生 {out.relative_to(ROOT).as_posix()}，共 {len(SLIDES)} 張")
+
+
+if __name__ == "__main__":
+    build()

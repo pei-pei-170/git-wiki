@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git 與 GitHub 入門</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f7f4;--fg:#1d1f23;--muted:#5b616b;--accent:#0b6bcb;--accent-soft:#e3effb;--line:#d9dbe0;--card:#ffffff}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg)}
+body{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;font-size:clamp(17px,.6vw + 13px,21px);line-height:1.7}
+main{max-width:960px;margin:0 auto;padding:clamp(24px,5vw,64px) 16px 48px}
+h1{font-size:clamp(30px,2vw + 20px,48px);line-height:1.25;margin:0 0 .3em}
+.lead{color:var(--muted);margin:0 0 1.6em}
+.primary{display:block;background:var(--accent);color:#fff;text-decoration:none;border-radius:16px;padding:1.1em 1.3em;margin-bottom:1.4em}
+.primary strong{display:block;font-size:1.4em}
+.primary span{opacity:.9}
+.primary:hover,.primary:focus-visible{background:#0a5aab}
+h2{font-size:1.15em;margin:1.6em 0 .6em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:.9em}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.9em 1.1em;color:var(--fg);text-decoration:none}
+.card strong{display:block;color:var(--accent)}
+.card span{color:var(--muted);font-size:.92em}
+.card:hover,.card:focus-visible{border-color:var(--accent)}
+footer{margin-top:2.4em;padding-top:1em;border-top:1px solid var(--line);color:var(--muted);font-size:.85em}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<h1>Git 與 GitHub 入門</h1>
+<p class="lead">給沒用過 Git 的大學生、研究生。看完後能說明「為什麼需要版本控制」，並能完成 commit、push 到 GitHub 的基本流程。</p>
+
+<a class="primary" href="slides/index.html">
+  <strong>開始看簡報 →</strong>
+  <span>共 17 張，用鍵盤左右鍵或畫面按鈕換頁，手機也能看。</span>
+</a>
+
+<h2>簡報的知識來源：wiki</h2>
+<p>簡報的每一張都只根據這份 wiki 製作，每張底部的資料來源都會連回對應的 wiki 頁面。</p>
+<div class="grid">
+  <a class="card" href="https://github.com/pei-pei-170/git-wiki/blob/main/wiki/index.md"><strong>wiki 目錄</strong><span>所有資料摘要頁與概念頁</span></a>
+  <a class="card" href="https://github.com/pei-pei-170/git-wiki/blob/main/wiki/overview.md"><strong>新手學 Git 的完整路線</strong><span>學習順序與簡報範圍的決定</span></a>
+  <a class="card" href="https://github.com/pei-pei-170/git-wiki/tree/main/raw"><strong>原始資料</strong><span>《Pro Git》與 GitHub Docs 等 9 篇資料</span></a>
+  <a class="card" href="https://github.com/pei-pei-170/git-wiki/blob/main/wiki/log.md"><strong>操作紀錄</strong><span>每次整理資料、檢查與製作簡報的紀錄</span></a>
+</div>
+
+<footer>
+  原始碼：<a href="https://github.com/pei-pei-170/git-wiki">github.com/pei-pei-170/git-wiki</a>。
+  原始資料依各自的授權保存，說明見 <a href="https://github.com/pei-pei-170/git-wiki/blob/main/README.md">README</a>。
+</footer>
+</main>
+</body>
+</html>

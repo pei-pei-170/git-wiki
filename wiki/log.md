@@ -121,3 +121,39 @@
 - 討論結果：使用者要求等 GitHub 網址提供後，再一起 commit 並推上去
 - 檢查結果：commit 前 check.py 通過，0 個錯誤、0 個警告，verify_quotes.py 通過
 - 待找資料：無
+
+## 2026-11-22 21:50｜setup｜push 結果與驗證提示
+- 做了什麼：補記上一筆紀錄寫入後才執行的 push 結果。push 前以 git ls-remote 確認 GitHub 上的 repository 是空的（建立時沒有用 README 初始化，符合 S07 的說明），接著執行 git push origin main，成功建立遠端的 main 分支，遠端與本地都指向 40b8add。push 過程中沒有出現 Username 或 Password 的驗證提示
+- 討論結果：使用者要求記錄這次 push 沒有出現驗證提示的原因，作為簡報第 12～13 張內容的實際驗證
+- 檢查結果：這台電腦的 git config credential.helper 設為 manager（Git Credential Manager）。沒有出現提示，符合 S08 所說「沒有出現使用者名稱和密碼的提示，你的憑證可能已經快取在電腦上」，原因判斷為 Git Credential Manager 已經快取了 GitHub 的憑證。這是根據設定與現象所做的判斷，沒有去查看憑證本身的內容。另外，這次 push 依簡報的寫法沒有加 -u，所以本地的 main 沒有設定追蹤遠端分支
+- 待找資料：無
+
+## 2026-11-22 22:00｜slide｜slides/index.html 第 1～17 張產生與逐張檢查
+- 做了什麼：依第 6-2 節產生 slides/index.html（單一 HTML 檔，只載入 Google Fonts，鍵盤左右鍵、畫面按鈕與滑動換頁，顯示頁碼與進度條，手機可瀏覽）。17 張投影片的 data-sources 由產生程式直接讀取 outline.md 的「依據」，確保兩者相同。每張底部的資料來源連到 https://github.com/pei-pei-170/git-wiki/blob/main/wiki/<路徑>。指令一律用等寬字型的程式碼區塊。第 15 張加上 data-legacy。第 17 張用 details 元素，答案預設隱藏。產生程式放在專案外的暫存資料夾，不進 repository
+- 討論結果：依使用者要求，版面以閱讀清楚為主，字要大，手機也能看，完成後先不要 commit
+- 檢查結果：依第 6-3 節逐張檢查三項：內容能否在 data-sources 的 wiki 頁找到、術語是否已說明、有沒有過時寫法。指令與輸出以程式逐字比對 data-sources 的 wiki 頁（分支名稱 master 改成 main 屬於 default-branch.md 允許的改編），文字與術語以人工對照。第 1、2、3、5、6、7、8、10、12、14、16、17 張通過。5 張不通過：第 4 張把 wiki 範例的 John Doe 換成「你的名字」佔位字，超出只允許改分支名稱的改編範圍。第 9 張寫「commit 訊息，說明這次改了什麼」，wiki 沒有說明 commit 訊息的用途。第 11、13 張寫 git remote add origin <url>、<網址>，wiki 的寫法是 REMOTE-URL。第 15 張寫 git push origin 你的分支名稱，wiki 沒有這個指令寫法。過時寫法：只有第 15 張提到 master，已加 data-legacy，全部投影片沒有出現 check out、git checkout、git reset HEAD。check.py 通過
+- 待找資料：無
+
+## 2026-11-22 22:00｜regenerate｜第 4、9、11、13、15 張（第 1 次重試）
+- 做了什麼：依第 6-3 節只重新生成不通過的 5 張。第 4 張改用 wiki 的範例原樣（John Doe、johndoe@example.com），再用文字說明「換成你自己的」。第 9 張拿掉「說明這次改了什麼」，改成「在 -m 後面直接寫這次的 commit 訊息，不必開啟編輯器」。第 11、13 張改用 S07 的 git remote add origin REMOTE-URL，並說明把 REMOTE-URL 換成 GitHub 上 repository 的完整網址。第 15 張改用 git push origin main，並說明要把 main 換成你的預設分支名稱
+- 討論結果：無
+- 檢查結果：第 1 次重試後 5 張都通過，17 張的指令與輸出全部能在 data-sources 的 wiki 頁找到。check.py 通過
+- 待找資料：無
+
+## 2026-11-22 22:00｜slide｜瀏覽器實際檢查與版面調整
+- 做了什麼：以 python -m http.server 開本機伺服器，用無頭模式的 Chrome 截圖逐張檢查 17 張（桌機 1366×768，手機以 390×844 的 iframe 呈現）。依檢查結果調整版面，內容沒有改變：(1) 桌機上第 2、4、5、13 張的內容與來源連結超出畫面、被換頁列擋住，加入自動縮放，放不下時逐步縮小字級（最小 16px），手機版改為捲動。(2) 第 13 張的程式碼在三欄排版中被截斷，改成 2×2 排版，手機版的程式碼改為自動換行。(3) 第 7 張的字被縮到最小，改成程式碼與表格並排。(4) 第 15 張三欄排版右側空白、字被縮到最小，改成兩欄，一行的 push 指令改為行內程式碼，底部保留給換頁列的空間從 84px 減為 76px。(5) 第 16 張的流程方塊把指令拆成多行，改成會自動換行的標籤
+- 討論結果：無
+- 檢查結果：調整後所有投影片在 1366×768 與 1920×1080 都沒有超出畫面。1366×768 的字級在 16～27px 之間，最小的是第 15 張 16px 與第 2 張 17px（內容最多的兩張）。1920×1080 除第 15 張為 25px 外，其餘都是 28px。手機寬度 390px 下文字與程式碼都會換行，不會被截斷，較長的投影片可以往下捲動。第一次手機截圖看起來右側被截斷，查明是無頭 Chrome 的視窗有最小寬度、實際排版約 500px 再裁切成 390px，改用 390px 的 iframe 重新截圖後確認版面正常。小測驗以測試頁實際觸發點擊：點擊前 5 題答案都隱藏，點第 1 題後只有第 1 題的答案顯示，其餘 4 題維持隱藏，測試頁已刪除。最後 check.py 通過，0 個錯誤、0 個警告，17 張的指令與輸出比對全部通過，外部資源只有 Google Fonts，投影片文字沒有分號
+- 待找資料：無
+
+## 2026-11-23 10:12｜slide｜第 15 張的 data-legacy 範圍
+- 做了什麼：記錄第 15 張的 data-legacy 涵蓋整張投影片。這張加 data-legacy 是為了「分支名稱不是 main」一段中提到 Git 預設會用 master，但同一張也有 push 被拒絕、輸入密碼失敗、勾選 README、敏感資訊等內容。check.py 遇到 data-legacy 會跳過整張的過時用語檢查，所以這些內容不會被自動檢查到
+- 討論結果：使用者決定第 15 張不拆，字級（1366×768 下 16px）可以接受。要求在 log 記錄 data-legacy 涵蓋 push 被拒絕的內容、check.py 會跳過整張，以及已人工確認目前沒有過時寫法
+- 檢查結果：人工確認並以 check.py 的過時用語規則對第 15 張的文字另外比對（忽略 data-legacy）：git checkout 0 處，git reset HEAD 0 處，master 1 處（即刻意說明的「Git 預設會用 master」），密碼相關的字樣與 token 出現在同一張，依規則屬於現行做法。目前沒有過時寫法。之後修改第 15 張時，需要同樣人工確認
+- 待找資料：無
+
+## 2026-11-23 10:12｜setup｜產生簡報的程式移到 tools/，新增首頁與 README
+- 做了什麼：產生簡報的程式從暫存資料夾移到 tools/build_slides.py，改成自動找到專案根目錄，直接執行 python tools/build_slides.py 即可，並在程式開頭說明用法與修改規則。移動後重新產生的 slides/index.html 與移動前完全相同。CLAUDE.md 第 2 節結構圖加入 build_slides.py，第 6-2 節加入「以 tools/build_slides.py 產生，修改投影片時改程式再重新產生，不直接修改 slides/index.html」。新增根目錄的 index.html（連到簡報與 GitHub 上的 wiki 目錄、學習路線、原始資料、操作紀錄）與 README.md（專案目的、怎麼看、專案結構、資料來源與授權、工作流程、工具）
+- 討論結果：使用者要求產生簡報的程式移到 tools/，CLAUDE.md 一起更新，並新增首頁與 README，全部完成後執行 check.py，通過就 commit 並 push
+- 檢查結果：README.md 的相對連結與 index.html 的相對連結都指向存在的檔案。首頁以 Chrome 實際開啟確認版面正常。check.py 通過，0 個錯誤、0 個警告，verify_quotes.py 通過
+- 待找資料：無

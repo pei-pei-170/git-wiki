@@ -37,7 +37,8 @@ git-wiki/
     ├── check.py           ← 規則檢查程式
     ├── html2md.py         ← 把下載的 HTML 轉成 markdown（目前支援 git-scm.com 的 Pro Git 頁面）
     ├── md2raw.py          ← 原文本身就是 markdown 時，加上資訊區塊存成 raw（例如 GitHub Docs）
-    └── verify_quotes.py   ← 驗證 checks/ 對照表中的英文原句確實存在於 raw
+    ├── verify_quotes.py   ← 驗證 checks/ 對照表中的英文原句確實存在於 raw
+    └── build_slides.py    ← 產生 slides/index.html（見第 6-2 節）
 ```
 
 ## 3. 原始資料 `raw/`
@@ -167,6 +168,7 @@ retrieved: YYYY-MM-DD
 
 ### 6-2. 產生 HTML `slides/index.html`
 
+- 以 `python tools/build_slides.py` 產生。投影片內容寫在程式的 `SLIDES` 中，標題與 `data-sources` 從 `outline.md` 讀取。修改投影片時改程式再重新產生，不直接修改 `slides/index.html`。
 - 單一 HTML 檔，不使用任何框架或 CDN 套件，只允許 Google Fonts。
 - 每張投影片是一個 `<section class="slide" data-sources="concepts/commit.md sources/S02-....md">`，`data-sources` 必須與大綱的「依據」相同。
 - 每張投影片底部用小字顯示資料來源，並連到 GitHub 上對應的 wiki 頁面，讓讀者可以追溯。
