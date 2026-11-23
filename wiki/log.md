@@ -157,3 +157,9 @@
 - 討論結果：使用者要求產生簡報的程式移到 tools/，CLAUDE.md 一起更新，並新增首頁與 README，全部完成後執行 check.py，通過就 commit 並 push
 - 檢查結果：README.md 的相對連結與 index.html 的相對連結都指向存在的檔案。首頁以 Chrome 實際開啟確認版面正常。check.py 通過，0 個錯誤、0 個警告，verify_quotes.py 通過
 - 待找資料：無
+
+## 2026-11-23 17:39｜setup｜新增 WORKFLOW.md，確認 GitHub Pages
+- 做了什麼：使用者開啟 GitHub Pages 後，確認 https://pei-pei-170.github.io/git-wiki/ 與 /slides/ 都回應 200，兩個檔案與本機的 index.html、slides/index.html 完全相同，簡報 17 張都在，並以無頭 Chrome 實際開啟截圖確認版面。首頁與投影片中連到 GitHub 的 32 個連結都能開啟。新增根目錄的 WORKFLOW.md，只依 log.md 與 checks/ 整理四項內容：(1) 最初設計（v1）與目前實際使用（v2）的 Mermaid 流程圖。(2) 各節點的錯誤統計，共 49 個問題。(3) 流程修改紀錄。(4) 逐句核對的數字，共核對 235 句、刪改 4 句。WORKFLOW.md 先以 8bd102f commit 並 push，這筆紀錄是使用者確認後補記，並一起更新 CLAUDE.md 第 2 節結構圖、README.md 的專案結構與工作流程、首頁頁尾，加入 WORKFLOW.md
+- 討論結果：使用者要求整理時不修改 log.md，沒有紀錄的事不推測。完成後使用者同意補記這筆紀錄並更新相關檔案。v1 的步驟取自 CLAUDE.md 第一次 commit 的版本（e3bdbd8），扣除 17:42 紀錄補上的部分，因為 log.md 只記錄規則的修改，沒有抄錄原本的規則，已在 WORKFLOW.md 開頭註明。錯誤統計中有兩處分類是整理時的判斷，log 本身沒有這樣分：lint 直接改寫 S07 對照表第 25 筆，歸在 lint 節點。第 25 筆通過驗證但中文譯名撞名，歸在逐句核對節點
+- 檢查結果：WORKFLOW.md 沒有全形分號。兩張 Mermaid 圖在本機以 Mermaid 11 渲染，沒有語法錯誤。第一次渲染測試的指令被權限檢查擋下，拿掉 Chrome 讀取本機檔案的參數後重跑通過。截圖發現 v2 外框標題被第一個方塊壓到，把標題改短，完整說明改寫在圖下方。GitHub 頁面上的圖沒有截圖確認。check.py 通過，0 個錯誤、0 個警告，verify_quotes.py 通過
+- 待找資料：無

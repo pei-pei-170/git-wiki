@@ -19,6 +19,7 @@ wiki、簡報與 `log.md` 的中文不使用全形分號「；」，改用句號
 git-wiki/
 ├── CLAUDE.md              ← 本文件
 ├── README.md              ← 給人看的專案介紹
+├── WORKFLOW.md            ← 流程設計與實際執行的回顧（只依 log.md 與 checks/ 整理）
 ├── index.html             ← 網站首頁：連到簡報與 GitHub 上的 wiki
 ├── raw/                   ← 原始資料（寫入後不可修改）
 │   └── S01-<slug>.md

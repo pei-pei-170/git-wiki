@@ -27,6 +27,7 @@ python -m http.server 8765 --bind 127.0.0.1 --directory slides
 ```
 ├── CLAUDE.md          專案規則（給 Claude Code 看）
 ├── README.md          本文件
+├── WORKFLOW.md        流程設計與實際執行的回顧
 ├── index.html         首頁
 ├── raw/               原始資料（寫入後不可修改）
 ├── wiki/
@@ -66,6 +67,8 @@ python -m http.server 8765 --bind 127.0.0.1 --directory slides
 4. **大綱與簡報**：只讀 wiki 規劃大綱，經使用者確認後產生簡報，再逐張檢查內容是否都能在 wiki 找到。
 
 詳細規則見 [CLAUDE.md](CLAUDE.md)，每一次操作、檢查失敗與重新生成都記在 [wiki/log.md](wiki/log.md)。
+
+依 log.md 與 checks/ 整理的流程圖（最初設計與實際使用的流程）、各節點的錯誤統計、流程修改紀錄與逐句核對的數字，見 [WORKFLOW.md](WORKFLOW.md)。
 
 ## 工具
 
